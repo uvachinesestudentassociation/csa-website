@@ -4,6 +4,7 @@ import { useState } from "react"
 import Image from "next/image"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import alumniData from "./alumni-data.json"
 
 interface AlumniYear {
   year: number
@@ -14,53 +15,6 @@ interface AlumniYear {
   }>
 }
 
-// Sample alumni data
-const alumniData: AlumniYear[] = [
-  {
-    year: 2024,
-    imageSrc: "/images/chinafest-covers/chinafest_2024.jpg",
-    people: [
-      { name: "Justin Zhang", roles: ["exec", "oboard", "famhead"] },
-      { name: "Emma Mei Andreas", roles: ["exec", "oboard", "famhead"] },
-      { name: "Olivia Wang", roles: ["exec", "oboard"] },
-      { name: "Safa Khan", roles: ["exec", "oboard", "famhead"] },
-      { name: "Kaylee Liu", roles: ["oboard", "famhead"] },
-      { name: "Michelle Kwan", roles: ["oboard", "famhead"] },
-      { name: "Stacy Meng", roles: ["oboard", "famhead"] },
-      { name: "Connie Du", roles: ["oboard", "famhead"] },
-      { name: "Iris Chen", roles: ["oboard", "famhead"] },
-    ],
-  },
-  {
-    year: 2023,
-    imageSrc: "/images/chinafest-covers/chinafest_2023.png",
-    people: [
-      { name: "Alan Zheng", roles: ["exec", "oboard", "famhead"] },
-      { name: "Abigail Castro", roles: ["exec", "oboard"] },
-      { name: "Jaden Ko", roles: ["exec", "oboard", "famhead"] },
-      { name: "Cindy Huang", roles: ["oboard", "famhead"] },
-      { name: "Jennifer Sheng", roles: ["oboard", "famhead"] },
-      { name: "Qinyuan Jiang", roles: ["oboard", "famhead"] },
-      { name: "Vivian Ma", roles: ["oboard", "famhead"] },
-      { name: "Wen Ip", roles: ["famhead"] },
-      { name: "Darnell Khay", roles: ["famhead"] },
-    ],
-  },
-  {
-    year: 2022,
-    imageSrc: "/images/chinafest-covers/chinafest_2022.png",
-    people: [
-      { name: "Janessa Jiang", roles: ["exec", "oboard", "famhead"] },
-      { name: "Jason Yung", roles: ["exec", "oboard"] },
-      { name: "Justin Gou", roles: ["exec", "oboard"] },
-      { name: "Sam Chen", roles: ["exec", "oboard", "famhead"] },
-      { name: "Darrel Zhang", roles: ["oboard", "famhead"] },
-      { name: "Megan Lin", roles: ["famhead"] },
-      { name: "Amy Wen", roles: ["oboard", "famhead"] },
-      { name: "Alice Liu", roles: ["famhead"] },
-    ],
-  },
-]
 
 function AlumniCard({ year, imageSrc, people }: AlumniYear) {
   const [isHovered, setIsHovered] = useState(false)
@@ -73,7 +27,7 @@ function AlumniCard({ year, imageSrc, people }: AlumniYear) {
             src={imageSrc || "/placeholder.svg"}
             alt={`Class of ${year}`}
             fill
-            className={`object-cover transition-all duration-300 ${isHovered ? "opacity-30" : "opacity-100"}`}
+            className={`object-fit transition-all duration-300 ${isHovered ? "opacity-30" : "opacity-100"}`}
           />
         </div>
 

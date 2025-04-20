@@ -21,7 +21,25 @@ const galleryItems = [
   { id: 10, image: "/images/gallery/sunset_series_2023.jpg", caption: "Class of 2026 at Sunset Series (9/14/2023)" },
   { id: 11, image: "/images/gallery/downtown_group2_2023.jpg", caption: "Downtown Night (9/3/2023)" },
   { id: 12, image: "/images/gallery/downtown_group1_2023.jpg", caption: "Downtown Night (9/3/2023)" },
-]
+  { id: 13, image: "/images/gallery/mtp_2023.JPG", caption: "Glorious Goats at Meet the Parents (9/2/2023)" },
+  { id: 14, image: "/images/gallery/chinafest_fourthyears_2023.JPG", caption: "Fourth Years at Chinafest (2/25/2023)" },
+  { id: 15, image: "/images/gallery/chinafest_girlsmodern_2023.JPG", caption: "Girls Modern at Chinafest (2/25/2023)" },
+  { id: 16, image: "/images/gallery/chinafest_fym_2023.JPG", caption: "First Year Modern at Chinafest (2/25/2023)" },
+  { id: 17, image: "/images/gallery/chinafest_fashionshow_2023.JPG", caption: "Fashion Show at Chinafest (2/25/2023)" },
+  { id: 18, image: "/images/gallery/chinafest_dragon_2023.JPG", caption: "Dragon Dance at Chinafest (2/25/2023)" },
+  { id: 19, image: "/images/gallery/chinavasian_2023.jpg", caption: "ChinaVAsian at Virginia Tech (2/4/2023)" },
+  { id: 20, image: "/images/gallery/asu_group_jan_2023.JPG", caption: "ASU Semi-Formal (1/27/2023)" },
+  { id: 21, image: "/images/gallery/frisbee_2022.JPG", caption: "Frisbee IM-Rec Champs (12/6/2022)" },
+  { id: 22, image: "/images/gallery/dds_group2_2022.JPG", caption: "Dollar Dim Sum (12/3/2022)" },
+  { id: 23, image: "/images/gallery/dds_group1_2022.JPG", caption: "Dollar Dim Sum (12/3/2022)" },
+  { id: 24, image: "/images/gallery/basketball_2022.JPG", caption: "Basketball Practice (10/30/2022)" },
+  { id: 25, image: "/images/gallery/fmf_2022.JPG", caption: "Traditional Partner Dance at FullMoonFest (10/22/2022)" },
+  { id: 26, image: "/images/gallery/football_2022.JPG", caption: "Football Practice (10/16/2022)" },
+  { id: 27, image: "/images/gallery/yar_2022.JPG", caption: "Class of 2022 at YAR Tailgate (10/8/2022)" },
+  { id: 28, image: "/images/gallery/comm_dinner_2022.JPG", caption: "Community Dinner at O'Hill (9/14/2022)" },
+  { id: 29, image: "/images/gallery/smores_2022.jpg", caption: "S'mores Night (8/31/2022)" },
+  { id: 30, image: "/images/gallery/fourth_year_reception_2022.jpg", caption: "Class of 2022 at Fourth Year Reception (5/1/2022)" },
+];
 
 function ScrollToTopButton() {
   const [visible, setVisible] = useState(false)
