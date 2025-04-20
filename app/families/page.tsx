@@ -18,7 +18,7 @@ function FamilyCard({ name, image, instagramUrl, description }: FamilyCardProps)
         <div className="relative aspect-square md:aspect-auto">
           <Image src={image || "/placeholder.svg"} alt={`${name} family photo`} fill className="object-cover" />
         </div>
-        <div className="p-6 flex flex-col">
+        <div className="p-6 flex flex-col h-[400px]">
           <h3 className="text-2xl font-bold mb-4 dark:text-primary-foreground">{name}</h3>
           <p className="mb-4 dark:text-foreground">{description}</p>
           <div className="mt-auto">
