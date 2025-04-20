@@ -1,0 +1,129 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --csa-primary: #7b1500;
+  --csa-primary-hover: #5f1100;
+  --csa-secondary: #f5f5f5;
+  --csa-accent: #ffd700;
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 0 85% 24%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 0 85% 24%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 0 0% 10%;
+    --foreground: 0 0% 95%;
+    --card: 0 0% 15%;
+    --card-foreground: 0 0% 95%;
+    --popover: 0 0% 15%;
+    --popover-foreground: 0 0% 95%;
+    --primary: 0 70% 45%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 20%;
+    --secondary-foreground: 0 0% 95%;
+    --muted: 0 0% 20%;
+    --muted-foreground: 0 0% 70%;
+    --accent: 0 0% 25%;
+    --accent-foreground: 0 0% 95%;
+    --destructive: 0 62.8% 40.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 25%;
+    --input: 0 0% 25%;
+    --ring: 0 70% 45%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-raleway font-bold text-primary;
+  }
+  h1 {
+    @apply text-3xl md:text-4xl lg:text-5xl mb-6;
+  }
+  h2 {
+    @apply text-2xl md:text-3xl lg:text-4xl mb-4;
+  }
+  h3 {
+    @apply text-xl md:text-2xl lg:text-3xl mb-3;
+  }
+  p {
+    @apply mb-4 leading-relaxed;
+  }
+}
+
+@layer components {
+  .container-custom {
+    @apply container mx-auto px-4 py-8 md:py-12 lg:py-16;
+  }
+
+  .section-title {
+    @apply text-center mb-8 md:mb-12;
+  }
+
+  .page-header {
+    @apply py-8 md:py-12 bg-secondary text-center;
+  }
+
+  .page-header h1 {
+    @apply mb-2;
+  }
+
+  .page-header p {
+    @apply text-muted-foreground max-w-3xl mx-auto;
+  }
+}
+
+/* Swiper custom styles */
+.swiper-button-next,
+.swiper-button-prev {
+  color: var(--csa-primary) !important;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: var(--csa-primary) !important;
+}
+
+@layer base {
+  .dark h1,
+  .dark h2,
+  .dark h3,
+  .dark h4,
+  .dark h5,
+  .dark h6 {
+    @apply text-primary-foreground;
+  }
+}

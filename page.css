@@ -1,0 +1,41 @@
+/* Text styles */
+div.home div.content div.header h1 {
+  font-size: 3.5rem;
+}
+
+p {
+  color: black;
+  text-align: center;
+}
+
+/* Div styles */
+.home {
+  padding-bottom: 15px;
+}
+
+.background {
+  height: auto;
+}
+
+.introduction {
+  z-index: 50;
+  color: black;
+  text-align: center;
+  padding: 3%;
+  max-width: 850px;
+  margin: 0 auto;
+  margin-top: 15px;
+}
+
+/* Socials styles */
+.socials {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.socials img {
+  height: 40px;
+  width: auto;
+}
