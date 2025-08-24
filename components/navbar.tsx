@@ -13,15 +13,7 @@ import { ThemeToggle } from "@/components/theme-provider"
 
 const navLinks = [
   { name: "About", href: "/about" },
-  {
-    name: "Events",
-    href: "#",
-    dropdown: true,
-    items: [
-      { name: "Upcoming", href: "/events/upcoming" },
-      { name: "Past", href: "/events/past" },
-    ],
-  },
+  { name: "Events", href: "/events" },
   { name: "Families", href: "/families" },
   { name: "Officers", href: "/officers" },
   {
@@ -56,11 +48,6 @@ export default function Navbar() {
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
-                  <DropdownMenuItem asChild>
-                    <Link href={link.href} className="w-full">
-                      All {link.name}
-                    </Link>
-                  </DropdownMenuItem>
                   {link.items?.map((item) => (
                     <DropdownMenuItem key={item.name} asChild>
                       <Link href={item.href} className="w-full">
