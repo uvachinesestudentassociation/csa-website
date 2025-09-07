@@ -16,7 +16,37 @@ const raleway = Raleway({
 export const metadata: Metadata = {
   title: "CSA@UVA - Chinese Student Association",
   description: "Chinese Student Association at University of Virginia",
-    generator: 'v0.dev'
+  generator: 'v0.dev',
+  icons: {
+    icon: '/favicon_io/favicon.ico',
+    shortcut: '/favicon_io/favicon.ico',
+    apple: '/favicon_io/apple-touch-icon.png',
+    other: [
+      {
+        rel: 'icon',
+        type: 'image/png',
+        sizes: '16x16',
+        url: '/favicon_io/favicon-16x16.png',
+      },
+      {
+        rel: 'icon',
+        type: 'image/png',
+        sizes: '32x32',
+        url: '/favicon_io/favicon-32x32.png',
+      },
+      {
+        rel: 'android-chrome',
+        sizes: '192x192',
+        url: '/favicon_io/android-chrome-192x192.png',
+      },
+      {
+        rel: 'android-chrome',
+        sizes: '512x512',
+        url: '/favicon_io/android-chrome-512x512.png',
+      },
+    ],
+  },
+  manifest: '/favicon_io/site.webmanifest',
 }
 
 export default function RootLayout({
