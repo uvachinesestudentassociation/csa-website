@@ -47,7 +47,7 @@ function parseICS(text: string): CalendarEvent[] {
           const value = line.split(":")[1].trim()
           event.end = parseDate(value)
         } else if (line.startsWith("LOCATION:")) {
-          event.location = line.substring(9).trim()
+          event.location = line.substring(9).trim().replace(/\\,/g, ',')
         }
       }
       return event
