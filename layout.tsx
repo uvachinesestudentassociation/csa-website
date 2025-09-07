@@ -57,13 +57,7 @@ export default function RootLayout({
             </Link>
             <ul className="navbar" id="navbar">
               <Link href="/about">About</Link>
-              <div className="dropdown">
-                <span className="dropdown-link">Events</span>
-                <div className="dropdown-content">
-                  <Link href="/events/upcoming">Upcoming</Link>
-                  <Link href="/events/past">Past</Link>
-                </div>
-              </div>
+              <Link href="/events">Events</Link>
               <Link href="/families">Families</Link>
               <Link href="/officers">Officers</Link>
               <div className="dropdown">
