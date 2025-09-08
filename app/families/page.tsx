@@ -41,28 +41,28 @@ function FamilyCard({ name, image, instagramUrl, description }: FamilyCardProps)
 export default function FamiliesPage() {
   const families = [
     {
-      id: "cranes",
-      name: "Crimson Cranes",
-      image: "/images/2024-2025/families/cranes.jpg",
-      instagramUrl: "https://www.instagram.com/p/C_s1qT2RZy4/",
+      id: "guppies",
+      name: "Golden Guppies",
+      image: "",
+      instagramUrl: "https://www.instagram.com/csa.guppies/",
       description:
-        "The Crimson Cranes family is known for their creativity and artistic talents. They often win competitions that involve performances and creative challenges.",
+        "",
     },
     {
-      id: "eagles",
-      name: "Emerald Eagles",
-      image: "/images/2024-2025/families/eagles.jpg",
-      instagramUrl: "https://www.instagram.com/p/C_qkcHtR6V1/",
+      id: "jellyfish",
+      name: "Jade Jellyfish",
+      image: "",
+      instagramUrl: "https://www.instagram.com/csa.jellyfish/",
       description:
-        "The Emerald Eagles family excels in leadership and organization. They're often the ones taking initiative in group activities and community service projects.",
+        "",
     },
     {
-      id: "swans",
-      name: "Sapphire Swans",
-      image: "/images/2024-2025/families/swans.jpg",
-      instagramUrl: "https://www.instagram.com/p/C_tZTNUpvA7/",
+      id: "starfish",
+      name: "Scarlet Starfish",
+      image: "",
+      instagramUrl: "https://www.instagram.com/csa.starfish/",
       description:
-        "The Sapphire Swans family is known for their grace and teamwork. They consistently show strong bonds and support for each other throughout the year.",
+        "",
     },
   ]
 
