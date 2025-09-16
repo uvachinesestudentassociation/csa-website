@@ -119,7 +119,7 @@ export default function OfficersPage() {
               <h3 className="text-center mb-4">Culture</h3>
               <OfficerCard
                 imagePath="/images/2025-2026/officers/culture.jpg"
-                name="Nicole Jiang, Ashley Huo, and Neveah Zhang"
+                name="Nichole Jiang, Ashley Huo, and Nevaeh Zhang"
                 description="Culture chairs oversee the planning of all cultural events in order to promote Chinese culture on grounds and within the local Charlottesville community."
               />
             </div>
@@ -127,7 +127,7 @@ export default function OfficersPage() {
               <h3 className="text-center mb-4">Fundraising</h3>
               <OfficerCard
                 imagePath="/images/2025-2026/officers/fundraising.jpg"
-                name="Lianna Hong and Sarah Kang"
+                name="Crystal Liu and Sarah Kang"
                 description="Fundraising chairs work closely with the Treasurer to plan and organize fundraising events. They are also in charge of obtaining sponsors and raffles for CSA events."
               />
             </div>
