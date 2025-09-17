@@ -119,7 +119,7 @@ export default function OfficersPage() {
               <h3 className="text-center mb-4">Culture</h3>
               <OfficerCard
                 imagePath="/images/2025-2026/officers/culture.jpg"
-                name="Nichole Jiang, Ashley Huo, and Nevaeh Zhang"
+                name="Nichole Jiang, Ashley Huo, and Nevaeh Zheng"
                 description="Culture chairs oversee the planning of all cultural events in order to promote Chinese culture on grounds and within the local Charlottesville community."
               />
             </div>
