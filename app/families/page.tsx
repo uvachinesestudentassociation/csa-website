@@ -43,7 +43,7 @@ export default function FamiliesPage() {
     {
       id: "guppies",
       name: "Golden Guppies",
-      image: "",
+      image: "/images/2025-2026/families/guppies.jpg",
       instagramUrl: "https://www.instagram.com/csa.guppies/",
       description:
         "",
