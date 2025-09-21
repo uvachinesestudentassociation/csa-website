@@ -1,5 +1,199 @@
 [
     {
+        "year": 2025,
+        "imageSrc": "/images/chinafest-covers/chinafest_2025.jpg",
+        "people": [
+            {
+                "name": "Laura Abood",
+                "roles": [
+                    "exec",
+                    "oboard"
+                ]
+            },
+            {
+                "name": "Cheryl Bai",
+                "roles": []
+            },
+            {
+                "name": "Stefan Calin",
+                "roles": [
+                    "famhead"
+                ]
+            },
+            {
+                "name": "Amy Chang",
+                "roles": []
+            },
+            {
+                "name": "Ken Chao",
+                "roles": [
+                    "oboard",
+                    "famhead"
+                ]
+            },
+            {
+                "name": "Andy Chen",
+                "roles": []
+            },
+            {
+                "name": "Tiffany Chen",
+                "roles": []
+            },
+            {
+                "name": "Dylan Crotty",
+                "roles": []
+            },
+            {
+                "name": "Parker Crotty",
+                "roles": []
+            },
+            {
+                "name": "Anson Dao",
+                "roles": [
+                    "famhead"
+                ]
+            },
+            {
+                "name": "Jayson Do",
+                "roles": []
+            },
+            {
+                "name": "Allison Doan",
+                "roles": [
+                    "oboard"
+                ]
+            },
+            {
+                "name": "Tiffany Doan",
+                "roles": []
+            },
+            {
+                "name": "Aaron Du",
+                "roles": []
+            },
+            {
+                "name": "Jeremy Du",
+                "roles": [
+                    "oboard"
+                ]
+            },
+            {
+                "name": "Ryan Du",
+                "roles": []
+            },
+            {
+                "name": "John Dunn",
+                "roles": []
+            },
+            {
+                "name": "Michelle Feng",
+                "roles": []
+            },
+            {
+                "name": "Anthony Fong",
+                "roles": []
+            },
+            {
+                "name": "Travis Giang",
+                "roles": []
+            },
+            {
+                "name": "Tony Guo",
+                "roles": []
+            },
+            {
+                "name": "Ethan Ho",
+                "roles": []
+            },
+            {
+                "name": "Michael Hung",
+                "roles": []
+            },
+            {
+                "name": "Nakul Jain",
+                "roles": []
+            },
+            {
+                "name": "Jason Jin",
+                "roles": []
+            },
+            {
+                "name": "Andrew Lam",
+                "roles": []
+            },
+            {
+                "name": "Ricky Liang",
+                "roles": []
+            },
+            {
+                "name": "Cindy Lin",
+                "roles": []
+            },
+            {
+                "name": "Jason Lin",
+                "roles": []
+            },
+            {
+                "name": "Brian Liu",
+                "roles": []
+            },
+            {
+                "name": "Elly Liu",
+                "roles": []
+            },
+            {
+                "name": "Timothy Liu",
+                "roles": []
+            },
+            {
+                "name": "Rishika Nair",
+                "roles": []
+            },
+            {
+                "name": "Shannon Ngo",
+                "roles": []
+            },
+            {
+                "name": "Jason Or",
+                "roles": []
+            },
+            {
+                "name": "Julian Pang",
+                "roles": []
+            },
+            {
+                "name": "Jackie Qiu",
+                "roles": []
+            },
+            {
+                "name": "Luke Sun",
+                "roles": []
+            },
+            {
+                "name": "Eric Wang",
+                "roles": []
+            },
+            {
+                "name": "Dylan Wu",
+                "roles": []
+            },
+            {
+                "name": "Ashley Zhang",
+                "roles": []
+            },
+            {
+                "name": "Stephanie Zhang",
+                "roles": []
+            },
+            {
+                "name": "Andrew Zhou",
+                "roles": [
+                    "oboard"
+                ]
+            }
+        ]
+    },
+    {
         "year": 2024,
         "imageSrc": "/images/chinafest-covers/chinafest_2024.jpg",
         "people": [
@@ -13,11 +207,15 @@
             },
             {
                 "name": "Betty Chen",
-                "roles": ["oboard"]
+                "roles": [
+                    "oboard"
+                ]
             },
             {
                 "name": "Brandon Ou",
-                "roles": ["oboard"]
+                "roles": [
+                    "oboard"
+                ]
             },
             {
                 "name": "Candace Chen",
@@ -33,15 +231,22 @@
             },
             {
                 "name": "Clara Li",
-                "roles": ["oboard"]
+                "roles": [
+                    "oboard"
+                ]
             },
             {
                 "name": "Connie Du",
-                "roles": ["oboard", "famhead"]
+                "roles": [
+                    "oboard",
+                    "famhead"
+                ]
             },
             {
                 "name": "Daniel Zhao",
-                "roles": ["oboard"]
+                "roles": [
+                    "oboard"
+                ]
             },
             {
                 "name": "David Le",
@@ -53,15 +258,24 @@
             },
             {
                 "name": "Emma Mei Andreas",
-                "roles": ["exec", "oboard", "famhead"]
+                "roles": [
+                    "exec",
+                    "oboard",
+                    "famhead"
+                ]
             },
             {
                 "name": "Iris Chen",
-                "roles": ["oboard", "famhead"]
+                "roles": [
+                    "oboard",
+                    "famhead"
+                ]
             },
             {
                 "name": "Isabelle Ngo",
-                "roles": ["oboard"]
+                "roles": [
+                    "oboard"
+                ]
             },
             {
                 "name": "Ivan Zheng",
@@ -85,7 +299,9 @@
             },
             {
                 "name": "Jessica Hom",
-                "roles": ["oboard"]
+                "roles": [
+                    "oboard"
+                ]
             },
             {
                 "name": "Jessica Jiang",
@@ -97,11 +313,18 @@
             },
             {
                 "name": "Justin Zhang",
-                "roles": ["exec", "oboard", "famhead"]
+                "roles": [
+                    "exec",
+                    "oboard",
+                    "famhead"
+                ]
             },
             {
                 "name": "Kaylee Liu",
-                "roles": ["oboard", "famhead"]
+                "roles": [
+                    "oboard",
+                    "famhead"
+                ]
             },
             {
                 "name": "Kelly Yu",
@@ -121,7 +344,9 @@
             },
             {
                 "name": "Margaux Reppert",
-                "roles": ["oboard"]
+                "roles": [
+                    "oboard"
+                ]
             },
             {
                 "name": "Maynaire Wang",
@@ -133,7 +358,10 @@
             },
             {
                 "name": "Michelle Kwan",
-                "roles": ["oboard", "famhead"]
+                "roles": [
+                    "oboard",
+                    "famhead"
+                ]
             },
             {
                 "name": "Nitin Elavarasu",
@@ -141,7 +369,10 @@
             },
             {
                 "name": "Olivia Wang",
-                "roles": ["exec", "oboard"]
+                "roles": [
+                    "exec",
+                    "oboard"
+                ]
             },
             {
                 "name": "Prateek Gunnam",
@@ -153,7 +384,9 @@
             },
             {
                 "name": "Rina Patterson",
-                "roles": ["oboard"]
+                "roles": [
+                    "oboard"
+                ]
             },
             {
                 "name": "Rita Wu",
@@ -161,11 +394,17 @@
             },
             {
                 "name": "Safa Khan",
-                "roles": ["exec", "oboard", "famhead"]
+                "roles": [
+                    "exec",
+                    "oboard",
+                    "famhead"
+                ]
             },
             {
                 "name": "Sherry Guo",
-                "roles": ["oboard"]
+                "roles": [
+                    "oboard"
+                ]
             },
             {
                 "name": "Sneha John",
@@ -173,7 +412,10 @@
             },
             {
                 "name": "Stacy Meng",
-                "roles": ["oboard", "famhead"]
+                "roles": [
+                    "oboard",
+                    "famhead"
+                ]
             },
             {
                 "name": "Stella Chiou",
