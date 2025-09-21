@@ -51,7 +51,7 @@ export default function FamiliesPage() {
     {
       id: "jellyfish",
       name: "Jade Jellyfish",
-      image: "",
+      image: "/images/2025-2026/families/jellyfish.jpg",
       instagramUrl: "https://www.instagram.com/csa.jellyfish/",
       description:
         "Hey guys!! We’re the JADE JELLYFISH 🪼 We are SO excited to get to know everyone this year and make some awesome memories!!⭐️",
