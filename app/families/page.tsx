@@ -59,7 +59,7 @@ export default function FamiliesPage() {
     {
       id: "starfish",
       name: "Scarlet Starfish",
-      image: "",
+      image: "/images/2025-2026/families/starfish.jpg",
       instagramUrl: "https://www.instagram.com/csa.starfish/",
       description:
         "SUP SUP! 🙋‍♀️ We're the Scarlet Starfish ⭐ and we're here for good time, not a long time. Come find your new home 🏡and homies 🫂 where we will teach you how to play MAHJONG 🀄, make SHRINKYDINKS 🎨 together, and become POWERHOUSES on the court ⛹️and in the iron temple 🏋️‍♀️! Loads of events every month 🗓️ - hope to see you 🫵 there 😈",
