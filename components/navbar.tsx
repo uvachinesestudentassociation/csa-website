@@ -45,10 +45,10 @@ export default function Navbar() {
             link.dropdown ? (
               <DropdownMenu key={link.name}>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="flex items-center gap-1 font-semibold">
+                  <button className="flex items-center gap-1 text-foreground/80 hover:text-primary font-semibold transition-colors">
                     {link.name}
                     <ChevronDown className="h-4 w-4" />
-                  </Button>
+                  </button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
                   {link.items?.map((item) => (
