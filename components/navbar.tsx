@@ -20,7 +20,10 @@ const navLinks = [
     name: "Gallery",
     href: "/gallery",
     dropdown: true,
-    items: [{ name: "Archive", href: "/gallery/archive" }],
+    items: [
+      { name: "Current", href: "/gallery" },
+      { name: "Archive", href: "/gallery/archive" },
+    ],
   },
   { name: "Alumni", href: "/alumni" },
 ]
