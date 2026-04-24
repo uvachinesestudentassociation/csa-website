@@ -60,7 +60,7 @@ export default function RootLayout({
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </head>
-      <body className={`${inter.variable} ${raleway.variable} font-raleway min-h-screen flex flex-col`}>
+      <body suppressHydrationWarning className={`${inter.variable} ${raleway.variable} font-raleway min-h-screen flex flex-col`}>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
           <Navbar />
           <main className="flex-1">{children}</main>
