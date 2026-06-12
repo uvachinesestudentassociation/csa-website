@@ -2,13 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --csa-primary: #7b1500;
-  --csa-primary-hover: #5f1100;
-  --csa-secondary: #f5f5f5;
-  --csa-accent: #ffd700;
-}
-
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -107,16 +100,6 @@
   }
 }
 
-/* Swiper custom styles */
-.swiper-button-next,
-.swiper-button-prev {
-  color: var(--csa-primary) !important;
-}
-
-.swiper-pagination-bullet-active {
-  background-color: var(--csa-primary) !important;
-}
-
 @layer base {
   .dark h1,
   .dark h2,
@@ -125,5 +108,16 @@
   .dark h5,
   .dark h6 {
     @apply text-primary-foreground;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

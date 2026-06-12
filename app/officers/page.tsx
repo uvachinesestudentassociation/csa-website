@@ -5,6 +5,7 @@ import Image from "next/image"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Card, CardContent } from "@/components/ui/card"
 import { Youtube } from "lucide-react"
+import officersData from "./officers-data.json"
 
 interface OfficerCardProps {
   imagePath: string
@@ -13,22 +14,37 @@ interface OfficerCardProps {
 }
 
 function OfficerCard({ imagePath, name, description }: OfficerCardProps) {
-  const [isHovered, setIsHovered] = useState(false)
+  const [showDescription, setShowDescription] = useState(false)
+
+  const toggleDescription = () => {
+    if (description) setShowDescription((prev) => !prev)
+  }
 
   return (
     <Card
       className="overflow-hidden transition-all duration-300 dark:bg-card"
-      onMouseEnter={() => description && setIsHovered(true)}
-      onMouseLeave={() => description && setIsHovered(false)}
+      onMouseEnter={() => description && setShowDescription(true)}
+      onMouseLeave={() => description && setShowDescription(false)}
+      onClick={toggleDescription}
+      onKeyDown={(e) => {
+        if (description && (e.key === "Enter" || e.key === " ")) {
+          e.preventDefault()
+          toggleDescription()
+        }
+      }}
+      tabIndex={description ? 0 : undefined}
+      role={description ? "button" : undefined}
+      aria-expanded={description ? showDescription : undefined}
     >
       <div className="relative aspect-square">
         <Image
           src={imagePath || "/placeholder.svg"}
           alt={name}
           fill
-          className={`object-cover transition-all duration-300 ${isHovered ? "scale-105 opacity-70" : ""}`}
+          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 20vw"
+          className={`object-cover transition-all duration-300 ${showDescription ? "scale-105 opacity-70" : ""}`}
         />
-        {description && isHovered && (
+        {description && showDescription && (
           <div className="absolute inset-0 flex items-center justify-center p-4 bg-black/50 dark:bg-black/70 text-white">
             <p className="text-sm text-center">{description}</p>
           </div>
@@ -36,6 +52,7 @@ function OfficerCard({ imagePath, name, description }: OfficerCardProps) {
       </div>
       <CardContent className="p-4 text-center">
         <h3 className="text-lg font-semibold mb-0 dark:text-primary-foreground">{name}</h3>
+        {description && <p className="text-xs text-muted-foreground mt-1 md:hidden">Tap for bio</p>}
       </CardContent>
     </Card>
   )
@@ -45,26 +62,28 @@ export default function OfficersPage() {
   return (
     <div className="container-custom">
       <div className="section-title">
-        <h1>2025-2026 Executive and Officer Board</h1>
+        <h1>{officersData.title}</h1>
       </div>
 
       <div className="grid md:grid-cols-2 gap-8 mb-16">
         <div className="relative aspect-video rounded-lg overflow-hidden">
           <Image
-            src="/images/2025-2026/officers/board.jpg"
+            src={officersData.boardImage}
             alt="Executive and Officer Board"
             fill
+            sizes="(max-width: 768px) 100vw, 50vw"
             className="object-cover"
           />
         </div>
         <div className="flex items-center justify-center">
           <a
-            href="https://www.youtube.com/watch?v=heCIvZLClME"
+            href={officersData.youtubeUrl}
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="Watch CSA board video on YouTube"
             className="group relative aspect-video w-full rounded-lg overflow-hidden bg-black flex items-center justify-center"
           >
-            <div className="absolute inset-0 bg-black/50 group-hover:bg-black/70 transition-colors duration-300"></div>
+            <div className="absolute inset-0 bg-black/50 group-hover:bg-black/70 transition-colors duration-300" />
             <Youtube className="w-16 h-16 text-white group-hover:text-primary transition-colors duration-300" />
           </a>
         </div>
@@ -77,92 +96,28 @@ export default function OfficersPage() {
         </TabsList>
 
         <TabsContent value="executive">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            <div>
-              <h3 className="text-center mb-4">President</h3>
-              <OfficerCard imagePath="/images/2025-2026/officers/president.jpg" name="Dylan Lee" />
-            </div>
-            <div>
-              <h3 className="text-center mb-4">Vice President</h3>
-              <OfficerCard imagePath="/images/2025-2026/officers/vice_president.jpg" name="Alice Chen" />
-            </div>
-            <div>
-              <h3 className="text-center mb-4">Secretary</h3>
-              <OfficerCard imagePath="/images/2025-2026/officers/secretary.jpg" name="Audrey Eng" />
-            </div>
-            <div>
-              <h3 className="text-center mb-4">Treasurer</h3>
-              <OfficerCard imagePath="/images/2025-2026/officers/treasurer.jpg" name="Maggie Zheng" />
-            </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+            {officersData.executive.map((officer) => (
+              <div key={officer.role}>
+                <h3 className="text-center mb-4">{officer.role}</h3>
+                <OfficerCard imagePath={officer.imagePath} name={officer.name} />
+              </div>
+            ))}
           </div>
         </TabsContent>
 
         <TabsContent value="officer">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div>
-              <h3 className="text-center mb-4">Culinary</h3>
-              <OfficerCard
-                imagePath="/images/2025-2026/officers/culinary.jpg"
-                name="Melissa Brown and Joey Jiang"
-                description="Culinary chairs are responsible for organizing food-related events and coordinating cooking activities for CSA members."
-              />
-            </div>
-            <div>
-              <h3 className="text-center mb-4">Community</h3>
-              <OfficerCard
-                imagePath="/images/2025-2026/officers/community.jpg"
-                name="Lawrence McAllister, Chloe Wang, and Andrew Wang"
-                description="Community chairs oversee all activities pertaining to membership recruiting and retention. They are in charge of the family program, which includes planning family weeks and family competitions."
-              />
-            </div>
-            <div>
-              <h3 className="text-center mb-4">Culture</h3>
-              <OfficerCard
-                imagePath="/images/2025-2026/officers/culture.jpg"
-                name="Nichole Jiang, Ashley Huo, and Nevaeh Zheng"
-                description="Culture chairs oversee the planning of all cultural events in order to promote Chinese culture on grounds and within the local Charlottesville community."
-              />
-            </div>
-            <div>
-              <h3 className="text-center mb-4">Fundraising</h3>
-              <OfficerCard
-                imagePath="/images/2025-2026/officers/fundraising.jpg"
-                name="Crystal Liu and Sarah Kang"
-                description="Fundraising chairs work closely with the Treasurer to plan and organize fundraising events. They are also in charge of obtaining sponsors and raffles for CSA events."
-              />
-            </div>
-            <div>
-              <h3 className="text-center mb-4">Historic</h3>
-              <OfficerCard
-                imagePath="/images/2025-2026/officers/historic.jpg"
-                name="Bailee Ng"
-                description="Historic chairs are responsible for taking pictures and videos at all CSA events as well as creating promotional and monthly recap videos during the year."
-              />
-            </div>
-            <div>
-              <h3 className="text-center mb-4">Public Relations</h3>
-              <OfficerCard
-                imagePath="/images/2025-2026/officers/pr.jpg"
-                name="Marsha Wang, Yi Cheng, and Quenna Lin"
-                description="Publicity chairs are in charge of advertising CSA events by creating flyers and Facebook profile advertisements for each event."
-              />
-            </div>
-            <div>
-              <h3 className="text-center mb-4">Social</h3>
-              <OfficerCard
-                imagePath="/images/2025-2026/officers/social.jpg"
-                name="Jacqueline Gu and Kaidi Xue"
-                description="Social chairs plan and organize CSA-wide social events."
-              />
-            </div>
-            <div>
-              <h3 className="text-center mb-4">Sports</h3>
-              <OfficerCard
-                imagePath="/images/2025-2026/officers/sports.jpg"
-                name="Brenda Lu and Julian Yarborough"
-                description="Sports chairs are responsible for organizing sports events and tournaments such as IM sports games and practices."
-              />
-            </div>
+            {officersData.officers.map((officer) => (
+              <div key={officer.role}>
+                <h3 className="text-center mb-4">{officer.role}</h3>
+                <OfficerCard
+                  imagePath={officer.imagePath}
+                  name={officer.name}
+                  description={officer.description}
+                />
+              </div>
+            ))}
           </div>
         </TabsContent>
       </Tabs>

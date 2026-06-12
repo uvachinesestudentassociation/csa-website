@@ -1,0 +1,62 @@
+{
+  "year": "2025-2026",
+  "title": "2025-2026 Executive and Officer Board",
+  "boardImage": "/images/2025-2026/officers/board.jpg",
+  "youtubeUrl": "https://www.youtube.com/watch?v=heCIvZLClME",
+  "executive": [
+    { "role": "President", "imagePath": "/images/2025-2026/officers/president.jpg", "name": "Dylan Lee" },
+    { "role": "Vice President", "imagePath": "/images/2025-2026/officers/vice_president.jpg", "name": "Alice Chen" },
+    { "role": "Secretary", "imagePath": "/images/2025-2026/officers/secretary.jpg", "name": "Audrey Eng" },
+    { "role": "Treasurer", "imagePath": "/images/2025-2026/officers/treasurer.jpg", "name": "Maggie Zheng" }
+  ],
+  "officers": [
+    {
+      "role": "Culinary",
+      "imagePath": "/images/2025-2026/officers/culinary.jpg",
+      "name": "Melissa Brown and Joey Jiang",
+      "description": "Culinary chairs are responsible for organizing food-related events and coordinating cooking activities for CSA members."
+    },
+    {
+      "role": "Community",
+      "imagePath": "/images/2025-2026/officers/community.jpg",
+      "name": "Lawrence McAllister, Chloe Wang, and Andrew Wang",
+      "description": "Community chairs oversee all activities pertaining to membership recruiting and retention. They are in charge of the family program, which includes planning family weeks and family competitions."
+    },
+    {
+      "role": "Culture",
+      "imagePath": "/images/2025-2026/officers/culture.jpg",
+      "name": "Nichole Jiang, Ashley Huo, and Nevaeh Zheng",
+      "description": "Culture chairs oversee the planning of all cultural events in order to promote Chinese culture on grounds and within the local Charlottesville community."
+    },
+    {
+      "role": "Fundraising",
+      "imagePath": "/images/2025-2026/officers/fundraising.jpg",
+      "name": "Crystal Liu and Sarah Kang",
+      "description": "Fundraising chairs work closely with the Treasurer to plan and organize fundraising events. They are also in charge of obtaining sponsors and raffles for CSA events."
+    },
+    {
+      "role": "Historic",
+      "imagePath": "/images/2025-2026/officers/historic.jpg",
+      "name": "Bailee Ng",
+      "description": "Historic chairs are responsible for taking pictures and videos at all CSA events as well as creating promotional and monthly recap videos during the year."
+    },
+    {
+      "role": "Public Relations",
+      "imagePath": "/images/2025-2026/officers/pr.jpg",
+      "name": "Marsha Wang, Yi Cheng, and Quenna Lin",
+      "description": "Publicity chairs are in charge of advertising CSA events by creating flyers and Facebook profile advertisements for each event."
+    },
+    {
+      "role": "Social",
+      "imagePath": "/images/2025-2026/officers/social.jpg",
+      "name": "Jacqueline Gu and Kaidi Xue",
+      "description": "Social chairs plan and organize CSA-wide social events."
+    },
+    {
+      "role": "Sports",
+      "imagePath": "/images/2025-2026/officers/sports.jpg",
+      "name": "Brenda Lu and Julian Yarborough",
+      "description": "Sports chairs are responsible for organizing sports events and tournaments such as IM sports games and practices."
+    }
+  ]
+}

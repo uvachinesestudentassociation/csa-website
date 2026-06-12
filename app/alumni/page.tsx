@@ -15,31 +15,47 @@ interface AlumniYear {
   }>
 }
 
-
 function AlumniCard({ year, imageSrc, people }: AlumniYear) {
-  const [isHovered, setIsHovered] = useState(false)
+  const [showDetails, setShowDetails] = useState(false)
+
+  const toggleDetails = () => setShowDetails((prev) => !prev)
 
   return (
-    <Card className="overflow-hidden" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+    <Card
+      className="overflow-hidden"
+      onMouseEnter={() => setShowDetails(true)}
+      onMouseLeave={() => setShowDetails(false)}
+      onClick={toggleDetails}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault()
+          toggleDetails()
+        }
+      }}
+      tabIndex={0}
+      role="button"
+      aria-expanded={showDetails}
+    >
       <div className="relative">
         <div className="relative aspect-video">
           <Image
             src={imageSrc || "/placeholder.svg"}
             alt={`Class of ${year}`}
             fill
-            className={`object-fit transition-all duration-300 ${isHovered ? "opacity-30" : "opacity-100"}`}
+            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            className={`object-cover transition-all duration-300 ${showDetails ? "opacity-30" : "opacity-100"}`}
           />
         </div>
 
         <div
           className={`absolute inset-0 bg-background/80 dark:bg-background/90 p-6 overflow-y-auto transition-opacity duration-300 ${
-            isHovered ? "opacity-100" : "opacity-0 pointer-events-none"
+            showDetails ? "opacity-100" : "opacity-0 pointer-events-none"
           }`}
         >
-          <h3 className="text-xl font-bold mb-4 dark:text-primary-foreground">Class of {year}</h3>
+          <p className="text-xl font-bold mb-4 dark:text-primary-foreground">Class of {year}</p>
           <div className="grid grid-cols-2 gap-2">
-            {people.map((person, index) => (
-              <div key={index} className="flex flex-col">
+            {people.map((person) => (
+              <div key={person.name} className="flex flex-col">
                 <span className="dark:text-foreground">{person.name}</span>
                 <div className="flex flex-wrap gap-1 mt-1">
                   {person.roles.includes("exec") && (
@@ -66,7 +82,7 @@ function AlumniCard({ year, imageSrc, people }: AlumniYear) {
 
       <CardContent className="p-4 text-center">
         <h3 className="text-xl font-bold dark:text-primary-foreground">Class of {year}</h3>
-        <p className="text-muted-foreground">Hover to see alumni details</p>
+        <p className="text-muted-foreground">Hover or tap to see alumni details</p>
       </CardContent>
     </Card>
   )
