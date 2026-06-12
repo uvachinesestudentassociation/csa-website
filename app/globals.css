@@ -98,6 +98,78 @@
   .page-header p {
     @apply text-muted-foreground max-w-3xl mx-auto;
   }
+
+  .tabs-bar {
+    @apply overflow-hidden rounded-t-lg bg-[hsl(0_0%_92%)] pb-0 pl-0 pr-2 pt-2 dark:bg-[hsl(0_0%_8%)];
+    min-height: 3rem;
+  }
+
+  .tabs-list {
+    @apply flex w-full flex-nowrap items-end justify-start gap-0 overflow-x-auto overflow-y-hidden bg-transparent p-0;
+    height: 2.5rem;
+    min-height: 2.5rem;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .tabs-list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tab {
+    @apply relative inline-flex h-10 shrink-0 items-center justify-center whitespace-nowrap rounded-none border-0 bg-transparent px-4 text-sm font-medium text-muted-foreground shadow-none;
+    transition:
+      color 0.15s ease,
+      background-color 0.15s ease;
+  }
+
+  .tab:hover:not([data-state="active"]) {
+    @apply text-foreground/80;
+  }
+
+  .tab:focus-visible {
+    @apply outline-none ring-2 ring-inset ring-ring;
+  }
+
+  .tab:not([data-state="active"]):not(:last-child) {
+    box-shadow: inset -1px 0 0 hsl(var(--border) / 0.35);
+  }
+
+  .tab[data-state="active"] {
+    @apply z-10 h-10;
+  }
+
+  .tab[data-state="active"]::before,
+  .tab[data-state="active"]::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    width: 8px;
+    height: 8px;
+    pointer-events: none;
+  }
+
+  .tab[data-state="active"]::before {
+    left: -8px;
+    background: radial-gradient(
+      circle at 0 0,
+      transparent 8px,
+      hsl(var(--card)) 8px
+    );
+  }
+
+  .tab[data-state="active"]::after {
+    right: -8px;
+    background: radial-gradient(
+      circle at 100% 0,
+      transparent 8px,
+      hsl(var(--card)) 8px
+    );
+  }
+
+  .tabs-panel {
+    @apply mt-0 bg-card;
+  }
 }
 
 @layer base {
