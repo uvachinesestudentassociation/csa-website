@@ -1,9 +1,11 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsContent } from "@/components/ui/tabs";
+import { SlidingTabsList } from "@/components/sliding-tabs-list";
 import alumniData from "./alumni-data.json";
 
 interface AlumniPerson {
@@ -100,7 +102,11 @@ function AlumniRoster({ year, imageSrc, people }: AlumniYear) {
 
   return (
     <div>
-      <AlumniYearHero year={year} imageSrc={imageSrc} memberCount={people.length} />
+      <AlumniYearHero
+        year={year}
+        imageSrc={imageSrc}
+        memberCount={people.length}
+      />
 
       <ul className="grid gap-x-8 gap-y-3 px-6 pb-6 pt-4 md:grid-cols-2">
         {sortedPeople.map((person) => (
@@ -120,7 +126,14 @@ function AlumniRoster({ year, imageSrc, people }: AlumniYear) {
 const years = alumniData as AlumniYear[];
 const defaultYear = String(years[0]?.year ?? "");
 
+const alumniTabs = years.map((yearData) => ({
+  value: String(yearData.year),
+  label: yearData.year,
+}));
+
 export default function AlumniPage() {
+  const [activeYear, setActiveYear] = useState(defaultYear);
+
   return (
     <div className="container-custom">
       <div className="section-title">
@@ -132,20 +145,8 @@ export default function AlumniPage() {
       </div>
 
       <Card className="mt-12 overflow-hidden p-0 dark:bg-card">
-        <Tabs defaultValue={defaultYear}>
-          <div className="tabs-bar">
-            <TabsList className="tabs-list !flex !h-10 !min-h-10 !items-end !justify-start rounded-none bg-transparent p-0">
-              {years.map((yearData) => (
-                <TabsTrigger
-                  key={yearData.year}
-                  value={String(yearData.year)}
-                  className="tab !transition-colors rounded-none data-[state=active]:rounded-t-lg data-[state=active]:bg-card data-[state=active]:text-foreground data-[state=active]:shadow-none"
-                >
-                  {yearData.year}
-                </TabsTrigger>
-              ))}
-            </TabsList>
-          </div>
+        <Tabs value={activeYear} onValueChange={setActiveYear}>
+          <SlidingTabsList activeValue={activeYear} tabs={alumniTabs} />
 
           {years.map((yearData) => (
             <TabsContent

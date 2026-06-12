@@ -105,11 +105,49 @@
   }
 
   .tabs-list {
-    @apply flex w-full flex-nowrap items-end justify-start gap-0 overflow-x-auto overflow-y-hidden bg-transparent p-0;
+    @apply relative flex w-full flex-nowrap items-end justify-start gap-0 overflow-x-auto overflow-y-hidden bg-transparent p-0;
     height: 2.5rem;
     min-height: 2.5rem;
     scrollbar-width: none;
     -ms-overflow-style: none;
+  }
+
+  .tab-indicator {
+    @apply pointer-events-none absolute bottom-0 z-0 h-10 rounded-t-lg bg-card;
+  }
+
+  .tab-indicator--animate {
+    transition:
+      left 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+      width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .tab-indicator::before,
+  .tab-indicator::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    width: 8px;
+    height: 8px;
+    pointer-events: none;
+  }
+
+  .tab-indicator::before {
+    left: -8px;
+    background: radial-gradient(
+      circle at 0 0,
+      transparent 8px,
+      hsl(var(--card)) 8px
+    );
+  }
+
+  .tab-indicator::after {
+    right: -8px;
+    background: radial-gradient(
+      circle at 100% 0,
+      transparent 8px,
+      hsl(var(--card)) 8px
+    );
   }
 
   .tabs-list::-webkit-scrollbar {
@@ -117,10 +155,8 @@
   }
 
   .tab {
-    @apply relative inline-flex h-10 shrink-0 items-center justify-center whitespace-nowrap rounded-none border-0 bg-transparent px-4 text-sm font-medium text-muted-foreground shadow-none;
-    transition:
-      color 0.15s ease,
-      background-color 0.15s ease;
+    @apply relative z-[1] inline-flex h-10 shrink-0 items-center justify-center whitespace-nowrap rounded-none border-0 bg-transparent px-4 text-lg font-medium text-muted-foreground shadow-none;
+    transition: color 0.15s ease;
   }
 
   .tab:hover:not([data-state="active"]) {
@@ -136,39 +172,34 @@
   }
 
   .tab[data-state="active"] {
-    @apply z-10 h-10;
-  }
-
-  .tab[data-state="active"]::before,
-  .tab[data-state="active"]::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    width: 8px;
-    height: 8px;
-    pointer-events: none;
-  }
-
-  .tab[data-state="active"]::before {
-    left: -8px;
-    background: radial-gradient(
-      circle at 0 0,
-      transparent 8px,
-      hsl(var(--card)) 8px
-    );
-  }
-
-  .tab[data-state="active"]::after {
-    right: -8px;
-    background: radial-gradient(
-      circle at 100% 0,
-      transparent 8px,
-      hsl(var(--card)) 8px
-    );
+    @apply z-[2] h-10 bg-transparent shadow-none;
   }
 
   .tabs-panel {
     @apply mt-0 bg-card;
+  }
+
+  .tabs-bar--spread {
+    @apply pr-0;
+    min-height: 3.5rem;
+  }
+
+  .tabs-list--spread {
+    height: 3rem;
+    min-height: 3rem;
+    overflow-x: hidden;
+  }
+
+  .tab-indicator--spread {
+    @apply h-12;
+  }
+
+  .tab--spread {
+    @apply h-12 min-w-0 flex-1 shrink whitespace-normal px-3 text-center text-base font-semibold leading-snug sm:px-4 sm:text-lg;
+  }
+
+  .tab--spread[data-state="active"] {
+    @apply h-12;
   }
 }
 
