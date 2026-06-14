@@ -14,40 +14,58 @@ const raleway = Raleway({
   weight: ["300", "400", "500", "600", "700", "800"],
 })
 
+const siteUrl = "https://csaatuva.com"
+
 export const metadata: Metadata = {
-  title: "CSA@UVA - Chinese Student Association",
-  description: "Chinese Student Association at University of Virginia",
-  generator: 'v0.dev',
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: "CSA@UVA - Chinese Student Association",
+    template: "%s | CSA@UVA",
+  },
+  description: "Chinese Student Association at the University of Virginia",
+  openGraph: {
+    title: "CSA@UVA - Chinese Student Association",
+    description: "Chinese Student Association at the University of Virginia",
+    url: siteUrl,
+    siteName: "CSA@UVA",
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "CSA@UVA - Chinese Student Association",
+    description: "Chinese Student Association at the University of Virginia",
+  },
   icons: {
-    icon: '/favicon_io/favicon.ico',
-    shortcut: '/favicon_io/favicon.ico',
-    apple: '/favicon_io/apple-touch-icon.png',
+    icon: "/favicon_io/favicon.ico",
+    shortcut: "/favicon_io/favicon.ico",
+    apple: "/favicon_io/apple-touch-icon.png",
     other: [
       {
-        rel: 'icon',
-        type: 'image/png',
-        sizes: '16x16',
-        url: '/favicon_io/favicon-16x16.png',
+        rel: "icon",
+        type: "image/png",
+        sizes: "16x16",
+        url: "/favicon_io/favicon-16x16.png",
       },
       {
-        rel: 'icon',
-        type: 'image/png',
-        sizes: '32x32',
-        url: '/favicon_io/favicon-32x32.png',
+        rel: "icon",
+        type: "image/png",
+        sizes: "32x32",
+        url: "/favicon_io/favicon-32x32.png",
       },
       {
-        rel: 'android-chrome',
-        sizes: '192x192',
-        url: '/favicon_io/android-chrome-192x192.png',
+        rel: "android-chrome",
+        sizes: "192x192",
+        url: "/favicon_io/android-chrome-192x192.png",
       },
       {
-        rel: 'android-chrome',
-        sizes: '512x512',
-        url: '/favicon_io/android-chrome-512x512.png',
+        rel: "android-chrome",
+        sizes: "512x512",
+        url: "/favicon_io/android-chrome-512x512.png",
       },
     ],
   },
-  manifest: '/favicon_io/site.webmanifest',
+  manifest: "/favicon_io/site.webmanifest",
 }
 
 export default function RootLayout({
@@ -57,13 +75,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      </head>
-      <body className={`${inter.variable} ${raleway.variable} font-raleway min-h-screen flex flex-col`}>
+      <body suppressHydrationWarning className={`${inter.variable} ${raleway.variable} font-raleway min-h-screen flex flex-col`}>
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:p-4 focus:bg-background focus:text-foreground"
+        >
+          Skip to main content
+        </a>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
           <Navbar />
-          <main className="flex-1">{children}</main>
+          <main id="main" className="flex-1">
+            {children}
+          </main>
           <Footer />
         </ThemeProvider>
         <Analytics />

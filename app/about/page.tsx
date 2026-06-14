@@ -1,4 +1,10 @@
+import type { Metadata } from "next"
 import Image from "next/image"
+
+export const metadata: Metadata = {
+  title: "About",
+  description: "Learn about CSA@UVA's mission to promote Chinese culture, build community, and engage with Charlottesville.",
+}
 
 export default function AboutPage() {
   return (
@@ -85,7 +91,7 @@ export default function AboutPage() {
             <div className="prose prose-lg dark:prose-invert max-w-none">
               <p className="leading-relaxed">
                 Finally, CSA spreads our goals throughout the whole surrounding community. We participate in{" "}
-                <span className="font-semibold">Culturefest</span>, UVA's annual multicultural showcase; interact and
+                <span className="font-semibold">Culturefest</span>, UVA&apos;s annual multicultural showcase; interact and
                 co-host events with other CIOs on-grounds such as UPC and other multicultural organizations; and invite
                 the whole UVA and Charlottesville community to come to our events, especially for our large culture
                 shows like FullMoonFest and Chinafest. We celebrate Chinese culture with anyone and everyone.

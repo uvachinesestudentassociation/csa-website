@@ -1,92 +1,168 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import Image from "next/image"
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import alumniData from "./alumni-data.json"
+import { useState } from "react";
+import Image from "next/image";
+import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent } from "@/components/ui/tabs";
+import { SlidingTabsList } from "@/components/sliding-tabs-list";
+import alumniData from "./alumni-data.json";
+
+interface AlumniPerson {
+  name: string;
+  roles: string[];
+}
 
 interface AlumniYear {
-  year: number
-  imageSrc: string
-  people: Array<{
-    name: string
-    roles: string[]
-  }>
+  year: number;
+  imageSrc: string;
+  people: AlumniPerson[];
 }
 
+function getRolePriority(roles: string[]): number {
+  if (roles.includes("exec")) return 0;
+  if (roles.includes("oboard")) return 1;
+  if (roles.includes("famhead")) return 2;
+  return 3;
+}
 
-function AlumniCard({ year, imageSrc, people }: AlumniYear) {
-  const [isHovered, setIsHovered] = useState(false)
+function sortPeopleByRole(people: AlumniPerson[]): AlumniPerson[] {
+  return [...people].sort((a, b) => {
+    const priorityDiff = getRolePriority(a.roles) - getRolePriority(b.roles);
+    if (priorityDiff !== 0) return priorityDiff;
+    return a.name.localeCompare(b.name, undefined, { sensitivity: "base" });
+  });
+}
+
+function RoleBadges({ roles }: { roles: string[] }) {
+  if (roles.length === 0) return null;
 
   return (
-    <Card className="overflow-hidden" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
-      <div className="relative">
-        <div className="relative aspect-video">
-          <Image
-            src={imageSrc || "/placeholder.svg"}
-            alt={`Class of ${year}`}
-            fill
-            className={`object-fit transition-all duration-300 ${isHovered ? "opacity-30" : "opacity-100"}`}
-          />
-        </div>
-
-        <div
-          className={`absolute inset-0 bg-background/80 dark:bg-background/90 p-6 overflow-y-auto transition-opacity duration-300 ${
-            isHovered ? "opacity-100" : "opacity-0 pointer-events-none"
-          }`}
+    <div className="flex flex-wrap justify-end gap-1">
+      {roles.includes("exec") && (
+        <Badge variant="default" className="text-xs">
+          Exec
+        </Badge>
+      )}
+      {roles.includes("oboard") && (
+        <Badge
+          variant="outline"
+          className="text-xs dark:border-primary/50 dark:text-foreground"
         >
-          <h3 className="text-xl font-bold mb-4 dark:text-primary-foreground">Class of {year}</h3>
-          <div className="grid grid-cols-2 gap-2">
-            {people.map((person, index) => (
-              <div key={index} className="flex flex-col">
-                <span className="dark:text-foreground">{person.name}</span>
-                <div className="flex flex-wrap gap-1 mt-1">
-                  {person.roles.includes("exec") && (
-                    <Badge variant="default" className="text-xs">
-                      Exec
-                    </Badge>
-                  )}
-                  {person.roles.includes("oboard") && (
-                    <Badge variant="outline" className="text-xs dark:border-primary/50 dark:text-foreground">
-                      Officer
-                    </Badge>
-                  )}
-                  {person.roles.includes("famhead") && (
-                    <Badge variant="secondary" className="text-xs dark:bg-secondary dark:text-secondary-foreground">
-                      Family Head
-                    </Badge>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      <CardContent className="p-4 text-center">
-        <h3 className="text-xl font-bold dark:text-primary-foreground">Class of {year}</h3>
-        <p className="text-muted-foreground">Hover to see alumni details</p>
-      </CardContent>
-    </Card>
-  )
+          Officer
+        </Badge>
+      )}
+      {roles.includes("famhead") && (
+        <Badge
+          variant="secondary"
+          className="text-xs dark:bg-secondary dark:text-secondary-foreground"
+        >
+          Family Head
+        </Badge>
+      )}
+    </div>
+  );
 }
 
+function AlumniYearHero({
+  year,
+  imageSrc,
+  memberCount,
+}: {
+  year: number;
+  imageSrc: string;
+  memberCount: number;
+}) {
+  return (
+    <div className="relative w-full">
+      <Image
+        src={imageSrc || "/placeholder.svg"}
+        alt=""
+        width={1600}
+        height={900}
+        sizes="(max-width: 768px) 100vw, 896px"
+        className="block h-auto w-full"
+        aria-hidden
+      />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-24 bg-gradient-to-t from-card/80 to-transparent" />
+      <div className="absolute inset-x-0 bottom-0 z-20 p-6">
+        <h2 className="mb-0 text-2xl font-bold text-foreground dark:text-primary-foreground">
+          Class of {year}
+        </h2>
+        <p className="mb-0 mt-1 text-sm text-muted-foreground">
+          {memberCount} {memberCount === 1 ? "member" : "members"}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function AlumniRoster({ year, imageSrc, people }: AlumniYear) {
+  const sortedPeople = sortPeopleByRole(people);
+
+  return (
+    <div>
+      <AlumniYearHero
+        year={year}
+        imageSrc={imageSrc}
+        memberCount={people.length}
+      />
+
+      <ul className="grid gap-x-8 gap-y-3 px-6 pb-6 pt-4 md:grid-cols-2">
+        {sortedPeople.map((person) => (
+          <li
+            key={person.name}
+            className="flex items-start justify-between gap-4 py-1"
+          >
+            <span className="dark:text-foreground">{person.name}</span>
+            <RoleBadges roles={person.roles} />
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+const years = alumniData as AlumniYear[];
+const defaultYear = String(years[0]?.year ?? "");
+
+const alumniTabs = years.map((yearData) => ({
+  value: String(yearData.year),
+  label: yearData.year,
+}));
+
 export default function AlumniPage() {
+  const [activeYear, setActiveYear] = useState(defaultYear);
+
   return (
     <div className="container-custom">
       <div className="section-title">
         <h1>Alumni</h1>
         <p className="max-w-3xl mx-auto text-lg text-center">
-          Celebrating our CSA alumni and their contributions to our organization.
+          Celebrating our CSA alumni and their contributions to our
+          organization.
         </p>
       </div>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {alumniData.map((yearData) => (
-          <AlumniCard key={yearData.year} year={yearData.year} imageSrc={yearData.imageSrc} people={yearData.people} />
-        ))}
-      </div>
+      <Card className="mt-12 overflow-hidden p-0 dark:bg-card">
+        <Tabs value={activeYear} onValueChange={setActiveYear}>
+          <SlidingTabsList activeValue={activeYear} tabs={alumniTabs} />
+
+          {years.map((yearData) => (
+            <TabsContent
+              key={yearData.year}
+              value={String(yearData.year)}
+              className="tabs-panel p-0 focus-visible:outline-none focus-visible:ring-0"
+            >
+              <AlumniRoster
+                year={yearData.year}
+                imageSrc={yearData.imageSrc}
+                people={yearData.people}
+              />
+            </TabsContent>
+          ))}
+        </Tabs>
+      </Card>
     </div>
-  )
+  );
 }
