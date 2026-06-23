@@ -38,7 +38,7 @@ function RoleBadges({ roles }: { roles: string[] }) {
   if (roles.length === 0) return null;
 
   return (
-    <div className="flex flex-wrap justify-end gap-1">
+    <div className="flex flex-wrap justify-start gap-1 sm:justify-end">
       {roles.includes("exec") && (
         <Badge variant="default" className="text-xs">
           Exec
@@ -112,7 +112,7 @@ function AlumniRoster({ year, imageSrc, people }: AlumniYear) {
         {sortedPeople.map((person) => (
           <li
             key={person.name}
-            className="flex items-start justify-between gap-4 py-1"
+            className="flex flex-col gap-2 py-1 sm:flex-row sm:items-start sm:justify-between sm:gap-4"
           >
             <span className="dark:text-foreground">{person.name}</span>
             <RoleBadges roles={person.roles} />
@@ -146,7 +146,26 @@ export default function AlumniPage() {
 
       <Card className="mt-12 overflow-hidden p-0 dark:bg-card">
         <Tabs value={activeYear} onValueChange={setActiveYear}>
-          <SlidingTabsList activeValue={activeYear} tabs={alumniTabs} />
+          <div className="border-b bg-[hsl(0_0%_92%)] px-4 py-3 dark:bg-[hsl(0_0%_8%)] md:hidden">
+            <label htmlFor="alumni-year" className="sr-only">
+              Select alumni class year
+            </label>
+            <select
+              id="alumni-year"
+              value={activeYear}
+              onChange={(e) => setActiveYear(e.target.value)}
+              className="w-full rounded-md border border-input bg-card px-3 py-2.5 text-base font-medium text-foreground shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            >
+              {years.map((yearData) => (
+                <option key={yearData.year} value={String(yearData.year)}>
+                  Class of {yearData.year}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="hidden md:block">
+            <SlidingTabsList activeValue={activeYear} tabs={alumniTabs} />
+          </div>
 
           {years.map((yearData) => (
             <TabsContent

@@ -4,8 +4,23 @@ import { useState } from "react"
 import Image from "next/image"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Card, CardContent } from "@/components/ui/card"
-import { Youtube } from "lucide-react"
 import officersData from "./officers-data.json"
+
+function getYoutubeEmbedUrl(watchUrl: string): string | null {
+  const match = watchUrl.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&?]+)/)
+  if (!match?.[1]) return null
+
+  const params = new URLSearchParams({
+    autoplay: "1",
+    mute: "1",
+    playsinline: "1",
+    rel: "0",
+  })
+
+  return `https://www.youtube.com/embed/${match[1]}?${params.toString()}`
+}
+
+const youtubeEmbedUrl = getYoutubeEmbedUrl(officersData.youtubeUrl)
 
 interface OfficerCardProps {
   imagePath: string
@@ -16,43 +31,47 @@ interface OfficerCardProps {
 function OfficerCard({ imagePath, name, description }: OfficerCardProps) {
   const [showDescription, setShowDescription] = useState(false)
 
-  const toggleDescription = () => {
-    if (description) setShowDescription((prev) => !prev)
+  if (!description) {
+    return (
+      <Card className="overflow-hidden dark:bg-card">
+        <div className="relative aspect-square">
+          <Image
+            src={imagePath || "/placeholder.svg"}
+            alt={name}
+            fill
+            sizes="(max-width: 768px) 100vw, 25vw"
+            className="object-cover"
+          />
+        </div>
+        <CardContent className="p-4 text-center">
+          <h3 className="text-lg font-semibold mb-0 dark:text-primary-foreground">{name}</h3>
+        </CardContent>
+      </Card>
+    )
   }
 
   return (
     <Card
-      className="overflow-hidden transition-all duration-300 dark:bg-card"
-      onMouseEnter={() => description && setShowDescription(true)}
-      onMouseLeave={() => description && setShowDescription(false)}
-      onClick={toggleDescription}
-      onKeyDown={(e) => {
-        if (description && (e.key === "Enter" || e.key === " ")) {
-          e.preventDefault()
-          toggleDescription()
-        }
-      }}
-      tabIndex={description ? 0 : undefined}
-      role={description ? "button" : undefined}
-      aria-expanded={description ? showDescription : undefined}
+      className="overflow-hidden cursor-pointer dark:bg-card"
+      onClick={() => setShowDescription((prev) => !prev)}
     >
       <div className="relative aspect-square">
         <Image
           src={imagePath || "/placeholder.svg"}
           alt={name}
           fill
-          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 20vw"
-          className={`object-cover transition-all duration-300 ${showDescription ? "scale-105 opacity-70" : ""}`}
+          sizes="(max-width: 768px) 100vw, 25vw"
+          className={`object-cover transition-opacity ${showDescription ? "opacity-70" : ""}`}
         />
-        {description && showDescription && (
-          <div className="absolute inset-0 flex items-center justify-center p-4 bg-black/50 dark:bg-black/70 text-white">
+        {showDescription && (
+          <div className="absolute inset-0 flex items-center justify-center p-4 bg-black/50 text-white">
             <p className="text-sm text-center">{description}</p>
           </div>
         )}
       </div>
       <CardContent className="p-4 text-center">
         <h3 className="text-lg font-semibold mb-0 dark:text-primary-foreground">{name}</h3>
-        {description && <p className="text-xs text-muted-foreground mt-1 md:hidden">Tap for bio</p>}
+        <p className="text-xs text-muted-foreground mt-1">Tap for bio</p>
       </CardContent>
     </Card>
   )
@@ -75,17 +94,25 @@ export default function OfficersPage() {
             className="object-cover"
           />
         </div>
-        <div className="flex items-center justify-center">
-          <a
-            href={officersData.youtubeUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Watch CSA board video on YouTube"
-            className="group relative aspect-video w-full rounded-lg overflow-hidden bg-black flex items-center justify-center"
-          >
-            <div className="absolute inset-0 bg-black/50 group-hover:bg-black/70 transition-colors duration-300" />
-            <Youtube className="w-16 h-16 text-white group-hover:text-primary transition-colors duration-300" />
-          </a>
+        <div className="relative aspect-video w-full overflow-hidden rounded-lg bg-black">
+          {youtubeEmbedUrl ? (
+            <iframe
+              src={youtubeEmbedUrl}
+              title="CSA board video"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="absolute inset-0 h-full w-full border-0"
+            />
+          ) : (
+            <a
+              href={officersData.youtubeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="absolute inset-0 flex items-center justify-center text-white"
+            >
+              Watch on YouTube
+            </a>
+          )}
         </div>
       </div>
 
@@ -96,7 +123,7 @@ export default function OfficersPage() {
         </TabsList>
 
         <TabsContent value="executive">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {officersData.executive.map((officer) => (
               <div key={officer.role}>
                 <h3 className="text-center mb-4">{officer.role}</h3>
@@ -107,7 +134,7 @@ export default function OfficersPage() {
         </TabsContent>
 
         <TabsContent value="officer">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {officersData.officers.map((officer) => (
               <div key={officer.role}>
                 <h3 className="text-center mb-4">{officer.role}</h3>

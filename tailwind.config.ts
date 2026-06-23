@@ -58,7 +58,6 @@ const config = {
       },
       fontFamily: {
         raleway: ["var(--font-raleway)"],
-        inter: ["var(--font-inter)"],
       },
       keyframes: {
         "accordion-down": {

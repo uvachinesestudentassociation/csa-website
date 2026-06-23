@@ -80,23 +80,11 @@
 
 @layer components {
   .container-custom {
-    @apply container mx-auto px-4 py-8 md:py-12 lg:py-16;
+    @apply container mx-auto px-3 py-8 sm:px-4 md:py-12 lg:py-16;
   }
 
   .section-title {
     @apply text-center mb-8 md:mb-12;
-  }
-
-  .page-header {
-    @apply py-8 md:py-12 bg-secondary text-center;
-  }
-
-  .page-header h1 {
-    @apply mb-2;
-  }
-
-  .page-header p {
-    @apply text-muted-foreground max-w-3xl mx-auto;
   }
 
   .tabs-bar {
