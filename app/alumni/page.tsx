@@ -6,6 +6,7 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent } from "@/components/ui/tabs";
 import { SlidingTabsList } from "@/components/sliding-tabs-list";
+import { YearPicker } from "@/components/year-picker";
 import alumniData from "./alumni-data.json";
 
 interface AlumniPerson {
@@ -38,7 +39,7 @@ function RoleBadges({ roles }: { roles: string[] }) {
   if (roles.length === 0) return null;
 
   return (
-    <div className="flex flex-wrap justify-end gap-1">
+    <div className="flex flex-wrap justify-start gap-1 sm:justify-end">
       {roles.includes("exec") && (
         <Badge variant="default" className="text-xs">
           Exec
@@ -112,7 +113,7 @@ function AlumniRoster({ year, imageSrc, people }: AlumniYear) {
         {sortedPeople.map((person) => (
           <li
             key={person.name}
-            className="flex items-start justify-between gap-4 py-1"
+            className="flex flex-col gap-2 py-1 sm:flex-row sm:items-start sm:justify-between sm:gap-4"
           >
             <span className="dark:text-foreground">{person.name}</span>
             <RoleBadges roles={person.roles} />
@@ -131,6 +132,11 @@ const alumniTabs = years.map((yearData) => ({
   label: yearData.year,
 }));
 
+const alumniYearOptions = years.map((yearData) => ({
+  value: String(yearData.year),
+  label: `Class of ${yearData.year}`,
+}));
+
 export default function AlumniPage() {
   const [activeYear, setActiveYear] = useState(defaultYear);
 
@@ -146,7 +152,17 @@ export default function AlumniPage() {
 
       <Card className="mt-12 overflow-hidden p-0 dark:bg-card">
         <Tabs value={activeYear} onValueChange={setActiveYear}>
-          <SlidingTabsList activeValue={activeYear} tabs={alumniTabs} />
+          <div className="md:hidden">
+            <YearPicker
+              value={activeYear}
+              options={alumniYearOptions}
+              onChange={setActiveYear}
+              ariaLabel="Select alumni class year"
+            />
+          </div>
+          <div className="hidden md:block">
+            <SlidingTabsList activeValue={activeYear} tabs={alumniTabs} />
+          </div>
 
           {years.map((yearData) => (
             <TabsContent

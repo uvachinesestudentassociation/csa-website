@@ -1,12 +1,13 @@
 import type { Metadata } from "next"
 import Link from "next/link"
+import { Button } from "@/components/ui/button"
+import { GalleryList } from "@/components/gallery-list"
+import galleryItems from "./gallery-data.json"
 
 export const metadata: Metadata = {
   title: "Gallery",
   description: "Photos from CSA@UVA's 2025–2026 events and activities.",
 }
-import { Button } from "@/components/ui/button"
-import galleryItems from "./gallery-data.json"
 
 export default function GalleryPage() {
   return (
@@ -18,15 +19,7 @@ export default function GalleryPage() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {galleryItems.map((item) => (
-          <Button key={item.name} variant="outline" className="w-full h-auto py-6 text-left justify-start" asChild>
-            <a href={item.url} target="_blank" rel="noopener noreferrer">
-              <span className="font-semibold">{item.name}</span>
-            </a>
-          </Button>
-        ))}
-      </div>
+      <GalleryList items={galleryItems} />
 
       <div className="mt-12 text-center">
         <Button asChild>

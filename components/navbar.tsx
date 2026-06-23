@@ -1,14 +1,12 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { Menu, X, ChevronDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { cn } from "@/lib/utils"
 
-// Add theme toggle to navbar
 import { ThemeToggle } from "@/components/theme-provider"
 
 const navLinks = [
@@ -31,15 +29,27 @@ const navLinks = [
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
+  useEffect(() => {
+    if (!mobileMenuOpen) return
+
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = "hidden"
+
+    return () => {
+      document.body.style.overflow = previousOverflow
+    }
+  }, [mobileMenuOpen])
+
+  const closeMobileMenu = () => setMobileMenuOpen(false)
+
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 dark:bg-background/80">
+    <header className="sticky top-0 z-50 w-full border-b bg-background/95 pt-[env(safe-area-inset-top)] backdrop-blur supports-[backdrop-filter]:bg-background/60 dark:bg-background/80">
       <div className="container flex h-16 items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
           <Image src="/images/csa_square_logo.png" alt="CSA@UVA Logo" width={48} height={48} className="h-12 w-auto" />
           <span className="sr-only">CSA@UVA</span>
         </Link>
 
-        {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-6">
           {navLinks.map((link) =>
             link.dropdown ? (
@@ -73,7 +83,6 @@ export default function Navbar() {
           <ThemeToggle />
         </nav>
 
-        {/* Mobile Menu Button */}
         <div className="md:hidden flex items-center gap-2">
           <ThemeToggle />
           <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
@@ -83,51 +92,55 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Navigation */}
-      <div
-        className={cn(
-          "md:hidden overflow-hidden transition-all duration-300 ease-in-out border-b",
-          mobileMenuOpen ? "max-h-[500px] border-border" : "max-h-0 border-transparent",
-        )}
-      >
-        <div className="container py-4 space-y-4">
-          {navLinks.map((link) => (
-            <div key={link.name} className="space-y-2">
-              {link.dropdown ? (
-                <>
-                  <Link
-                    href={link.href}
-                    className="block text-foreground/80 hover:text-primary font-semibold transition-colors"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    {link.name}
-                  </Link>
-                  <div className="pl-4 space-y-2 border-l-2 border-muted">
-                    {link.items?.map((item) => (
+      {mobileMenuOpen && (
+        <>
+          <button
+            type="button"
+            aria-label="Close menu"
+            className="fixed inset-0 top-16 z-40 bg-black/40 md:hidden"
+            onClick={closeMobileMenu}
+          />
+          <div className="fixed inset-x-0 top-16 z-50 max-h-[calc(100dvh-4rem)] overflow-y-auto border-b bg-background shadow-lg md:hidden animate-in slide-in-from-top-2 duration-200">
+            <div className="container space-y-1 py-4">
+              {navLinks.map((link) => (
+                <div key={link.name} className="space-y-1">
+                  {link.dropdown ? (
+                    <>
                       <Link
-                        key={item.name}
-                        href={item.href}
-                        className="block text-foreground/70 hover:text-primary transition-colors"
-                        onClick={() => setMobileMenuOpen(false)}
+                        href={link.href}
+                        className="block rounded-md px-2 py-3 text-foreground/80 hover:text-primary font-semibold transition-colors"
+                        onClick={closeMobileMenu}
                       >
-                        {item.name}
+                        {link.name}
                       </Link>
-                    ))}
-                  </div>
-                </>
-              ) : (
-                <Link
-                  href={link.href}
-                  className="block text-foreground/80 hover:text-primary font-semibold transition-colors"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {link.name}
-                </Link>
-              )}
+                      <div className="ml-2 space-y-1 border-l-2 border-muted pl-4">
+                        {link.items?.map((item) => (
+                          <Link
+                            key={item.name}
+                            href={item.href}
+                            className="block rounded-md px-2 py-3 text-foreground/70 hover:text-primary transition-colors"
+                            onClick={closeMobileMenu}
+                          >
+                            {item.name}
+                          </Link>
+                        ))}
+                      </div>
+                    </>
+                  ) : (
+                    <Link
+                      href={link.href}
+                      className="block rounded-md px-2 py-3 text-foreground/80 hover:text-primary font-semibold transition-colors"
+                      onClick={closeMobileMenu}
+                    >
+                      {link.name}
+                    </Link>
+                  )}
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      </div>
+          </div>
+        </>
+      )}
     </header>
   )
 }

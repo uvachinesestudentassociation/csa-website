@@ -14,6 +14,7 @@ import { cn } from "@/lib/utils";
 export interface SlidingTabItem {
   value: string;
   label: ReactNode;
+  mobileLabel?: ReactNode;
 }
 
 interface SlidingTabsListProps {
@@ -113,7 +114,8 @@ export function SlidingTabsList({
               isSpread && "tab--spread",
             )}
           >
-            {tab.label}
+            <span className="md:hidden">{tab.mobileLabel ?? tab.label}</span>
+            <span className="hidden md:inline">{tab.label}</span>
           </TabsTrigger>
         ))}
       </TabsList>

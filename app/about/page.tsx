@@ -15,7 +15,7 @@ export default function AboutPage() {
           src="/images/about_cover.jpg"
           alt="CSA Group Photo"
           fill
-          className="object-contain md:object-cover object-center"
+          className="object-cover object-center"
           priority
         />
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background/70 dark:to-background/80"></div>
@@ -55,7 +55,7 @@ export default function AboutPage() {
               </p>
             </div>
           </div>
-          <div className="aspect-[4/3] w-full relative rounded-xl overflow-hidden shadow-lg order-1 md:order-2 transform transition-transform duration-500 hover:scale-[1.02]">
+          <div className="aspect-[4/3] w-full relative rounded-xl overflow-hidden shadow-lg order-1 md:order-2 transform transition-transform duration-500 md:hover:scale-[1.02]">
             <Image
               src="/images/gallery/chinafest_dragon_justin_2023.JPG"
               alt="Dragon Dance at Chinafest"
@@ -67,7 +67,7 @@ export default function AboutPage() {
 
         {/* Community section */}
         <div className="grid md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 mb-20 md:mb-32 items-center">
-          <div className="aspect-[4/3] w-full relative rounded-xl overflow-hidden shadow-lg transform transition-transform duration-500 hover:scale-[1.02]">
+          <div className="aspect-[4/3] w-full relative rounded-xl overflow-hidden shadow-lg transform transition-transform duration-500 md:hover:scale-[1.02]">
             <Image src="/images/gallery/asu_exec_2023.jpg" alt="CSA Executive Board" fill className="object-cover" />
           </div>
           <div>
@@ -98,7 +98,7 @@ export default function AboutPage() {
               </p>
             </div>
           </div>
-          <div className="aspect-[4/3] w-full relative rounded-xl overflow-hidden shadow-lg order-1 md:order-2 transform transition-transform duration-500 hover:scale-[1.02]">
+          <div className="aspect-[4/3] w-full relative rounded-xl overflow-hidden shadow-lg order-1 md:order-2 transform transition-transform duration-500 md:hover:scale-[1.02]">
             <Image src="/images/gallery/yar_2023.jpg" alt="YAR Tailgate" fill className="object-cover" />
           </div>
         </div>

@@ -41,7 +41,7 @@ function FamilyCard({
             className="object-cover"
           />
         </div>
-        <div className="flex min-h-[300px] flex-col p-6">
+        <div className="flex min-h-0 flex-col p-6 md:min-h-[300px]">
           <h3 className="mb-4 text-2xl font-bold dark:text-primary-foreground">
             {name}
           </h3>
@@ -68,6 +68,12 @@ const familyList = families as Family[];
 const familyTabs = familyList.map((family) => ({
   value: family.id,
   label: family.name,
+  mobileLabel:
+    family.id === "guppies"
+      ? "Guppies"
+      : family.id === "jellyfish"
+        ? "Jellyfish"
+        : "Starfish",
 }));
 
 const defaultFamily = familyList[0]?.id ?? "";

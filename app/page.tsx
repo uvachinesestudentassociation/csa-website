@@ -20,7 +20,7 @@ export default function Home() {
           alt=""
           fill
           priority
-          sizes="100vw"
+          sizes="(max-width: 768px) 100vw, 1400px"
           className="object-cover"
           aria-hidden
         />

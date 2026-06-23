@@ -96,7 +96,7 @@ export default function OfficersPage() {
         </TabsList>
 
         <TabsContent value="executive">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {officersData.executive.map((officer) => (
               <div key={officer.role}>
                 <h3 className="text-center mb-4">{officer.role}</h3>
@@ -107,7 +107,7 @@ export default function OfficersPage() {
         </TabsContent>
 
         <TabsContent value="officer">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {officersData.officers.map((officer) => (
               <div key={officer.role}>
                 <h3 className="text-center mb-4">{officer.role}</h3>

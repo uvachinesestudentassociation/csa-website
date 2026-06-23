@@ -129,7 +129,19 @@ export default async function EventsPage() {
         )}
       </div>
 
-      <div className="mt-12">
+      <div className="mt-8 flex justify-center md:hidden">
+        <Button asChild size="lg" className="w-full max-w-sm">
+          <a
+            href="https://calendar.google.com/calendar/u/0?cid=c_o0ntjuei84bjmlpfqbcsr62u3c@group.calendar.google.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Open in Google Calendar
+          </a>
+        </Button>
+      </div>
+
+      <div className="mt-12 hidden md:block">
         <iframe
           title="CSA Events Calendar"
           src="https://calendar.google.com/calendar/embed?src=c_o0ntjuei84bjmlpfqbcsr62u3c%40group.calendar.google.com&ctz=America%2FNew_York&mode=AGENDA"
