@@ -4,8 +4,23 @@ import { useState } from "react"
 import Image from "next/image"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Card, CardContent } from "@/components/ui/card"
-import { Youtube } from "lucide-react"
 import officersData from "./officers-data.json"
+
+function getYoutubeEmbedUrl(watchUrl: string): string | null {
+  const match = watchUrl.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&?]+)/)
+  if (!match?.[1]) return null
+
+  const params = new URLSearchParams({
+    autoplay: "1",
+    mute: "1",
+    playsinline: "1",
+    rel: "0",
+  })
+
+  return `https://www.youtube.com/embed/${match[1]}?${params.toString()}`
+}
+
+const youtubeEmbedUrl = getYoutubeEmbedUrl(officersData.youtubeUrl)
 
 interface OfficerCardProps {
   imagePath: string
@@ -79,17 +94,25 @@ export default function OfficersPage() {
             className="object-cover"
           />
         </div>
-        <div className="flex items-center justify-center">
-          <a
-            href={officersData.youtubeUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Watch CSA board video on YouTube"
-            className="group relative aspect-video w-full rounded-lg overflow-hidden bg-black flex items-center justify-center"
-          >
-            <div className="absolute inset-0 bg-black/50 group-hover:bg-black/70 transition-colors duration-300" />
-            <Youtube className="w-16 h-16 text-white group-hover:text-primary transition-colors duration-300" />
-          </a>
+        <div className="relative aspect-video w-full overflow-hidden rounded-lg bg-black">
+          {youtubeEmbedUrl ? (
+            <iframe
+              src={youtubeEmbedUrl}
+              title="CSA board video"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="absolute inset-0 h-full w-full border-0"
+            />
+          ) : (
+            <a
+              href={officersData.youtubeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="absolute inset-0 flex items-center justify-center text-white"
+            >
+              Watch on YouTube
+            </a>
+          )}
         </div>
       </div>
 
