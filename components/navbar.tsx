@@ -3,10 +3,8 @@
 import { useEffect, useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { Menu, X, ChevronDown } from "lucide-react"
+import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-
 import { ThemeToggle } from "@/components/theme-provider"
 
 const navLinks = [
@@ -14,15 +12,8 @@ const navLinks = [
   { name: "Events", href: "/events" },
   { name: "Families", href: "/families" },
   { name: "Officers", href: "/officers" },
-  {
-    name: "Gallery",
-    href: "/gallery",
-    dropdown: true,
-    items: [
-      { name: "Current", href: "/gallery" },
-      { name: "Archive", href: "/gallery/archive" },
-    ],
-  },
+  { name: "Gallery", href: "/gallery" },
+  { name: "Archive", href: "/gallery/archive" },
   { name: "Alumni", href: "/alumni" },
 ]
 
@@ -51,35 +42,15 @@ export default function Navbar() {
         </Link>
 
         <nav className="hidden md:flex items-center gap-6">
-          {navLinks.map((link) =>
-            link.dropdown ? (
-              <DropdownMenu key={link.name}>
-                <DropdownMenuTrigger asChild>
-                  <button className="flex items-center gap-1 text-foreground/80 hover:text-primary font-semibold transition-colors">
-                    {link.name}
-                    <ChevronDown className="h-4 w-4" />
-                  </button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  {link.items?.map((item) => (
-                    <DropdownMenuItem key={item.name} asChild>
-                      <Link href={item.href} className="w-full">
-                        {item.name}
-                      </Link>
-                    </DropdownMenuItem>
-                  ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
-            ) : (
-              <Link
-                key={link.name}
-                href={link.href}
-                className="text-foreground/80 hover:text-primary font-semibold transition-colors"
-              >
-                {link.name}
-              </Link>
-            ),
-          )}
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="text-foreground/80 hover:text-primary font-semibold transition-colors"
+            >
+              {link.name}
+            </Link>
+          ))}
           <ThemeToggle />
         </nav>
 
@@ -100,45 +71,20 @@ export default function Navbar() {
             className="fixed inset-0 top-16 z-40 bg-black/40 md:hidden"
             onClick={closeMobileMenu}
           />
-          <div className="fixed inset-x-0 top-16 z-50 max-h-[calc(100dvh-4rem)] overflow-y-auto border-b bg-background shadow-lg md:hidden animate-in slide-in-from-top-2 duration-200">
+          <nav className="fixed inset-x-0 top-16 z-50 max-h-[calc(100dvh-4rem)] overflow-y-auto border-b bg-background shadow-lg md:hidden animate-in slide-in-from-top-2 duration-200">
             <div className="container space-y-1 py-4">
               {navLinks.map((link) => (
-                <div key={link.name} className="space-y-1">
-                  {link.dropdown ? (
-                    <>
-                      <Link
-                        href={link.href}
-                        className="block rounded-md px-2 py-3 text-foreground/80 hover:text-primary font-semibold transition-colors"
-                        onClick={closeMobileMenu}
-                      >
-                        {link.name}
-                      </Link>
-                      <div className="ml-2 space-y-1 border-l-2 border-muted pl-4">
-                        {link.items?.map((item) => (
-                          <Link
-                            key={item.name}
-                            href={item.href}
-                            className="block rounded-md px-2 py-3 text-foreground/70 hover:text-primary transition-colors"
-                            onClick={closeMobileMenu}
-                          >
-                            {item.name}
-                          </Link>
-                        ))}
-                      </div>
-                    </>
-                  ) : (
-                    <Link
-                      href={link.href}
-                      className="block rounded-md px-2 py-3 text-foreground/80 hover:text-primary font-semibold transition-colors"
-                      onClick={closeMobileMenu}
-                    >
-                      {link.name}
-                    </Link>
-                  )}
-                </div>
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="block rounded-md px-2 py-3 text-foreground/80 hover:text-primary font-semibold transition-colors"
+                  onClick={closeMobileMenu}
+                >
+                  {link.name}
+                </Link>
               ))}
             </div>
-          </div>
+          </nav>
         </>
       )}
     </header>

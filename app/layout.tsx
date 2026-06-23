@@ -1,17 +1,16 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter, Raleway } from "next/font/google"
+import { Raleway } from "next/font/google"
 import { Analytics } from "@vercel/analytics/react"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import Navbar from "@/components/navbar"
 import Footer from "@/components/footer"
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
 const raleway = Raleway({
   subsets: ["latin"],
   variable: "--font-raleway",
-  weight: ["300", "400", "500", "600", "700", "800"],
+  weight: ["400", "600", "700"],
 })
 
 const siteUrl = "https://csaatuva.com"
@@ -75,7 +74,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body suppressHydrationWarning className={`${inter.variable} ${raleway.variable} font-raleway min-h-screen flex flex-col`}>
+      <body suppressHydrationWarning className={`${raleway.variable} font-raleway min-h-screen flex flex-col`}>
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:p-4 focus:bg-background focus:text-foreground"

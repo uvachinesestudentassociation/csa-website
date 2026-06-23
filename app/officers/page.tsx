@@ -16,43 +16,47 @@ interface OfficerCardProps {
 function OfficerCard({ imagePath, name, description }: OfficerCardProps) {
   const [showDescription, setShowDescription] = useState(false)
 
-  const toggleDescription = () => {
-    if (description) setShowDescription((prev) => !prev)
+  if (!description) {
+    return (
+      <Card className="overflow-hidden dark:bg-card">
+        <div className="relative aspect-square">
+          <Image
+            src={imagePath || "/placeholder.svg"}
+            alt={name}
+            fill
+            sizes="(max-width: 768px) 100vw, 25vw"
+            className="object-cover"
+          />
+        </div>
+        <CardContent className="p-4 text-center">
+          <h3 className="text-lg font-semibold mb-0 dark:text-primary-foreground">{name}</h3>
+        </CardContent>
+      </Card>
+    )
   }
 
   return (
     <Card
-      className="overflow-hidden transition-all duration-300 dark:bg-card"
-      onMouseEnter={() => description && setShowDescription(true)}
-      onMouseLeave={() => description && setShowDescription(false)}
-      onClick={toggleDescription}
-      onKeyDown={(e) => {
-        if (description && (e.key === "Enter" || e.key === " ")) {
-          e.preventDefault()
-          toggleDescription()
-        }
-      }}
-      tabIndex={description ? 0 : undefined}
-      role={description ? "button" : undefined}
-      aria-expanded={description ? showDescription : undefined}
+      className="overflow-hidden cursor-pointer dark:bg-card"
+      onClick={() => setShowDescription((prev) => !prev)}
     >
       <div className="relative aspect-square">
         <Image
           src={imagePath || "/placeholder.svg"}
           alt={name}
           fill
-          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 20vw"
-          className={`object-cover transition-all duration-300 ${showDescription ? "scale-105 opacity-70" : ""}`}
+          sizes="(max-width: 768px) 100vw, 25vw"
+          className={`object-cover transition-opacity ${showDescription ? "opacity-70" : ""}`}
         />
-        {description && showDescription && (
-          <div className="absolute inset-0 flex items-center justify-center p-4 bg-black/50 dark:bg-black/70 text-white">
+        {showDescription && (
+          <div className="absolute inset-0 flex items-center justify-center p-4 bg-black/50 text-white">
             <p className="text-sm text-center">{description}</p>
           </div>
         )}
       </div>
       <CardContent className="p-4 text-center">
         <h3 className="text-lg font-semibold mb-0 dark:text-primary-foreground">{name}</h3>
-        {description && <p className="text-xs text-muted-foreground mt-1 md:hidden">Tap for bio</p>}
+        <p className="text-xs text-muted-foreground mt-1">Tap for bio</p>
       </CardContent>
     </Card>
   )

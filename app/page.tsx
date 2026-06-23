@@ -6,10 +6,9 @@ export const metadata: Metadata = {
   description:
     "Welcome to CSA@UVA — the Chinese Student Association at the University of Virginia, promoting Chinese culture on grounds and in Charlottesville.",
 }
-import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { Facebook, Instagram, Youtube } from "lucide-react"
+import { SocialLinks } from "@/components/social-links"
 
 export default function Home() {
   return (
@@ -40,44 +39,11 @@ export default function Home() {
                 Chinese culture within the University and greater Charlottesville community.
               </p>
 
-              <div className="flex justify-center space-x-6 mb-8">
-                <Link
-                  href="https://www.facebook.com/csa.uva"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-primary hover:text-primary/80 transition-colors"
-                >
-                  <Facebook className="h-8 w-8" />
-                  <span className="sr-only">Facebook</span>
-                </Link>
-                <Link
-                  href="https://www.facebook.com/groups/csaatuva"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-primary hover:text-primary/80 transition-colors"
-                >
-                  <Facebook className="h-8 w-8" />
-                  <span className="sr-only">Facebook Group</span>
-                </Link>
-                <Link
-                  href="https://www.instagram.com/csaatuva/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-primary hover:text-primary/80 transition-colors"
-                >
-                  <Instagram className="h-8 w-8" />
-                  <span className="sr-only">Instagram</span>
-                </Link>
-                <Link
-                  href="https://www.youtube.com/@TheCSAatUVA"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-primary hover:text-primary/80 transition-colors"
-                >
-                  <Youtube className="h-8 w-8" />
-                  <span className="sr-only">YouTube</span>
-                </Link>
-              </div>
+              <SocialLinks
+                iconClassName="h-8 w-8"
+                className="justify-center gap-6 mb-8"
+                linkClassName="text-primary hover:text-primary/80 transition-colors"
+              />
 
               <div className="flex flex-col sm:flex-row justify-center gap-4">
                 <Button size="lg" asChild>

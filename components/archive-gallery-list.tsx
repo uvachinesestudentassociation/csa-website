@@ -8,6 +8,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { SearchInput } from "@/components/search-input";
 
 interface ArchiveEvent {
   name: string;
@@ -46,19 +47,13 @@ export function ArchiveGalleryList({ archiveData }: ArchiveGalleryListProps) {
 
   return (
     <div className="space-y-6">
-      <div>
-        <label htmlFor="archive-search" className="sr-only">
-          Search archive albums
-        </label>
-        <input
-          id="archive-search"
-          type="search"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search archive albums..."
-          className="w-full rounded-md border border-input bg-background px-3 py-2.5 text-base shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-        />
-      </div>
+      <SearchInput
+        id="archive-search"
+        label="Search archive albums"
+        placeholder="Search archive albums..."
+        value={query}
+        onChange={setQuery}
+      />
 
       {filteredData.length > 0 ? (
         <div className="space-y-6">

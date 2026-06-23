@@ -87,18 +87,6 @@
     @apply text-center mb-8 md:mb-12;
   }
 
-  .page-header {
-    @apply py-8 md:py-12 bg-secondary text-center;
-  }
-
-  .page-header h1 {
-    @apply mb-2;
-  }
-
-  .page-header p {
-    @apply text-muted-foreground max-w-3xl mx-auto;
-  }
-
   .tabs-bar {
     @apply overflow-hidden rounded-t-lg bg-[hsl(0_0%_92%)] pb-0 pl-0 pr-2 pt-2 dark:bg-[hsl(0_0%_8%)];
     min-height: 3rem;

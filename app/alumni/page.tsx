@@ -6,7 +6,6 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent } from "@/components/ui/tabs";
 import { SlidingTabsList } from "@/components/sliding-tabs-list";
-import { YearPicker } from "@/components/year-picker";
 import alumniData from "./alumni-data.json";
 
 interface AlumniPerson {
@@ -132,11 +131,6 @@ const alumniTabs = years.map((yearData) => ({
   label: yearData.year,
 }));
 
-const alumniYearOptions = years.map((yearData) => ({
-  value: String(yearData.year),
-  label: `Class of ${yearData.year}`,
-}));
-
 export default function AlumniPage() {
   const [activeYear, setActiveYear] = useState(defaultYear);
 
@@ -152,13 +146,22 @@ export default function AlumniPage() {
 
       <Card className="mt-12 overflow-hidden p-0 dark:bg-card">
         <Tabs value={activeYear} onValueChange={setActiveYear}>
-          <div className="md:hidden">
-            <YearPicker
+          <div className="border-b bg-[hsl(0_0%_92%)] px-4 py-3 dark:bg-[hsl(0_0%_8%)] md:hidden">
+            <label htmlFor="alumni-year" className="sr-only">
+              Select alumni class year
+            </label>
+            <select
+              id="alumni-year"
               value={activeYear}
-              options={alumniYearOptions}
-              onChange={setActiveYear}
-              ariaLabel="Select alumni class year"
-            />
+              onChange={(e) => setActiveYear(e.target.value)}
+              className="w-full rounded-md border border-input bg-card px-3 py-2.5 text-base font-medium text-foreground shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            >
+              {years.map((yearData) => (
+                <option key={yearData.year} value={String(yearData.year)}>
+                  Class of {yearData.year}
+                </option>
+              ))}
+            </select>
           </div>
           <div className="hidden md:block">
             <SlidingTabsList activeValue={activeYear} tabs={alumniTabs} />

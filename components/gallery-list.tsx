@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { SearchInput } from "@/components/search-input";
 
 interface GalleryItem {
   name: string;
@@ -23,19 +24,13 @@ export function GalleryList({ items }: GalleryListProps) {
 
   return (
     <div className="space-y-6">
-      <div>
-        <label htmlFor="gallery-search" className="sr-only">
-          Search albums
-        </label>
-        <input
-          id="gallery-search"
-          type="search"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search albums..."
-          className="w-full rounded-md border border-input bg-background px-3 py-2.5 text-base shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-        />
-      </div>
+      <SearchInput
+        id="gallery-search"
+        label="Search albums"
+        placeholder="Search albums..."
+        value={query}
+        onChange={setQuery}
+      />
 
       {filteredItems.length > 0 ? (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
