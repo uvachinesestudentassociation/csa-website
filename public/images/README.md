@@ -1,23 +1,36 @@
 # Site Images
 
-This folder contains static images served at `/images/*`. These files are required for the site to display correctly.
+Static images served at `/images/*`. Required for the site to display correctly.
 
-## Required assets
+## Required assets (referenced by code)
 
 | Path | Used on |
 |------|---------|
 | `background.png` | Home page hero background |
-| `about/culture.jpg`, `about/community.jpg`, `about/outreach.jpg` | About page |
-| `2025-2026/officers/*.jpg` | Officers page (see `app/officers/officers-data.json`) |
-| `2025-2026/families/*.jpg` | Families page (see `app/families/families-data.json`) |
-| `alumni/*.jpg` | Alumni page (see `app/alumni/alumni-data.json`) |
-| `graphics/*` | Decorative graphics, illustrations, and art elements |
+| `about_cover.jpg` | About page hero |
+| `csa_square_logo.png` | Navbar |
+| `csa_tassel_logo.png` | Footer |
+| `chinafest-covers/*` | Alumni page year covers (see `app/alumni/alumni-data.json`) |
+| `2025-2026/officers/*` | Officers page (see `app/officers/officers-data.json`) |
+| `2025-2026/families/*` | Families page (see `app/families/families-data.json`) |
+| `gallery/chinafest_dragon_justin_2023.JPG` | About page (Culture) |
+| `gallery/asu_exec_2023.jpg` | About page (Community) |
+| `gallery/yar_2023.jpg` | About page (Outreach) |
+| `placeholder.svg` (repo root `public/`) | Fallback when an image path is missing |
+
+## Other folders
+
+| Path | Notes |
+|------|-------|
+| `graphics/` | Optional decorative assets; add files here when needed |
+| `2017-2018` … `2024-2025` | Historical officer/family/event photos not currently referenced by the app |
+| Remaining `gallery/*` files | Extra photos not currently referenced outside the three About images above |
 
 ## Adding images
 
-1. Place image files in the appropriate subdirectory under `public/images/`.
-2. Use lowercase filenames with underscores where needed (e.g. `vice_president.jpg`).
-3. Recommended formats: JPEG for photos; PNG, SVG, or WebP for graphics (place art elements in `graphics/`).
-4. Commit images to the repository so Vercel deployments include them.
+1. Place files under the appropriate subdirectory of `public/images/`.
+2. Prefer lowercase filenames with underscores (e.g. `vice_president.jpg`).
+3. JPEG for photos; PNG/SVG/WebP for graphics (use `graphics/` for art elements).
+4. Commit images so Vercel deployments include them.
 
-If images are missing, pages will show broken image placeholders in production.
+If images are missing, pages may show broken images or the placeholder fallback.
