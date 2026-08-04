@@ -1,12 +1,12 @@
 import type { Metadata } from "next"
+import { format } from "date-fns"
+import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 
 export const metadata: Metadata = {
   title: "Events",
   description: "Upcoming CSA@UVA events and activities. Subscribe to our Google Calendar to stay in the loop.",
 }
-import { Button } from "@/components/ui/button"
-import { format } from "date-fns"
 
 interface CalendarEvent {
   summary: string

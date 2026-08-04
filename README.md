@@ -36,9 +36,9 @@ pnpm lint     # Run ESLint
 ## Project structure
 
 ```
-app/                  # Routes and page content
-  */                  # Page-specific data JSON files (officers, families, gallery, alumni)
+app/                  # Routes, layouts, and page-specific JSON data
 components/           # Shared UI (navbar, footer, shadcn primitives)
+lib/                  # Shared helpers (cn, social link config)
 public/images/        # Static images (see public/images/README.md)
 ```
 

@@ -1,14 +1,14 @@
 import type { Metadata } from "next"
 import Image from "next/image"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
+import { SocialLinks } from "@/components/social-links"
 
 export const metadata: Metadata = {
   title: "Home",
   description:
     "Welcome to CSA@UVA — the Chinese Student Association at the University of Virginia, promoting Chinese culture on grounds and in Charlottesville.",
 }
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { SocialLinks } from "@/components/social-links"
 
 export default function Home() {
   return (
