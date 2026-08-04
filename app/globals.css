@@ -202,6 +202,47 @@
   }
 }
 
+/* Home hero motion */
+@keyframes home-kenburns {
+  from {
+    transform: scale(1.05);
+  }
+  to {
+    transform: scale(1.12);
+  }
+}
+
+@keyframes home-rise {
+  from {
+    opacity: 0;
+    transform: translateY(1.25rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.home-kenburns {
+  animation: home-kenburns 18s ease-in-out infinite alternate;
+}
+
+.home-rise {
+  animation: home-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.home-rise-delay-1 {
+  animation: home-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.12s both;
+}
+
+.home-rise-delay-2 {
+  animation: home-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.24s both;
+}
+
+.home-rise-delay-3 {
+  animation: home-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.36s both;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -210,5 +251,13 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+
+  .home-kenburns,
+  .home-rise,
+  .home-rise-delay-1,
+  .home-rise-delay-2,
+  .home-rise-delay-3 {
+    animation: none !important;
   }
 }
