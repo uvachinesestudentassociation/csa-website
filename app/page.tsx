@@ -1,69 +1,133 @@
 import type { Metadata } from "next"
 import Image from "next/image"
-import { Button } from "@/components/ui/button"
+import Link from "next/link"
 import { SocialLinks } from "@/components/social-links"
+import { RevealOnScroll } from "@/components/reveal-on-scroll"
+import { homeContent } from "@/content/home"
+import { siteContent } from "@/content/site"
 
 export const metadata: Metadata = {
-  title: "Home",
-  description:
-    "Welcome to CSA@UVA — the Chinese Student Association at the University of Virginia, promoting Chinese culture on grounds and in Charlottesville.",
+  title: homeContent.meta.title,
+  description: homeContent.meta.description,
 }
 
-const RETURNING_FORM =
-  "https://docs.google.com/forms/d/11_qaSL1IiBrtmic8Z_uvV28ASoNvcUp2JaCFi7mtRVk/viewform"
-const NEW_FORM =
-  "https://docs.google.com/forms/d/1IJpfdlxr7xssdubWsDVTqSrGaAiJyIdtcGHYZXeInhw/viewform"
-
 export default function Home() {
-  return (
-    <section className="relative min-h-[calc(100vh-4rem)] overflow-hidden">
-      <Image
-        src="/images/background.png"
-        alt=""
-        fill
-        priority
-        sizes="100vw"
-        className="object-cover home-kenburns"
-        aria-hidden
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-[#1a0505]/90 via-[#4a0a0a]/45 to-[#1a0505]/25" />
+  const { hero, welcome, photoBand, join } = homeContent
+  const { forms } = siteContent
 
-      <div className="relative z-10 flex min-h-[calc(100vh-4rem)] flex-col justify-end px-6 pb-16 pt-24 md:px-12 md:pb-20 lg:px-16">
-        <div className="max-w-3xl space-y-5">
-          <h1 className="home-rise mb-0 font-display text-5xl font-semibold tracking-tight text-white md:text-7xl lg:text-8xl">
-            CSA@UVA
-          </h1>
-          <p className="home-rise-delay-1 mb-0 max-w-xl text-xl font-medium leading-snug text-white/90 md:text-2xl lg:text-3xl">
-            Culture, community, and home on Grounds
-          </p>
-          <p className="home-rise-delay-2 mb-0 max-w-lg text-base text-white/75 md:text-lg">
-            One of UVA&apos;s largest Asian-American cultural organizations — celebrating Chinese heritage and
-            welcoming every background in Charlottesville.
-          </p>
-          <div className="home-rise-delay-3 flex flex-col gap-3 pt-2 sm:flex-row sm:items-center">
-            <Button size="lg" className="cursor-pointer bg-white text-primary hover:bg-white/90" asChild>
-              <a href={NEW_FORM} target="_blank" rel="noopener noreferrer">
-                New Members Form
-              </a>
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="cursor-pointer border-white/60 bg-transparent text-white hover:bg-white/10 hover:text-white"
-              asChild
+  return (
+    <div>
+      <section className="home-photo-fold" aria-label="CSA@UVA">
+        <Image
+          src="/images/background.png"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
+          aria-hidden
+        />
+        <div className="home-photo-fold__scrim" aria-hidden />
+        <div className="home-photo-fold__caption">
+          <p className="home-photo-fold__place home-rise">{hero.place}</p>
+          <h1 className="home-photo-fold__brand home-rise-delay-1">{hero.headline}</h1>
+          <div className="home-photo-fold__actions home-rise-delay-2">
+            <a
+              className="home-cta-primary"
+              href={forms.newMember}
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              <a href={RETURNING_FORM} target="_blank" rel="noopener noreferrer">
-                Returning Members
-              </a>
-            </Button>
+              {hero.ctaNew}
+            </a>
+            <a
+              className="home-cta-link"
+              href={forms.returningMember}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {hero.ctaReturning}
+            </a>
           </div>
           <SocialLinks
-            iconClassName="h-6 w-6"
-            className="gap-5 pt-2"
-            linkClassName="cursor-pointer text-white/80 transition-colors hover:text-white"
+            iconClassName="h-5 w-5"
+            className="gap-5 pt-5 home-rise-delay-2"
+            linkClassName="cursor-pointer text-white/75 transition-colors hover:text-white"
           />
         </div>
-      </div>
-    </section>
+      </section>
+
+      <section className="home-text-fold" aria-labelledby="home-welcome">
+        <div className="home-text-fold__grid">
+          <div>
+            <RevealOnScroll>
+              <h2 id="home-welcome" className="home-text-fold__title">
+                {welcome.title}
+              </h2>
+            </RevealOnScroll>
+            <RevealOnScroll delayMs={140}>
+              <p className="home-text-fold__body">{welcome.body}</p>
+            </RevealOnScroll>
+          </div>
+          <ul className="home-text-fold__list">
+            {welcome.destinations.map((item, index) => (
+              <RevealOnScroll key={item.href} as="li" delayMs={index * 120}>
+                <Link href={item.href}>
+                  <span>{item.label}</span>
+                  <em>{item.note}</em>
+                </Link>
+              </RevealOnScroll>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section className="home-photo-band" aria-label="Chinafest">
+        <Image
+          src="/images/gallery/chinafest_dragon_justin_2023.JPG"
+          alt={photoBand.imageAlt}
+          fill
+          sizes="100vw"
+          className="object-cover object-center"
+        />
+        <div className="home-photo-fold__scrim" aria-hidden />
+        <RevealOnScroll as="p" className="home-photo-band__caption">
+          {photoBand.caption}
+        </RevealOnScroll>
+      </section>
+
+      <section className="home-join-fold" aria-labelledby="home-join">
+        <div className="home-join-fold__inner">
+          <div>
+            <RevealOnScroll>
+              <h2 id="home-join" className="home-join-fold__title">
+                {join.title}
+              </h2>
+            </RevealOnScroll>
+            <RevealOnScroll delayMs={140}>
+              <p className="home-join-fold__body">{join.body}</p>
+            </RevealOnScroll>
+          </div>
+          <RevealOnScroll delayMs={220} className="home-join-fold__actions">
+            <a
+              className="home-join-fold__primary"
+              href={forms.newMember}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {join.ctaNew}
+            </a>
+            <a
+              className="home-join-fold__link"
+              href={forms.returningMember}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {join.ctaReturning}
+            </a>
+          </RevealOnScroll>
+        </div>
+      </section>
+    </div>
   )
 }

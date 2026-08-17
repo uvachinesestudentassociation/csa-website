@@ -1,10 +1,20 @@
 import type { Metadata } from "next"
+import { Noto_Serif_SC } from "next/font/google"
+import { familiesContent } from "@/content/families"
+
+const notoSerifSC = Noto_Serif_SC({
+  subsets: ["latin"],
+  weight: ["500", "700"],
+  variable: "--font-palace",
+  display: "swap",
+  preload: true,
+})
 
 export const metadata: Metadata = {
-  title: "Families",
-  description: "Learn about CSA@UVA's family system and meet this year's families.",
+  title: familiesContent.meta.title,
+  description: familiesContent.meta.description,
 }
 
 export default function FamiliesLayout({ children }: { children: React.ReactNode }) {
-  return children
+  return <div className={notoSerifSC.variable}>{children}</div>
 }

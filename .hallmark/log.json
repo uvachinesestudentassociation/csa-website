@@ -1,0 +1,34 @@
+[
+  {
+    "date": "2026-08-10",
+    "macrostructure": "Photographic",
+    "theme": "CSA brand (warm paper · oxblood)",
+    "enrichment": "none",
+    "brief": "Nav switched to N6 Newspaper masthead sitewide",
+    "nav": "N6 Newspaper masthead",
+    "footer": "Ft5 Statement"
+  },
+  {
+    "date": "2026-08-10",
+    "macrostructure": "Workbench",
+    "theme": "CSA brand (warm paper · oxblood)",
+    "enrichment": "none",
+    "brief": "Events — Google Calendar embed primary, no ICS card list"
+  },
+  {
+    "date": "2026-08-10",
+    "macrostructure": "Photographic",
+    "theme": "CSA brand (warm paper · oxblood)",
+    "enrichment": "none",
+    "brief": "Home + chrome redesign — photographic editorial",
+    "nav": "N9 Edge-aligned",
+    "footer": "Ft5 Statement"
+  },
+  {
+    "date": "2026-08-10",
+    "macrostructure": "Courtyard sealed-portal",
+    "theme": "CSA brand (warm paper · oxblood · imperial lacquer)",
+    "enrichment": "none",
+    "brief": "Families pre-reveal — sealed palace gates, censored plaques, anime.js entrance"
+  }
+]

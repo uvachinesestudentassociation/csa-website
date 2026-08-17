@@ -1,33 +1,41 @@
-"use client";
+"use client"
 
-import { useMemo, useState } from "react";
-import { Button } from "@/components/ui/button";
-import { SearchInput } from "@/components/search-input";
+import { useMemo, useState } from "react"
+import { Button } from "@/components/ui/button"
+import { SearchInput } from "@/components/search-input"
 
 interface GalleryItem {
-  name: string;
-  url: string;
+  name: string
+  url: string
 }
 
 interface GalleryListProps {
-  items: GalleryItem[];
+  items: GalleryItem[]
+  searchLabel: string
+  searchPlaceholder: string
+  emptyMessage: string
 }
 
-export function GalleryList({ items }: GalleryListProps) {
-  const [query, setQuery] = useState("");
+export function GalleryList({
+  items,
+  searchLabel,
+  searchPlaceholder,
+  emptyMessage,
+}: GalleryListProps) {
+  const [query, setQuery] = useState("")
 
   const filteredItems = useMemo(() => {
-    const normalized = query.trim().toLowerCase();
-    if (!normalized) return items;
-    return items.filter((item) => item.name.toLowerCase().includes(normalized));
-  }, [items, query]);
+    const normalized = query.trim().toLowerCase()
+    if (!normalized) return items
+    return items.filter((item) => item.name.toLowerCase().includes(normalized))
+  }, [items, query])
 
   return (
     <div className="space-y-6">
       <SearchInput
         id="gallery-search"
-        label="Search albums"
-        placeholder="Search albums..."
+        label={searchLabel}
+        placeholder={searchPlaceholder}
         value={query}
         onChange={setQuery}
       />
@@ -48,8 +56,8 @@ export function GalleryList({ items }: GalleryListProps) {
           ))}
         </div>
       ) : (
-        <p className="text-center text-muted-foreground">No albums match your search.</p>
+        <p className="text-center text-muted-foreground">{emptyMessage}</p>
       )}
     </div>
-  );
+  )
 }

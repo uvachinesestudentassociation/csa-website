@@ -59,6 +59,7 @@ const config = {
       fontFamily: {
         raleway: ["var(--font-raleway)"],
         display: ["var(--font-display)", "Georgia", "serif"],
+        palace: ["var(--font-palace)", "Noto Serif SC", "Songti SC", "serif"],
       },
       keyframes: {
         "accordion-down": {
