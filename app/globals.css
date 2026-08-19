@@ -381,19 +381,19 @@
   .site-footer {
     background-color: var(--color-footer-paper);
     color: var(--color-footer-ink);
-    padding: var(--space-2xl) var(--page-gutter) var(--space-xl);
-    padding-bottom: calc(var(--space-xl) + env(safe-area-inset-bottom));
+    padding: var(--space-md) var(--page-gutter) var(--space-sm);
+    padding-bottom: calc(var(--space-sm) + env(safe-area-inset-bottom));
   }
 
   .site-footer__line {
     font-family: var(--font-display), Georgia, serif;
-    font-size: clamp(1.75rem, 5vw, 3.1rem);
+    font-size: clamp(1.25rem, 3.2vw, 1.85rem);
     font-weight: 400;
     font-style: normal;
-    line-height: 1.05;
+    line-height: 1.1;
     letter-spacing: -0.02em;
     max-width: 18ch;
-    margin: 0 0 var(--space-xl);
+    margin: 0 0 var(--space-sm);
     overflow-wrap: anywhere;
   }
 
@@ -402,8 +402,8 @@
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: flex-end;
-    gap: var(--space-md);
-    padding-top: var(--space-md);
+    gap: var(--space-xs) var(--space-md);
+    padding-top: var(--space-xs);
     border-top: var(--rule-hair) solid oklch(94% 0.015 45 / 0.2);
   }
 
@@ -961,14 +961,13 @@
 
   .palace-courtyard {
     position: relative;
-    margin-bottom: var(--space-2xl);
-    padding: var(--space-xl) var(--page-gutter) var(--space-2xl);
+    margin-bottom: 0;
+    padding: var(--space-xl) var(--page-gutter) var(--space-lg);
     background:
       linear-gradient(
         180deg,
         color-mix(in oklch, var(--palace-stone) 70%, transparent) 0%,
-        var(--palace-stone) 38%,
-        color-mix(in oklch, var(--palace-lacquer-deep) 18%, var(--palace-stone)) 100%
+        var(--palace-stone) 100%
       );
     opacity: 0;
     transform: translateY(1.5rem);

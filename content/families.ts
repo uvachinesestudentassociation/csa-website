@@ -21,7 +21,6 @@ export const familiesContent = {
   },
 
   sealed: {
-    eyebrow: "The courtyard awaits the decree",
     plaqueHint: "Sealed",
     a11yLabel: "Family identity sealed",
     gateOrdinals: ["一", "二", "三"] as const,

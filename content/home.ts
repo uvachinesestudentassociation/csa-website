@@ -34,8 +34,8 @@ export const homeContent = {
 
   join: {
     title: "Come find your people",
-    body: "Whether you're new to Grounds or returning for another year, start with the membership form that fits you.",
+    body: "Whether you're new to Grounds or returning for another year, joining has never been easier.",
     ctaNew: "New member form",
     ctaReturning: "Returning members →",
   },
-} as const
+} as const;

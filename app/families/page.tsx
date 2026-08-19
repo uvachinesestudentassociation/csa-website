@@ -153,9 +153,6 @@ export default function FamiliesPage() {
       )}
 
       <section className="palace-proclamation container-custom">
-        {!revealed && (
-          <p className="palace-proclamation__eyebrow">{sealed.eyebrow}</p>
-        )}
         <h1 className="palace-proclamation__title">{intro.title}</h1>
         <p className="palace-proclamation__body">{intro.body}</p>
       </section>
