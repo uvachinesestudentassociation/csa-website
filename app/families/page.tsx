@@ -1,9 +1,8 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import Image from "next/image"
 import { Instagram } from "lucide-react"
-import { animate, stagger } from "animejs"
 import { familiesContent } from "@/content/families"
 import families from "./families-data.json"
 
@@ -24,100 +23,21 @@ interface Family {
 const familyList = families as Family[]
 const gateCount = familyList.length
 
-function prefersReducedMotion() {
-  return window.matchMedia("(prefers-reduced-motion: reduce)").matches
-}
-
 export default function FamiliesPage() {
   const { intro, sealed, card, revealed: contentRevealed } = familiesContent
   const [devPreviewRevealed, setDevPreviewRevealed] = useState(false)
   const revealed = contentRevealed || (isDev && devPreviewRevealed)
   const [photosMounted, setPhotosMounted] = useState(revealed)
-  const didMount = useRef(false)
 
   useEffect(() => {
-    if (revealed) setPhotosMounted(true)
-  }, [revealed])
-
-  useEffect(() => {
-    const sealedLayer = document.querySelector<HTMLElement>("[data-roadside-sealed]")
-    const photos = document.querySelectorAll<HTMLElement>("[data-roadside-photo]")
-    const copy = document.querySelectorAll<HTMLElement>("[data-roadside-copy]")
-    const scene = document.querySelector<HTMLElement>("[data-palace-courtyard]")
-
-    if (!scene) return
-
-    const snap = () => {
-      scene.style.opacity = "1"
-      if (sealedLayer) sealedLayer.style.opacity = revealed ? "0" : "1"
-      photos.forEach((el) => {
-        el.style.opacity = revealed ? "1" : "0"
-      })
-      copy.forEach((el) => {
-        el.style.opacity = revealed ? "1" : "0"
-      })
-    }
-
-    if (!didMount.current) {
-      didMount.current = true
-      snap()
-      return
-    }
-
-    if (prefersReducedMotion()) {
-      snap()
-      if (!revealed) setPhotosMounted(false)
-      return
-    }
-
-    scene.style.opacity = "1"
-
     if (revealed) {
-      if (sealedLayer) {
-        animate(sealedLayer, {
-          opacity: [1, 0],
-          duration: 720,
-          ease: "inOutCubic",
-        })
-      }
-      if (photos.length) {
-        animate(photos, {
-          opacity: [0, 1],
-          scale: [0.92, 1],
-          delay: stagger(90, { start: 180 }),
-          duration: 640,
-          ease: "outExpo",
-        })
-      }
-      if (copy.length) {
-        animate(copy, {
-          opacity: [0, 1],
-          delay: stagger(90, { start: 280 }),
-          duration: 500,
-          ease: "outQuad",
-        })
-      }
+      setPhotosMounted(true)
       return
     }
 
-    if (sealedLayer) {
-      animate(sealedLayer, {
-        opacity: [0, 1],
-        duration: 480,
-        ease: "outCubic",
-      })
-    }
-    if (photos.length || copy.length) {
-      animate([...photos, ...copy], {
-        opacity: 0,
-        duration: 280,
-        ease: "inQuad",
-        onComplete: () => setPhotosMounted(false),
-      })
-    } else {
-      setPhotosMounted(false)
-    }
-  }, [revealed, photosMounted])
+    const hide = window.setTimeout(() => setPhotosMounted(false), 700)
+    return () => window.clearTimeout(hide)
+  }, [revealed])
 
   return (
     <div className="palace-families">
@@ -147,12 +67,11 @@ export default function FamiliesPage() {
       <section
         className="roadside"
         aria-label={revealed ? "This year's families" : "Sealed family doors"}
-        data-palace-courtyard
       >
         <figure className="roadside__scene">
           <Image
             src={SCENE_OPEN}
-            alt={revealed ? sealed.sceneOpenAlt : ""}
+            alt=""
             width={1600}
             height={900}
             priority
@@ -160,45 +79,54 @@ export default function FamiliesPage() {
           />
           <Image
             src={SCENE_SEALED}
-            alt={revealed ? "" : sealed.sceneSealedAlt}
+            alt={sealed.sceneSealedAlt}
             width={1600}
             height={900}
             priority
-            className="roadside__art roadside__art--sealed"
-            data-roadside-sealed
+            className={
+              revealed
+                ? "roadside__art roadside__art--sealed is-open"
+                : "roadside__art roadside__art--sealed"
+            }
           />
 
           <ul
             className={
-              photosMounted
-                ? "roadside__openings"
-                : "roadside__openings roadside__openings--sealed"
+              revealed
+                ? "roadside__openings is-shown"
+                : "roadside__openings"
             }
           >
             {photosMounted
-              ? familyList.map((family) => (
-                  <li key={family.id} className="roadside__opening">
-                    <div className="roadside__opening-frame">
-                      <Image
-                        src={family.image || "/placeholder.svg"}
-                        alt={`${family.name} family photo`}
-                        fill
-                        sizes="(max-width: 768px) 22vw, 12vw"
-                        className="roadside__opening-photo"
-                        data-roadside-photo
-                      />
-                    </div>
-                    <div className="roadside__opening-copy" data-roadside-copy>
-                      <h2>{family.name}</h2>
-                      <p>{family.description}</p>
-                      <a
-                        href={family.instagramUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <Instagram className="h-4 w-4" aria-hidden="true" />
-                        <span>{card.instagramLabel}</span>
-                      </a>
+              ? familyList.map((family, index) => (
+                  <li
+                    key={family.id}
+                    className="roadside__opening"
+                    style={{ "--roadside-stagger": `${index * 90}ms` } as React.CSSProperties}
+                  >
+                    <div className="roadside__portrait">
+                      <div className="roadside__opening-frame">
+                        <Image
+                          src={family.image || "/placeholder.svg"}
+                          alt={`${family.name} family photo`}
+                          width={800}
+                          height={800}
+                          sizes="(max-width: 768px) 28vw, 14vw"
+                          className="roadside__opening-photo"
+                        />
+                      </div>
+                      <div className="roadside__opening-copy">
+                        <h2>{family.name}</h2>
+                        <p>{family.description}</p>
+                        <a
+                          href={family.instagramUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <Instagram className="h-4 w-4" aria-hidden="true" />
+                          <span>{card.instagramLabel}</span>
+                        </a>
+                      </div>
                     </div>
                   </li>
                 ))

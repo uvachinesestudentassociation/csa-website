@@ -140,12 +140,20 @@
 
   .tab-indicator::before {
     left: -8px;
-    background: radial-gradient(circle at 0 0, transparent 8px, hsl(var(--card)) 8px);
+    background: radial-gradient(
+      circle at 0 0,
+      transparent 8px,
+      hsl(var(--card)) 8px
+    );
   }
 
   .tab-indicator::after {
     right: -8px;
-    background: radial-gradient(circle at 100% 0, transparent 8px, hsl(var(--card)) 8px);
+    background: radial-gradient(
+      circle at 100% 0,
+      transparent 8px,
+      hsl(var(--card)) 8px
+    );
   }
 
   .tabs-list::-webkit-scrollbar {
@@ -963,7 +971,7 @@
     margin: 0 0 var(--space-lg);
     padding: 0;
     width: 100%;
-    opacity: 0;
+    opacity: 1;
   }
 
   .roadside__scene {
@@ -971,7 +979,7 @@
     margin: 0;
     max-width: none;
     width: 100%;
-    overflow: clip;
+    overflow: visible;
   }
 
   .roadside__art {
@@ -988,6 +996,12 @@
     height: 100%;
     object-fit: fill;
     pointer-events: none;
+    opacity: 1;
+    transition: opacity 720ms var(--ease-in-out);
+  }
+
+  .roadside__art--sealed.is-open {
+    opacity: 0;
   }
 
   .roadside__openings {
@@ -1012,46 +1026,77 @@
   .roadside__opening {
     position: relative;
     min-width: 0;
+    overflow: visible;
+  }
+
+  .roadside__portrait {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 1;
     display: flex;
+    width: 108%;
+    min-width: 0;
     flex-direction: column;
-    overflow: clip;
+    align-items: center;
+    transform: translate(-50%, -50%);
   }
 
   .roadside__opening-frame {
     position: relative;
-    flex: 1;
-    min-height: 0;
-    margin-inline: 12%;
+    width: 100%;
+    overflow: visible;
   }
 
   .roadside__opening-photo {
+    display: block;
+    width: 100%;
+    height: auto;
     object-fit: contain;
-    object-position: center bottom;
     opacity: 0;
+    transform: scale(0.96);
+    transition:
+      opacity 640ms var(--ease-out) var(--roadside-stagger, 0ms),
+      transform 640ms var(--ease-out) var(--roadside-stagger, 0ms);
+  }
+
+  .roadside__openings.is-shown .roadside__opening-photo {
+    opacity: 1;
+    transform: none;
   }
 
   .roadside__opening-copy {
     position: absolute;
-    inset-inline: 0;
-    bottom: 0;
+    top: 100%;
+    left: 0;
     z-index: 1;
-    padding: var(--space-3xs) var(--space-2xs);
-    background: oklch(18% 0.04 260 / 0.78);
-    color: oklch(96% 0.02 90);
+    width: 100%;
+    margin-top: var(--space-2xs);
+    padding: var(--space-2xs) var(--space-xs);
+    background: color-mix(in oklch, var(--color-paper) 92%, black);
+    color: var(--color-ink);
     opacity: 0;
+    transition: opacity 500ms var(--ease-out) calc(120ms + var(--roadside-stagger, 0ms));
+  }
+
+  .roadside__openings.is-shown .roadside__opening-copy {
+    opacity: 1;
   }
 
   .roadside__opening-copy h2 {
     margin: 0;
     font-size: clamp(0.7rem, 1.6vw, 1rem);
-    color: inherit;
+    color: var(--color-ink);
   }
 
   .roadside__opening-copy p {
-    display: none;
+    display: -webkit-box;
     margin: 0.2rem 0 0;
     font-size: var(--text-xs);
     line-height: 1.35;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
   .roadside__opening-copy a {
@@ -1060,7 +1105,7 @@
     gap: 0.25rem;
     margin-top: 0.2rem;
     font-size: 0.65rem;
-    color: inherit;
+    color: var(--color-accent);
     text-decoration: underline;
     text-underline-offset: 0.15em;
     white-space: nowrap;
@@ -1125,7 +1170,9 @@
     transition: none !important;
   }
 
-  .roadside {
-    opacity: 1 !important;
+  .roadside__art--sealed,
+  .roadside__opening-photo,
+  .roadside__opening-copy {
+    transition: none !important;
   }
 }
