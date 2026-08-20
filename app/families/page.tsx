@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import { Instagram } from "lucide-react"
 import { animate, stagger } from "animejs"
@@ -8,6 +8,9 @@ import { familiesContent } from "@/content/families"
 import families from "./families-data.json"
 
 const isDev = process.env.NODE_ENV === "development"
+
+const SCENE_SEALED = "/images/families-roadside-sealed.png"
+const SCENE_OPEN = "/images/families-roadside-open.png"
 
 interface Family {
   id: string
@@ -21,116 +24,100 @@ interface Family {
 const familyList = families as Family[]
 const gateCount = familyList.length
 
-function gateOrdinal(index: number): string {
-  const { gateOrdinals } = familiesContent.sealed
-  return gateOrdinals[index] ?? `門 ${index + 1}`
-}
-
-function SealedGate({ index }: { index: number }) {
-  const { sealed } = familiesContent
-
-  return (
-    <article
-      className="palace-gate"
-      aria-label={sealed.a11yLabel}
-      data-palace-gate
-    >
-      <div className="palace-gate__roof" aria-hidden="true" />
-      <div className="palace-gate__door">
-        <p className="palace-gate__ordinal">{gateOrdinal(index)}</p>
-        <div className="palace-gate__plaque">
-          <span className="sr-only">{sealed.a11yLabel}</span>
-          <span className="palace-gate__redaction" aria-hidden="true" data-palace-redaction />
-          <span className="palace-gate__redaction palace-gate__redaction--short" aria-hidden="true" data-palace-redaction />
-        </div>
-        <p className="palace-gate__hint">{sealed.plaqueHint}</p>
-      </div>
-    </article>
-  )
-}
-
-function RevealedGate({ family, index }: { family: Family; index: number }) {
-  const { card } = familiesContent
-
-  return (
-    <article className="palace-gate palace-gate--revealed" data-palace-gate>
-      <div className="palace-gate__roof" aria-hidden="true" />
-      <div className="palace-gate__door palace-gate__door--open">
-        <p className="palace-gate__ordinal">{gateOrdinal(index)}</p>
-        <div className="palace-gate__media">
-          <Image
-            src={family.image || "/placeholder.svg"}
-            alt={`${family.name} family photo`}
-            width={1200}
-            height={900}
-            sizes="(max-width: 768px) 100vw, 33vw"
-            className="palace-gate__photo"
-          />
-        </div>
-        <h2 className="palace-gate__name">{family.name}</h2>
-        <p className="palace-gate__bio">{family.description}</p>
-        <a
-          href={family.instagramUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="palace-gate__ig"
-        >
-          <Instagram className="h-5 w-5" aria-hidden="true" />
-          <span>{card.instagramLabel}</span>
-        </a>
-      </div>
-    </article>
-  )
-}
-
-function usePalaceEntrance(resetKey: string) {
-  useEffect(() => {
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    if (reduceMotion) {
-      document
-        .querySelectorAll<HTMLElement>(
-          "[data-palace-gate], [data-palace-redaction], [data-palace-courtyard]"
-        )
-        .forEach((el) => {
-          el.style.opacity = "1"
-          el.style.transform = "none"
-          el.style.width = ""
-        })
-      return
-    }
-
-    animate("[data-palace-courtyard]", {
-      opacity: [0, 1],
-      translateY: [24, 0],
-      duration: 700,
-      ease: "outExpo",
-    })
-
-    animate("[data-palace-gate]", {
-      opacity: [0, 1],
-      translateY: [48, 0],
-      delay: stagger(140, { start: 180 }),
-      duration: 820,
-      ease: "outExpo",
-    })
-
-    animate("[data-palace-redaction]", {
-      scaleX: [0, 1],
-      opacity: [0, 1],
-      delay: stagger(80, { start: 520 }),
-      duration: 480,
-      ease: "outCubic",
-    })
-  }, [resetKey])
+function prefersReducedMotion() {
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches
 }
 
 export default function FamiliesPage() {
-  const { intro, sealed, revealed: contentRevealed } = familiesContent
+  const { intro, sealed, card, revealed: contentRevealed } = familiesContent
   const [devPreviewRevealed, setDevPreviewRevealed] = useState(false)
   const revealed = contentRevealed || (isDev && devPreviewRevealed)
-  const courtyardKey = revealed ? "revealed" : "sealed"
+  const [photosMounted, setPhotosMounted] = useState(revealed)
+  const didMount = useRef(false)
 
-  usePalaceEntrance(courtyardKey)
+  useEffect(() => {
+    if (revealed) setPhotosMounted(true)
+  }, [revealed])
+
+  useEffect(() => {
+    const sealedLayer = document.querySelector<HTMLElement>("[data-roadside-sealed]")
+    const photos = document.querySelectorAll<HTMLElement>("[data-roadside-photo]")
+    const copy = document.querySelectorAll<HTMLElement>("[data-roadside-copy]")
+    const scene = document.querySelector<HTMLElement>("[data-palace-courtyard]")
+
+    if (!scene) return
+
+    const snap = () => {
+      scene.style.opacity = "1"
+      if (sealedLayer) sealedLayer.style.opacity = revealed ? "0" : "1"
+      photos.forEach((el) => {
+        el.style.opacity = revealed ? "1" : "0"
+      })
+      copy.forEach((el) => {
+        el.style.opacity = revealed ? "1" : "0"
+      })
+    }
+
+    if (!didMount.current) {
+      didMount.current = true
+      snap()
+      return
+    }
+
+    if (prefersReducedMotion()) {
+      snap()
+      if (!revealed) setPhotosMounted(false)
+      return
+    }
+
+    scene.style.opacity = "1"
+
+    if (revealed) {
+      if (sealedLayer) {
+        animate(sealedLayer, {
+          opacity: [1, 0],
+          duration: 720,
+          ease: "inOutCubic",
+        })
+      }
+      if (photos.length) {
+        animate(photos, {
+          opacity: [0, 1],
+          scale: [0.92, 1],
+          delay: stagger(90, { start: 180 }),
+          duration: 640,
+          ease: "outExpo",
+        })
+      }
+      if (copy.length) {
+        animate(copy, {
+          opacity: [0, 1],
+          delay: stagger(90, { start: 280 }),
+          duration: 500,
+          ease: "outQuad",
+        })
+      }
+      return
+    }
+
+    if (sealedLayer) {
+      animate(sealedLayer, {
+        opacity: [0, 1],
+        duration: 480,
+        ease: "outCubic",
+      })
+    }
+    if (photos.length || copy.length) {
+      animate([...photos, ...copy], {
+        opacity: 0,
+        duration: 280,
+        ease: "inQuad",
+        onComplete: () => setPhotosMounted(false),
+      })
+    } else {
+      setPhotosMounted(false)
+    }
+  }, [revealed, photosMounted])
 
   return (
     <div className="palace-families">
@@ -158,21 +145,70 @@ export default function FamiliesPage() {
       </section>
 
       <section
-        key={courtyardKey}
-        className="palace-courtyard"
-        aria-label={revealed ? "This year's families" : "Sealed family gates"}
+        className="roadside"
+        aria-label={revealed ? "This year's families" : "Sealed family doors"}
         data-palace-courtyard
       >
-        <div className="palace-courtyard__atmosphere" aria-hidden="true" />
-        <div className="palace-courtyard__gates">
-          {revealed
-            ? familyList.map((family, index) => (
-                <RevealedGate key={family.id} family={family} index={index} />
-              ))
-            : Array.from({ length: gateCount }, (_, index) => (
-                <SealedGate key={index} index={index} />
-              ))}
-        </div>
+        <figure className="roadside__scene">
+          <Image
+            src={SCENE_OPEN}
+            alt={revealed ? sealed.sceneOpenAlt : ""}
+            width={1600}
+            height={900}
+            priority
+            className="roadside__art"
+          />
+          <Image
+            src={SCENE_SEALED}
+            alt={revealed ? "" : sealed.sceneSealedAlt}
+            width={1600}
+            height={900}
+            priority
+            className="roadside__art roadside__art--sealed"
+            data-roadside-sealed
+          />
+
+          <ul
+            className={
+              photosMounted
+                ? "roadside__openings"
+                : "roadside__openings roadside__openings--sealed"
+            }
+          >
+            {photosMounted
+              ? familyList.map((family) => (
+                  <li key={family.id} className="roadside__opening">
+                    <div className="roadside__opening-frame">
+                      <Image
+                        src={family.image || "/placeholder.svg"}
+                        alt={`${family.name} family photo`}
+                        fill
+                        sizes="(max-width: 768px) 22vw, 12vw"
+                        className="roadside__opening-photo"
+                        data-roadside-photo
+                      />
+                    </div>
+                    <div className="roadside__opening-copy" data-roadside-copy>
+                      <h2>{family.name}</h2>
+                      <p>{family.description}</p>
+                      <a
+                        href={family.instagramUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Instagram className="h-4 w-4" aria-hidden="true" />
+                        <span>{card.instagramLabel}</span>
+                      </a>
+                    </div>
+                  </li>
+                ))
+              : Array.from({ length: gateCount }, (_, index) => (
+                  <li key={index} className="roadside__opening">
+                    <span className="sr-only">{sealed.a11yLabel}</span>
+                  </li>
+                ))}
+          </ul>
+        </figure>
       </section>
     </div>
   )

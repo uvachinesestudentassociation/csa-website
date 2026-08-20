@@ -24,6 +24,8 @@ export const familiesContent = {
     plaqueHint: "Sealed",
     a11yLabel: "Family identity sealed",
     gateOrdinals: ["一", "二", "三"] as const,
+    sceneSealedAlt: "Three sealed doors in a connected roadside wall",
+    sceneOpenAlt: "Three open doors in a connected roadside wall",
   },
 
   card: {

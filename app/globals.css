@@ -959,198 +959,125 @@
     color: oklch(78% 0.02 45);
   }
 
-  .palace-courtyard {
-    position: relative;
-    margin-bottom: 0;
-    padding: var(--space-xl) var(--page-gutter) var(--space-lg);
-    background:
-      linear-gradient(
-        180deg,
-        color-mix(in oklch, var(--palace-stone) 70%, transparent) 0%,
-        var(--palace-stone) 100%
-      );
+  .roadside {
+    margin: 0 0 var(--space-lg);
+    padding: 0;
+    width: 100%;
     opacity: 0;
-    transform: translateY(1.5rem);
   }
 
-  .palace-courtyard__atmosphere {
-    pointer-events: none;
+  .roadside__scene {
+    position: relative;
+    margin: 0;
+    max-width: none;
+    width: 100%;
+    overflow: clip;
+  }
+
+  .roadside__art {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .roadside__art--sealed {
     position: absolute;
     inset: 0;
-    background:
-      radial-gradient(ellipse 80% 45% at 50% 0%, oklch(78% 0.06 85 / 0.18), transparent 70%),
-      linear-gradient(90deg, transparent 0%, oklch(78% 0.06 85 / 0.08) 50%, transparent 100%);
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    pointer-events: none;
   }
 
-  .palace-courtyard__gates {
-    position: relative;
+  .roadside__openings {
+    position: absolute;
+    left: 11%;
+    right: 11%;
+    top: 41%;
+    bottom: 21%;
     z-index: 1;
     display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--space-lg);
-    max-width: 72rem;
-    margin-inline: auto;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .roadside__openings--sealed .roadside__opening {
+    pointer-events: none;
+  }
+
+  .roadside__opening {
+    position: relative;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: clip;
+  }
+
+  .roadside__opening-frame {
+    position: relative;
+    flex: 1;
+    min-height: 0;
+    margin-inline: 12%;
+  }
+
+  .roadside__opening-photo {
+    object-fit: contain;
+    object-position: center bottom;
+    opacity: 0;
+  }
+
+  .roadside__opening-copy {
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    z-index: 1;
+    padding: var(--space-3xs) var(--space-2xs);
+    background: oklch(18% 0.04 260 / 0.78);
+    color: oklch(96% 0.02 90);
+    opacity: 0;
+  }
+
+  .roadside__opening-copy h2 {
+    margin: 0;
+    font-size: clamp(0.7rem, 1.6vw, 1rem);
+    color: inherit;
+  }
+
+  .roadside__opening-copy p {
+    display: none;
+    margin: 0.2rem 0 0;
+    font-size: var(--text-xs);
+    line-height: 1.35;
+  }
+
+  .roadside__opening-copy a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    margin-top: 0.2rem;
+    font-size: 0.65rem;
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+    white-space: nowrap;
+  }
+
+  .roadside__opening-copy a:focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
   }
 
   @media (min-width: 768px) {
-    .palace-courtyard__gates {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: var(--space-md);
-      align-items: stretch;
+    .roadside__opening-copy p {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
-  }
-
-  .palace-gate {
-    display: flex;
-    min-width: 0;
-    flex-direction: column;
-    opacity: 0;
-    transform: translateY(3rem);
-  }
-
-  .palace-gate__roof {
-    height: 1.15rem;
-    margin-inline: 0.35rem;
-    background: linear-gradient(
-      180deg,
-      var(--palace-lacquer-deep) 0%,
-      var(--palace-lacquer) 100%
-    );
-    clip-path: polygon(0 100%, 4% 0, 96% 0, 100% 100%);
-    box-shadow: 0 1px 0 var(--palace-gold-dim);
-  }
-
-  .palace-gate__door {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-md);
-    min-height: 22rem;
-    padding: var(--space-lg) var(--space-md) var(--space-xl);
-    border: 1px solid var(--palace-gold-dim);
-    border-top: none;
-    background:
-      linear-gradient(
-        180deg,
-        color-mix(in oklch, var(--palace-lacquer) 92%, white) 0%,
-        var(--palace-lacquer) 42%,
-        var(--palace-lacquer-deep) 100%
-      );
-    box-shadow:
-      inset 0 0 0 1px color-mix(in oklch, var(--palace-gold) 35%, transparent),
-      inset 0 0 0 6px color-mix(in oklch, var(--palace-lacquer-deep) 55%, transparent);
-    transition: box-shadow var(--dur-short) var(--ease-out);
-  }
-
-  .palace-gate__door:hover {
-    box-shadow:
-      inset 0 0 0 1px color-mix(in oklch, var(--palace-gold) 55%, transparent),
-      inset 0 0 0 6px color-mix(in oklch, var(--palace-lacquer-deep) 40%, transparent),
-      0 0 0 1px color-mix(in oklch, var(--palace-gold) 25%, transparent);
-  }
-
-  .palace-gate__door--open {
-    align-items: stretch;
-    text-align: left;
-  }
-
-  .palace-gate__ordinal {
-    margin: 0;
-    width: 100%;
-    font-family: var(--font-palace), "Noto Serif SC", "Songti SC", serif;
-    font-size: var(--text-lg);
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-align: center;
-    color: var(--palace-gold);
-  }
-
-  .palace-gate__plaque {
-    display: flex;
-    width: 100%;
-    max-width: 14rem;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-2xs);
-    padding: var(--space-md) var(--space-sm);
-    border: 1px solid var(--palace-gold-dim);
-    background: color-mix(in oklch, var(--palace-lacquer-deep) 88%, black);
-  }
-
-  .palace-gate__redaction {
-    display: block;
-    height: 1.15rem;
-    width: 100%;
-    max-width: 11rem;
-    transform: scaleX(0);
-    transform-origin: left center;
-    opacity: 0;
-    background: var(--palace-redaction);
-    box-shadow: 0 0 0 1px oklch(0% 0 0 / 0.35);
-  }
-
-  .palace-gate__redaction--short {
-    width: 68%;
-    max-width: 7.5rem;
-    height: 0.85rem;
-  }
-
-  .palace-gate__hint {
-    margin: 0;
-    font-family: var(--font-palace), "Noto Serif SC", "Songti SC", serif;
-    font-size: var(--text-xs);
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: color-mix(in oklch, var(--palace-gold) 80%, white);
-  }
-
-  .palace-gate__media {
-    display: flex;
-    width: 100%;
-    justify-content: center;
-  }
-
-  .palace-gate__photo {
-    display: block;
-    width: auto;
-    max-width: 100%;
-    height: auto;
-    border: 1px solid var(--palace-gold-dim);
-  }
-
-  .palace-gate__name {
-    margin: 0;
-    font-size: var(--text-xl);
-    color: var(--palace-gold);
-  }
-
-  .palace-gate__bio {
-    margin: 0;
-    flex: 1;
-    font-size: var(--text-sm);
-    line-height: 1.55;
-    color: color-mix(in oklch, var(--color-accent-ink) 92%, white);
-  }
-
-  .palace-gate__ig {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2xs);
-    margin-top: auto;
-    font-size: var(--text-sm);
-    color: var(--palace-gold);
-    text-decoration: underline;
-    text-underline-offset: 0.2em;
-  }
-
-  .palace-gate__ig:hover {
-    color: color-mix(in oklch, var(--palace-gold) 70%, white);
-  }
-
-  .palace-gate__ig:focus-visible {
-    outline: 2px solid var(--color-focus);
-    outline-offset: 3px;
   }
 }
 
@@ -1198,14 +1125,7 @@
     transition: none !important;
   }
 
-  .palace-courtyard,
-  .palace-gate {
+  .roadside {
     opacity: 1 !important;
-    transform: none !important;
-  }
-
-  .palace-gate__redaction {
-    opacity: 1 !important;
-    transform: none !important;
   }
 }
