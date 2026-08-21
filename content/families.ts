@@ -12,7 +12,7 @@ export const familiesContent = {
       "Learn about CSA@UVA's family system and meet this year's families.",
   },
 
-  /** Flip to true after the family reveal to unlock names, bios, photos, and Instagram. */
+  /** Flip to true after the family reveal to unlock names, bios, photos, and Instagram (also gates roster data shipped to the client). */
   revealed: false as boolean,
 
   intro: {
