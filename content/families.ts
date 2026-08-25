@@ -23,7 +23,7 @@ export const familiesContent = {
   sealed: {
     a11yLabel: "Family identity sealed",
     sceneSealedAlt: "Three rolled hanging scrolls",
-    sceneBackdropAlt: "Interior wall behind hanging family scrolls",
+    sceneBackdropAlt: "Interior hall with a lacquered beam supporting hanging family scrolls",
   },
 
   /** Artwork for the scroll gallery — drop files under public/images/families/. */

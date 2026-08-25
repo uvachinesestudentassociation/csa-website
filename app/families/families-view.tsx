@@ -108,7 +108,14 @@ export function FamiliesView({ payload }: { payload: FamiliesClientPayload }) {
             }
           />
 
-          <ul className={galleryClass}>
+          <div className="scroll-scene__hang">
+            <div className="scroll-beam" aria-hidden="true">
+              <span className="scroll-beam__finial scroll-beam__finial--left" />
+              <span className="scroll-beam__rail" />
+              <span className="scroll-beam__finial scroll-beam__finial--right" />
+            </div>
+
+            <ul className={galleryClass}>
             {Array.from({ length: payload.gateCount }, (_, index) => {
               const family = photosMounted ? list[index] : undefined;
               const showFamily = Boolean(family?.name);
@@ -127,12 +134,14 @@ export function FamiliesView({ payload }: { payload: FamiliesClientPayload }) {
                   }
                 >
                   <div className="scroll__string" aria-hidden="true" />
-                  <div
-                    className="scroll__rod scroll__rod--top"
-                    aria-hidden="true"
-                  />
 
-                  <div className="scroll__stage">
+                  <div className="scroll__sway">
+                    <div
+                      className="scroll__rod scroll__rod--top"
+                      aria-hidden="true"
+                    />
+
+                    <div className="scroll__stage">
                     <div className="scroll__body">
                       <div className="scroll__parchment" aria-hidden="true" />
 
@@ -174,10 +183,12 @@ export function FamiliesView({ payload }: { payload: FamiliesClientPayload }) {
                       aria-hidden="true"
                     />
                   </div>
-                </li>
+                </div>
+              </li>
               );
             })}
-          </ul>
+            </ul>
+          </div>
 
           <figcaption className="sr-only">{sealed.sceneSealedAlt}</figcaption>
         </figure>
