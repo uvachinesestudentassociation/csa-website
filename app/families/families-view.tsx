@@ -1,37 +1,71 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import Image from "next/image"
-import { Instagram } from "lucide-react"
-import { familiesContent } from "@/content/families"
-import type { FamiliesClientPayload } from "./get-families-payload"
+import { useEffect, useState } from "react";
+import Image from "next/image";
+import { Instagram } from "lucide-react";
+import { familiesContent } from "@/content/families";
+import type { FamiliesClientPayload } from "./get-families-payload";
 
-const isDev = process.env.NODE_ENV === "development"
-
-const SCENE_SEALED = "/images/families-roadside-sealed.png"
-const SCENE_OPEN = "/images/families-roadside-open.png"
+const isDev = process.env.NODE_ENV === "development";
+const UNFURL_MS = 1000;
+const STAGGER_MS = 120;
 
 export function FamiliesView({ payload }: { payload: FamiliesClientPayload }) {
-  const { intro, sealed, card } = familiesContent
-  const contentRevealed = payload.contentRevealed
-  const [devPreviewRevealed, setDevPreviewRevealed] = useState(false)
-  const revealed = contentRevealed || (isDev && devPreviewRevealed)
-  const [photosMounted, setPhotosMounted] = useState(revealed)
+  const { intro, sealed, card, scrollAssets } = familiesContent;
+  const contentRevealed = payload.contentRevealed;
+  // In dev the toggle fully controls sealed ↔ revealed so the unfurl can be replayed
+  const [devPreviewRevealed, setDevPreviewRevealed] = useState(contentRevealed);
+  const revealed = isDev ? devPreviewRevealed : contentRevealed;
+
+  const [photosMounted, setPhotosMounted] = useState(false);
+  const [unfurled, setUnfurled] = useState(false);
+  const [shown, setShown] = useState(false);
 
   const list =
-    isDev && devPreviewRevealed && !contentRevealed
-      ? payload.devPreviewFamilies
-      : payload.families
+    isDev && !contentRevealed
+      ? revealed
+        ? payload.devPreviewFamilies
+        : payload.families
+      : payload.families;
 
   useEffect(() => {
-    if (revealed) {
-      setPhotosMounted(true)
-      return
+    if (!revealed) {
+      setUnfurled(false);
+      setShown(false);
+      const hide = window.setTimeout(
+        () => setPhotosMounted(false),
+        UNFURL_MS + 100,
+      );
+      return () => window.clearTimeout(hide);
     }
 
-    const hide = window.setTimeout(() => setPhotosMounted(false), 700)
-    return () => window.clearTimeout(hide)
-  }, [revealed])
+    // Mount photo DOM while still rolled, then unfurl, then fade content in
+    setPhotosMounted(true);
+    setShown(false);
+    setUnfurled(false);
+
+    let innerFrame = 0;
+    const outerFrame = window.requestAnimationFrame(() => {
+      innerFrame = window.requestAnimationFrame(() => setUnfurled(true));
+    });
+    const showDelay =
+      UNFURL_MS + Math.max(0, payload.gateCount - 1) * STAGGER_MS;
+    const showTimer = window.setTimeout(() => setShown(true), showDelay);
+
+    return () => {
+      window.cancelAnimationFrame(outerFrame);
+      window.cancelAnimationFrame(innerFrame);
+      window.clearTimeout(showTimer);
+    };
+  }, [revealed, payload.gateCount]);
+
+  const galleryClass = [
+    "scroll-gallery",
+    unfurled ? "is-unfurled" : "",
+    shown ? "is-shown" : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
 
   return (
     <div className="palace-families">
@@ -47,7 +81,7 @@ export function FamiliesView({ payload }: { payload: FamiliesClientPayload }) {
           </button>
           {contentRevealed && (
             <p className="palace-dev-toggle__note">
-              content.revealed is already true
+              content.revealed is true — toggle still overrides in dev
             </p>
           )}
         </div>
@@ -59,79 +93,95 @@ export function FamiliesView({ payload }: { payload: FamiliesClientPayload }) {
       </section>
 
       <section
-        className="roadside"
-        aria-label={revealed ? "This year's families" : "Sealed family doors"}
+        className="scroll-scene"
+        aria-label={revealed ? "This year's families" : "Sealed family scrolls"}
       >
-        <figure className="roadside__scene">
-          <Image
-            src={SCENE_OPEN}
-            alt=""
-            width={1600}
-            height={900}
-            priority
-            className="roadside__art"
-          />
-          <Image
-            src={SCENE_SEALED}
-            alt={sealed.sceneSealedAlt}
-            width={1600}
-            height={900}
-            priority
-            className={
-              revealed
-                ? "roadside__art roadside__art--sealed is-open"
-                : "roadside__art roadside__art--sealed"
+        <figure className="scroll-scene__frame">
+          <div
+            className="scroll-scene__backdrop"
+            role="img"
+            aria-label={sealed.sceneBackdropAlt}
+            style={
+              {
+                "--scroll-backdrop-url": `url(${scrollAssets.backdrop})`,
+              } as React.CSSProperties
             }
           />
 
-          <ul
-            className={
-              revealed
-                ? "roadside__openings is-shown"
-                : "roadside__openings"
-            }
-          >
-            {photosMounted
-              ? list.map((family, index) => (
-                  <li
-                    key={family.id}
-                    className="roadside__opening"
-                    style={{ "--roadside-stagger": `${index * 90}ms` } as React.CSSProperties}
-                  >
-                    <div className="roadside__portrait">
-                      <div className="roadside__opening-frame">
-                        <Image
-                          src={family.image || "/placeholder.svg"}
-                          alt={`${family.name} family photo`}
-                          width={800}
-                          height={800}
-                          sizes="(max-width: 768px) 28vw, 14vw"
-                          className="roadside__opening-photo"
-                        />
-                      </div>
-                      <div className="roadside__opening-copy">
-                        <h2>{family.name}</h2>
-                        <p>{family.description}</p>
-                        <a
-                          href={family.instagramUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <Instagram className="h-4 w-4" aria-hidden="true" />
-                          <span>{card.instagramLabel}</span>
-                        </a>
-                      </div>
+          <ul className={galleryClass}>
+            {Array.from({ length: payload.gateCount }, (_, index) => {
+              const family = photosMounted ? list[index] : undefined;
+              const showFamily = Boolean(family?.name);
+
+              return (
+                <li
+                  key={`scroll-${index}`}
+                  className="scroll"
+                  style={
+                    {
+                      "--scroll-stagger": `${index * STAGGER_MS}ms`,
+                      "--scroll-parchment-url": `url(${scrollAssets.parchment})`,
+                      "--scroll-rod-top-url": `url(${scrollAssets.rodTop})`,
+                      "--scroll-rod-bottom-url": `url(${scrollAssets.rodBottom})`,
+                    } as React.CSSProperties
+                  }
+                >
+                  <div className="scroll__string" aria-hidden="true" />
+                  <div
+                    className="scroll__rod scroll__rod--top"
+                    aria-hidden="true"
+                  />
+
+                  <div className="scroll__stage">
+                    <div className="scroll__body">
+                      <div className="scroll__parchment" aria-hidden="true" />
+
+                      {showFamily && family ? (
+                        <div className="scroll__content">
+                          <div className="scroll__photo-frame">
+                            <Image
+                              src={family.image || "/placeholder.svg"}
+                              alt={`${family.name} family photo`}
+                              width={800}
+                              height={800}
+                              sizes="(max-width: 768px) 32vw, 30vw"
+                              className="scroll__photo"
+                            />
+                          </div>
+                          <div className="scroll__copy">
+                            <h2>{family.name}</h2>
+                            <p>{family.description}</p>
+                            <a
+                              href={family.instagramUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              <Instagram
+                                className="h-4 w-4"
+                                aria-hidden="true"
+                              />
+                              <span>{card.instagramLabel}</span>
+                            </a>
+                          </div>
+                        </div>
+                      ) : (
+                        <span className="sr-only">{sealed.a11yLabel}</span>
+                      )}
                     </div>
-                  </li>
-                ))
-              : Array.from({ length: payload.gateCount }, (_, index) => (
-                  <li key={index} className="roadside__opening">
-                    <span className="sr-only">{sealed.a11yLabel}</span>
-                  </li>
-                ))}
+
+                    <div
+                      className="scroll__rod scroll__rod--bottom"
+                      aria-hidden="true"
+                    />
+                  </div>
+                </li>
+              );
+            })}
           </ul>
+
+          <figcaption className="sr-only">{sealed.sceneSealedAlt}</figcaption>
         </figure>
       </section>
     </div>
-  )
+  );
 }

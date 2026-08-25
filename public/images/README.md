@@ -12,7 +12,11 @@ Static images served at `/images/*`. Required for the site to display correctly.
 | `csa_tassel_logo.png` | Footer |
 | `chinafest-covers/*` | Alumni page year covers (see `app/alumni/alumni-data.json`) |
 | `2025-2026/officers/*` | Officers page (see `app/officers/officers-data.json`) |
-| `2025-2026/families/*` | Families page (see `app/families/families-data.json`) |
+| `2025-2026/families/*` | Family portrait photos (see `app/families/families-data.json`) |
+| `families/scroll-backdrop.png` | Families page scroll gallery backdrop |
+| `families/scroll-parchment.png` | Families page empty scroll parchment |
+| `families/scroll-rod-top.png` | Optional top scroll rod art |
+| `families/scroll-rod-bottom.png` | Optional bottom scroll rod art |
 | `gallery/chinafest_dragon_justin_2023.JPG` | About page (Culture) |
 | `gallery/asu_exec_2023.jpg` | About page (Community) |
 | `gallery/yar_2023.jpg` | About page (Outreach) |

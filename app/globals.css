@@ -967,157 +967,290 @@
     color: oklch(78% 0.02 45);
   }
 
-  .roadside {
+  /* Families — hanging scroll gallery */
+  .scroll-scene {
+    --scroll-wood: oklch(55% 0.06 65);
+    --scroll-wood-deep: oklch(42% 0.05 55);
+    --scroll-parchment-fallback: oklch(92% 0.02 85);
+    --scroll-backdrop-fallback: oklch(22% 0.03 45);
+    --scroll-rolled-height: clamp(4.5rem, 8vh, 6.5rem);
+    --scroll-unfurl-ms: 1000ms;
     margin: 0 0 var(--space-lg);
     padding: 0;
     width: 100%;
-    opacity: 1;
+    min-width: 0;
   }
 
-  .roadside__scene {
+  .scroll-scene__frame {
     position: relative;
     margin: 0;
-    max-width: none;
     width: 100%;
-    overflow: visible;
+    min-width: 0;
+    overflow: clip;
   }
 
-  .roadside__art {
+  .scroll-scene__backdrop {
     display: block;
     width: 100%;
-    height: auto;
+    aspect-ratio: auto;
+    height: min(88vh, 56rem);
+    min-height: min(88vh, 56rem);
+    background-color: var(--scroll-backdrop-fallback);
+    background-image: var(--scroll-backdrop-url);
+    background-size: cover;
+    background-position: center;
   }
 
-  .roadside__art--sealed {
+  .scroll-gallery {
     position: absolute;
-    inset: 0;
-    z-index: 2;
-    width: 100%;
-    height: 100%;
-    object-fit: fill;
-    pointer-events: none;
-    opacity: 1;
-    transition: opacity 720ms var(--ease-in-out);
-  }
-
-  .roadside__art--sealed.is-open {
-    opacity: 0;
-  }
-
-  .roadside__openings {
-    position: absolute;
-    left: 11%;
-    right: 11%;
-    top: 41%;
-    bottom: 21%;
+    inset: 2.5% 1.25% 1.25%;
     z-index: 1;
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 16%;
+    gap: clamp(0.35rem, 1.25vw, 1rem);
+    align-items: start;
+    justify-items: stretch;
     margin: 0;
     padding: 0;
     list-style: none;
   }
 
-  .roadside__openings--sealed .roadside__opening {
-    pointer-events: none;
-  }
-
-  .roadside__opening {
+  .scroll {
     position: relative;
-    min-width: 0;
-    overflow: visible;
-  }
-
-  .roadside__portrait {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    z-index: 1;
     display: flex;
-    width: 108%;
+    width: 100%;
+    max-width: none;
     min-width: 0;
     flex-direction: column;
     align-items: center;
-    transform: translate(-50%, -50%);
+    transform-origin: top center;
+    animation: scroll-sway var(--scroll-sway-duration, 4.5s) ease-in-out infinite;
+    animation-delay: var(--scroll-sway-delay, 0ms);
   }
 
-  .roadside__opening-frame {
+  .scroll:nth-child(1) {
+    --scroll-sway-duration: 4.2s;
+    --scroll-sway-delay: 0ms;
+  }
+
+  .scroll:nth-child(2) {
+    --scroll-sway-duration: 5s;
+    --scroll-sway-delay: -1.6s;
+  }
+
+  .scroll:nth-child(3) {
+    --scroll-sway-duration: 4.7s;
+    --scroll-sway-delay: -3.1s;
+  }
+
+  .scroll__string {
+    width: 0;
+    height: 1.25rem;
+    border-left: 1px solid color-mix(in oklch, var(--scroll-wood) 70%, white);
+    border-right: 1px solid color-mix(in oklch, var(--scroll-wood) 70%, white);
+    transform: perspective(40px) rotateX(12deg);
+    opacity: 0.85;
+  }
+
+  .scroll__rod {
+    position: relative;
+    z-index: 2;
+    width: 108%;
+    flex-shrink: 0;
+    border-radius: 999px;
+    background-color: var(--scroll-wood);
+    background-image: linear-gradient(
+      180deg,
+      color-mix(in oklch, var(--scroll-wood) 70%, white),
+      var(--scroll-wood-deep)
+    );
+    box-shadow: 0 1px 2px oklch(0% 0 0 / 0.35);
+  }
+
+  .scroll__rod--top {
+    height: 0.7rem;
+    background-image:
+      var(--scroll-rod-top-url),
+      linear-gradient(
+        180deg,
+        color-mix(in oklch, var(--scroll-wood) 70%, white),
+        var(--scroll-wood-deep)
+      );
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+  }
+
+  .scroll__rod--bottom {
+    position: absolute;
+    left: -4%;
+    right: -4%;
+    width: auto;
+    height: 0.55rem;
+    top: calc(var(--scroll-rolled-height) - 0.3rem);
+    background-image:
+      var(--scroll-rod-bottom-url),
+      linear-gradient(
+        180deg,
+        color-mix(in oklch, var(--scroll-wood) 70%, white),
+        var(--scroll-wood-deep)
+      );
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    transition: top var(--scroll-unfurl-ms) var(--ease-out)
+      var(--scroll-stagger, 0ms);
+  }
+
+  .scroll-gallery.is-unfurled .scroll__rod--bottom {
+    top: calc(100% - 0.3rem);
+  }
+
+  .scroll__stage {
     position: relative;
     width: 100%;
-    overflow: visible;
+    height: clamp(22rem, 72vh, 50rem);
   }
 
-  .roadside__opening-photo {
+  .scroll__body {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    clip-path: inset(0 0 calc(100% - var(--scroll-rolled-height)) 0);
+    transition: clip-path var(--scroll-unfurl-ms) var(--ease-out)
+      var(--scroll-stagger, 0ms);
+  }
+
+  .scroll-gallery.is-unfurled .scroll__body {
+    clip-path: inset(0 0 0 0);
+  }
+
+  .scroll__parchment {
+    position: absolute;
+    inset: 0;
+    background-color: var(--scroll-parchment-fallback);
+    background-image: var(--scroll-parchment-url);
+    background-size: cover;
+    background-position: center top;
+    box-shadow:
+      inset 0 0 0 1px oklch(70% 0.03 75 / 0.35),
+      inset 8px 0 16px oklch(50% 0.02 70 / 0.12),
+      inset -8px 0 16px oklch(50% 0.02 70 / 0.12);
+  }
+
+  .scroll__content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    height: 100%;
+    min-width: 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: var(--space-xs);
+    padding: 10% 8% 12%;
+  }
+
+  .scroll__photo-frame {
+    width: 100%;
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid oklch(55% 0.04 70 / 0.35);
+    background: color-mix(in oklch, var(--color-paper) 88%, black);
+  }
+
+  .scroll__photo {
     display: block;
     width: 100%;
     height: auto;
-    object-fit: contain;
+    aspect-ratio: 1;
+    object-fit: cover;
     opacity: 0;
-    transform: scale(0.96);
+    transform: scale(0.97);
     transition:
-      opacity 640ms var(--ease-out) var(--roadside-stagger, 0ms),
-      transform 640ms var(--ease-out) var(--roadside-stagger, 0ms);
+      opacity 280ms var(--ease-out),
+      transform 280ms var(--ease-out);
   }
 
-  .roadside__openings.is-shown .roadside__opening-photo {
+  .scroll-gallery.is-shown .scroll__photo {
     opacity: 1;
     transform: none;
+    transition:
+      opacity 600ms var(--ease-out) var(--scroll-stagger, 0ms),
+      transform 600ms var(--ease-out) var(--scroll-stagger, 0ms);
   }
 
-  .roadside__opening-copy {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    z-index: 1;
+  .scroll__copy {
     width: 100%;
-    margin-top: var(--space-2xs);
+    min-width: 0;
     padding: var(--space-2xs) var(--space-xs);
     background: color-mix(in oklch, var(--color-paper) 92%, black);
     color: var(--color-ink);
     opacity: 0;
-    transition: opacity 500ms var(--ease-out) calc(120ms + var(--roadside-stagger, 0ms));
+    transition: opacity 220ms var(--ease-out);
   }
 
-  .roadside__openings.is-shown .roadside__opening-copy {
+  .scroll-gallery.is-shown .scroll__copy {
     opacity: 1;
+    transition: opacity 500ms var(--ease-out)
+      calc(120ms + var(--scroll-stagger, 0ms));
   }
 
-  .roadside__opening-copy h2 {
+  .scroll__copy h2 {
     margin: 0;
-    font-size: clamp(0.7rem, 1.6vw, 1rem);
+    overflow-wrap: anywhere;
+    font-size: clamp(0.85rem, 1.8vw, 1.35rem);
+    font-style: normal;
     color: var(--color-ink);
   }
 
-  .roadside__opening-copy p {
+  .scroll__copy p {
     display: -webkit-box;
-    margin: 0.2rem 0 0;
-    font-size: var(--text-xs);
+    margin: 0.25rem 0 0;
+    font-size: clamp(0.7rem, 1.1vw, var(--text-sm));
     line-height: 1.35;
     -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
 
-  .roadside__opening-copy a {
+  .scroll__copy a {
     display: inline-flex;
     align-items: center;
     gap: 0.25rem;
-    margin-top: 0.2rem;
-    font-size: 0.65rem;
+    margin-top: 0.25rem;
+    font-size: clamp(0.65rem, 1vw, 0.8rem);
     color: var(--color-accent);
     text-decoration: underline;
     text-underline-offset: 0.15em;
     white-space: nowrap;
   }
 
-  .roadside__opening-copy a:focus-visible {
+  .scroll__copy a:focus-visible {
     outline: 2px solid var(--color-focus);
     outline-offset: 2px;
   }
 
+  @media (max-width: 640px) {
+    .scroll-scene__backdrop {
+      height: min(90vh, 52rem);
+      min-height: min(90vh, 52rem);
+    }
+
+    .scroll-gallery {
+      inset: 2% 0.75% 1%;
+      gap: 0.25rem;
+    }
+
+    .scroll__stage {
+      height: clamp(18rem, 64vh, 40rem);
+    }
+
+    .scroll__copy p {
+      -webkit-line-clamp: 3;
+    }
+  }
+
   @media (min-width: 768px) {
-    .roadside__opening-copy p {
+    .scroll__copy p {
       display: -webkit-box;
       -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
@@ -1148,6 +1281,16 @@
   }
 }
 
+@keyframes scroll-sway {
+  0%,
+  100% {
+    transform: rotate(-1.1deg) translateX(-2.5px);
+  }
+  50% {
+    transform: rotate(1.1deg) translateX(2.5px);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -1170,9 +1313,14 @@
     transition: none !important;
   }
 
-  .roadside__art--sealed,
-  .roadside__opening-photo,
-  .roadside__opening-copy {
+  .scroll__body,
+  .scroll__rod--bottom,
+  .scroll__photo,
+  .scroll__copy {
     transition: none !important;
+  }
+
+  .scroll {
+    animation: none !important;
   }
 }

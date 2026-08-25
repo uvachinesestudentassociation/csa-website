@@ -21,11 +21,17 @@ export const familiesContent = {
   },
 
   sealed: {
-    plaqueHint: "Sealed",
     a11yLabel: "Family identity sealed",
-    gateOrdinals: ["一", "二", "三"] as const,
-    sceneSealedAlt: "Three sealed doors in a connected roadside wall",
-    sceneOpenAlt: "Three open doors in a connected roadside wall",
+    sceneSealedAlt: "Three rolled hanging scrolls",
+    sceneBackdropAlt: "Interior wall behind hanging family scrolls",
+  },
+
+  /** Artwork for the scroll gallery — drop files under public/images/families/. */
+  scrollAssets: {
+    backdrop: "/images/families/scroll-backdrop.png",
+    parchment: "/images/families/scroll-parchment.png",
+    rodTop: "/images/families/scroll-rod-top.png",
+    rodBottom: "/images/families/scroll-rod-bottom.png",
   },
 
   card: {
