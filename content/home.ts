@@ -16,22 +16,6 @@ export const homeContent = {
     ctaReturning: "Returning member →",
   },
 
-  welcome: {
-    title: "Chinese heritage, open to every background",
-    body: "CSA@UVA celebrates Chinese culture at the University of Virginia and across Charlottesville — through showcases like FullMoonFest and Chinafest, Dollar Dim Sum, and a family system built for belonging.",
-    destinations: [
-      { href: "/about", label: "About", note: "Mission on Grounds" },
-      { href: "/events", label: "Events", note: "FullMoonFest · Chinafest" },
-      { href: "/families", label: "Families", note: "Mentorship & belonging" },
-      { href: "/gallery", label: "Gallery", note: "From the archive" },
-    ],
-  },
-
-  photoBand: {
-    caption: "Chinafest · Lunar New Year",
-    imageAlt: "Dragon dance at Chinafest",
-  },
-
   join: {
     title: "Come find your people",
     body: "Whether you're new to Grounds or returning for another year, joining has never been easier.",

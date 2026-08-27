@@ -1,8 +1,8 @@
 import type { Metadata } from "next"
 import Image from "next/image"
-import Link from "next/link"
 import { SocialLinks } from "@/components/social-links"
 import { RevealOnScroll } from "@/components/reveal-on-scroll"
+import { MistCloudOverlay } from "@/components/mist-cloud-overlay"
 import { homeContent } from "@/content/home"
 import { siteContent } from "@/content/site"
 
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 }
 
 export default function Home() {
-  const { hero, welcome, photoBand, join } = homeContent
+  const { hero, join } = homeContent
   const { forms } = siteContent
 
   return (
@@ -27,6 +27,7 @@ export default function Home() {
           className="object-cover"
           aria-hidden
         />
+        <MistCloudOverlay tone="hero" />
         <div className="home-photo-fold__scrim" aria-hidden />
         <div className="home-photo-fold__caption">
           <p className="home-photo-fold__place home-rise">{hero.place}</p>
@@ -55,45 +56,6 @@ export default function Home() {
             linkClassName="cursor-pointer text-white/75 transition-colors hover:text-white"
           />
         </div>
-      </section>
-
-      <section className="home-text-fold" aria-labelledby="home-welcome">
-        <div className="home-text-fold__grid">
-          <div>
-            <RevealOnScroll>
-              <h2 id="home-welcome" className="home-text-fold__title">
-                {welcome.title}
-              </h2>
-            </RevealOnScroll>
-            <RevealOnScroll delayMs={140}>
-              <p className="home-text-fold__body">{welcome.body}</p>
-            </RevealOnScroll>
-          </div>
-          <ul className="home-text-fold__list">
-            {welcome.destinations.map((item, index) => (
-              <RevealOnScroll key={item.href} as="li" delayMs={index * 120}>
-                <Link href={item.href}>
-                  <span>{item.label}</span>
-                  <em>{item.note}</em>
-                </Link>
-              </RevealOnScroll>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      <section className="home-photo-band" aria-label="Chinafest">
-        <Image
-          src="/images/gallery/chinafest_dragon_justin_2023.JPG"
-          alt={photoBand.imageAlt}
-          fill
-          sizes="100vw"
-          className="object-cover object-center"
-        />
-        <div className="home-photo-fold__scrim" aria-hidden />
-        <RevealOnScroll as="p" className="home-photo-band__caption">
-          {photoBand.caption}
-        </RevealOnScroll>
       </section>
 
       <section className="home-join-fold" aria-labelledby="home-join">
