@@ -55,8 +55,14 @@ function PlumPetalsDemo({ replayKey }: { replayKey: number }) {
 
     const anim = animate(petals, {
       y: [0, 210],
-      x: (_el, i) => [0, (i % 2 === 0 ? 1 : -1) * (18 + i * 5)],
-      rotate: (_el, i) => [-15, 100 + i * 20],
+      x: (_el, i) => {
+        const idx = i ?? 0
+        return [0, (idx % 2 === 0 ? 1 : -1) * (18 + idx * 5)]
+      },
+      rotate: (_el, i) => {
+        const idx = i ?? 0
+        return [-15, 100 + idx * 20]
+      },
       opacity: [0, 1, 0.85, 0],
       duration: 3200,
       delay: stagger(180, { start: 80 }),
@@ -187,7 +193,10 @@ function LanternGlowDemo({ replayKey }: { replayKey: number }) {
     }
 
     const sway = animate(lanterns, {
-      rotate: (_el, i) => [`${-5 - i}deg`, `${5 + i}deg`],
+      rotate: (_el, i) => {
+        const idx = i ?? 0
+        return [`${-5 - idx}deg`, `${5 + idx}deg`]
+      },
       duration: 2200,
       delay: stagger(180),
       ease: "inOutSine",
