@@ -23,15 +23,18 @@ export const familiesContent = {
   sealed: {
     a11yLabel: "Family identity sealed",
     sceneSealedAlt: "Three rolled hanging scrolls",
-    sceneBackdropAlt: "Interior hall with a lacquered beam supporting hanging family scrolls",
+    sceneBackdropAlt: "Dark hall backdrop for hanging family scrolls",
   },
 
-  /** Artwork for the scroll gallery — drop files under public/images/families/. */
   scrollAssets: {
-    backdrop: "/images/families/scroll-backdrop.png",
-    parchment: "/images/families/scroll-parchment.png",
-    rodTop: "/images/families/scroll-rod-top.png",
-    rodBottom: "/images/families/scroll-rod-bottom.png",
+    backdrop: "",
+    scroll: "/images/graphics/blank-scroll.png",
+    /** One banner per scroll, left to right */
+    banners: [
+      "/images/graphics/Azure dragon banner.png",
+      "/images/graphics/Monkey king banner.png",
+      "/images/graphics/White Tiger banner.png",
+    ],
   },
 
   card: {

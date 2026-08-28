@@ -1,8 +1,15 @@
-@import "../tokens.css";
+﻿@import "../tokens.css";
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@property --scroll-clip-bottom {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 76%;
+}
 
 @layer base {
   :root {
@@ -930,22 +937,33 @@
 
   /* Families — hanging scroll gallery */
   .scroll-scene {
-    --scroll-wood: oklch(55% 0.06 65);
-    --scroll-wood-deep: oklch(42% 0.05 55);
-    --scroll-parchment-fallback: oklch(92% 0.02 85);
+    --scroll-rolled-inset: 76%;
+    --scroll-unfurl-ms: 1000ms;
     --scroll-backdrop-fallback: oklch(22% 0.03 45);
     --scroll-beam-lacquer: oklch(32% 0.11 28);
     --scroll-beam-lacquer-deep: oklch(24% 0.09 25);
     --scroll-beam-gold: oklch(78% 0.1 85);
     --scroll-beam-gold-dim: oklch(62% 0.07 78);
-    --scroll-rolled-height: clamp(4.5rem, 8vh, 6.5rem);
-    --scroll-unfurl-ms: 1000ms;
-    margin: 0 0 var(--space-lg);
+    /* blank-scroll.png transparent lead-in before visible rods (220 / 1640) */
+    --scroll-art-top-inset: 0.1341;
+    /* auto 100% = full scroll height (both rods); horizontal crop via overflow */
+    --scroll-skin-fit: auto 100%;
+    --scroll-stage-height: clamp(32rem, 92vh, 72rem);
+    --scroll-scene-height: min(98vh, 76rem);
+    margin: 0 0 2rem;
     padding: 0;
     width: 100%;
     min-width: 0;
   }
-
+  
+  @media (max-width: 640px) {
+    .scroll-scene {
+      --scroll-rolled-inset: 78%;
+      --scroll-stage-height: clamp(26rem, 86vh, 60rem);
+      --scroll-scene-height: min(96vh, 64rem);
+    }
+  }
+  
   .scroll-scene__frame {
     position: relative;
     margin: 0;
@@ -953,19 +971,18 @@
     min-width: 0;
     overflow: clip;
   }
-
+  
   .scroll-scene__backdrop {
     display: block;
     width: 100%;
-    aspect-ratio: auto;
-    height: min(88vh, 56rem);
-    min-height: min(88vh, 56rem);
+    height: var(--scroll-scene-height);
+    min-height: var(--scroll-scene-height);
     background-color: var(--scroll-backdrop-fallback);
     background-image: var(--scroll-backdrop-url);
     background-size: cover;
     background-position: center;
   }
-
+  
   .scroll-scene__hang {
     position: absolute;
     inset: 2.5% 1.25% 1.25%;
@@ -974,9 +991,15 @@
     min-width: 0;
     flex-direction: column;
   }
-
+  
   .scroll-beam {
-    position: relative;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(
+      var(--scroll-stage-height) * var(--scroll-art-top-inset) -
+        clamp(1.35rem, 2.8vh, 2.1rem)
+    );
     z-index: 3;
     display: flex;
     flex-shrink: 0;
@@ -985,7 +1008,7 @@
     min-width: 0;
     filter: drop-shadow(0 6px 10px oklch(0% 0 0 / 0.35));
   }
-
+  
   .scroll-beam__rail {
     position: relative;
     flex: 1;
@@ -1007,7 +1030,7 @@
       inset 0 1px 0 oklch(100% 0 0 / 0.12),
       inset 0 -3px 6px oklch(0% 0 0 / 0.22);
   }
-
+  
   .scroll-beam__rail::before {
     content: "";
     position: absolute;
@@ -1016,7 +1039,7 @@
     opacity: 0.75;
     pointer-events: none;
   }
-
+  
   .scroll-beam__finial {
     flex-shrink: 0;
     width: clamp(1.1rem, 2.4vw, 1.75rem);
@@ -1033,19 +1056,19 @@
       );
     box-shadow: inset 0 0 0 1px oklch(100% 0 0 / 0.1);
   }
-
+  
   .scroll-beam__finial--left {
     border-radius: 42% 0 0 38%;
     border: 2px solid var(--scroll-beam-gold);
     border-right: none;
   }
-
+  
   .scroll-beam__finial--right {
     border-radius: 0 42% 38% 0;
     border: 2px solid var(--scroll-beam-gold);
     border-left: none;
   }
-
+  
   .scroll-gallery {
     position: relative;
     z-index: 2;
@@ -1061,7 +1084,7 @@
     padding: 0;
     list-style: none;
   }
-
+  
   .scroll {
     position: relative;
     display: flex;
@@ -1071,10 +1094,10 @@
     flex-direction: column;
     align-items: center;
   }
-
+  
   .scroll__sway {
     display: flex;
-    width: 100%;
+    width: 108%;
     min-width: 0;
     flex-direction: column;
     align-items: center;
@@ -1082,155 +1105,122 @@
     animation: scroll-sway var(--scroll-sway-duration, 4.5s) ease-in-out infinite;
     animation-delay: var(--scroll-sway-delay, 0ms);
   }
-
+  
   .scroll:nth-child(1) .scroll__sway {
     --scroll-sway-duration: 4.2s;
     --scroll-sway-delay: 0ms;
   }
-
+  
   .scroll:nth-child(2) .scroll__sway {
     --scroll-sway-duration: 5s;
     --scroll-sway-delay: -1.6s;
   }
-
+  
   .scroll:nth-child(3) .scroll__sway {
     --scroll-sway-duration: 4.7s;
     --scroll-sway-delay: -3.1s;
   }
-
-  .scroll__string {
-    position: relative;
-    z-index: 1;
-    width: 2px;
-    height: clamp(0.85rem, 1.8vh, 1.35rem);
-    margin-top: -1px;
-    border-radius: 999px;
-    background: linear-gradient(
-      180deg,
-      var(--scroll-beam-gold-dim),
-      var(--scroll-wood-deep)
-    );
-    box-shadow: 0 0 0 1px oklch(0% 0 0 / 0.15);
-  }
-
-  .scroll__string::before {
-    content: "";
-    position: absolute;
-    top: -3px;
-    left: 50%;
-    width: 7px;
-    height: 5px;
-    border-radius: 999px;
-    background: var(--scroll-beam-gold);
-    box-shadow: 0 0 0 1px oklch(0% 0 0 / 0.2);
-    transform: translateX(-50%);
-  }
-
-  .scroll__rod {
-    position: relative;
-    z-index: 2;
-    width: 108%;
-    flex-shrink: 0;
-    border-radius: 999px;
-    background-color: var(--scroll-wood);
-    background-image: linear-gradient(
-      180deg,
-      color-mix(in oklch, var(--scroll-wood) 70%, white),
-      var(--scroll-wood-deep)
-    );
-    box-shadow: 0 1px 2px oklch(0% 0 0 / 0.35);
-  }
-
-  .scroll__rod--top {
-    height: 0.7rem;
-    background-image:
-      var(--scroll-rod-top-url),
-      linear-gradient(
-        180deg,
-        color-mix(in oklch, var(--scroll-wood) 70%, white),
-        var(--scroll-wood-deep)
-      );
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-  }
-
-  .scroll__rod--bottom {
-    position: absolute;
-    left: -4%;
-    right: -4%;
-    width: auto;
-    height: 0.55rem;
-    top: calc(var(--scroll-rolled-height) - 0.3rem);
-    background-image:
-      var(--scroll-rod-bottom-url),
-      linear-gradient(
-        180deg,
-        color-mix(in oklch, var(--scroll-wood) 70%, white),
-        var(--scroll-wood-deep)
-      );
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    transition: top var(--scroll-unfurl-ms) var(--ease-out)
-      var(--scroll-stagger, 0ms);
-  }
-
-  .scroll-gallery.is-unfurled .scroll__rod--bottom {
-    top: calc(100% - 0.3rem);
-  }
-
+  
   .scroll__stage {
     position: relative;
     width: 100%;
-    height: clamp(22rem, 72vh, 50rem);
+    height: var(--scroll-stage-height);
   }
-
-  .scroll__body {
+  
+  .scroll__viewport {
     position: absolute;
     inset: 0;
     overflow: hidden;
-    clip-path: inset(0 0 calc(100% - var(--scroll-rolled-height)) 0);
-    transition: clip-path var(--scroll-unfurl-ms) var(--ease-out)
-      var(--scroll-stagger, 0ms);
+    --scroll-clip-bottom: var(--scroll-rolled-inset);
+    clip-path: inset(0 0 var(--scroll-clip-bottom) 0);
+    transition:
+      --scroll-clip-bottom var(--scroll-unfurl-ms) cubic-bezier(0.33, 1, 0.68, 1)
+        var(--scroll-stagger, 0ms),
+      clip-path var(--scroll-unfurl-ms) cubic-bezier(0.33, 1, 0.68, 1)
+        var(--scroll-stagger, 0ms);
+    contain: layout style paint;
+    transform: translateZ(0);
   }
-
-  .scroll-gallery.is-unfurled .scroll__body {
-    clip-path: inset(0 0 0 0);
+  
+  .scroll-gallery.is-unfurled .scroll__viewport {
+    --scroll-clip-bottom: 0%;
+    clip-path: inset(0 0 0% 0);
   }
-
-  .scroll__parchment {
+  
+  .scroll-gallery.is-unfurled:not(.is-shown) .scroll__viewport {
+    will-change: --scroll-clip-bottom;
+  }
+  
+  .scroll-gallery.is-unfurled:not(.is-shown) .scroll__sway {
+    animation-play-state: paused;
+  }
+  
+  .scroll__skin {
     position: absolute;
     inset: 0;
-    background-color: var(--scroll-parchment-fallback);
-    background-image: var(--scroll-parchment-url);
-    background-size: cover;
+    background-image: var(--scroll-url);
+    background-size: var(--scroll-skin-fit);
     background-position: center top;
-    box-shadow:
-      inset 0 0 0 1px oklch(70% 0.03 75 / 0.35),
-      inset 8px 0 16px oklch(50% 0.02 70 / 0.12),
-      inset -8px 0 16px oklch(50% 0.02 70 / 0.12);
+    background-repeat: no-repeat;
+    pointer-events: none;
   }
-
+  
+  .scroll__body {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    overflow: hidden;
+  }
+  
   .scroll__content {
-    position: relative;
+    position: absolute;
+    inset: 11% 8% 10%;
     z-index: 1;
     display: flex;
-    height: 100%;
     min-width: 0;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    gap: var(--space-xs);
-    padding: 10% 8% 12%;
+    gap: clamp(0.15rem, 0.5vw, 0.3rem);
+    overflow: hidden;
+    --scroll-copy-width: 74%;
   }
-
+  
+  .scroll__banner-frame {
+    position: relative;
+    flex: 7 1 0;
+    min-height: 0;
+    width: 100%;
+    align-self: stretch;
+    overflow: hidden;
+  }
+  
+  .scroll__banner {
+    object-fit: cover;
+    object-position: center 12%;
+    opacity: 0;
+    transform: scale(0.97);
+    transition:
+      opacity 280ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 280ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  
+  .scroll-gallery.is-shown .scroll__banner {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity 600ms cubic-bezier(0.22, 1, 0.36, 1) var(--scroll-stagger, 0ms),
+      transform 600ms cubic-bezier(0.22, 1, 0.36, 1) var(--scroll-stagger, 0ms);
+  }
+  
   .scroll__photo-frame {
     width: 100%;
     min-width: 0;
     overflow: hidden;
     border: 1px solid oklch(55% 0.04 70 / 0.35);
-    background: color-mix(in oklch, var(--color-paper) 88%, black);
+    background: color-mix(in oklch, hsl(var(--card)) 88%, black);
   }
-
+  
   .scroll__photo {
     display: block;
     width: 100%;
@@ -1240,98 +1230,113 @@
     opacity: 0;
     transform: scale(0.97);
     transition:
-      opacity 280ms var(--ease-out),
-      transform 280ms var(--ease-out);
+      opacity 280ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 280ms cubic-bezier(0.22, 1, 0.36, 1);
   }
-
+  
   .scroll-gallery.is-shown .scroll__photo {
     opacity: 1;
     transform: none;
     transition:
-      opacity 600ms var(--ease-out) var(--scroll-stagger, 0ms),
-      transform 600ms var(--ease-out) var(--scroll-stagger, 0ms);
+      opacity 600ms cubic-bezier(0.22, 1, 0.36, 1) var(--scroll-stagger, 0ms),
+      transform 600ms cubic-bezier(0.22, 1, 0.36, 1) var(--scroll-stagger, 0ms);
   }
-
+  
   .scroll__copy {
-    width: 100%;
+    display: flex;
+    flex: 2.5 1 0;
+    min-height: 0;
+    width: var(--scroll-copy-width);
+    max-width: 100%;
     min-width: 0;
-    padding: var(--space-2xs) var(--space-xs);
-    background: color-mix(in oklch, var(--color-paper) 92%, black);
-    color: var(--color-ink);
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 0.15rem;
+    padding: 0;
+    background: transparent;
+    color: oklch(28% 0.04 55);
+    text-align: left;
     opacity: 0;
-    transition: opacity 220ms var(--ease-out);
+    overflow: hidden;
+    transition: opacity 220ms cubic-bezier(0.22, 1, 0.36, 1);
   }
-
+  
   .scroll-gallery.is-shown .scroll__copy {
     opacity: 1;
-    transition: opacity 500ms var(--ease-out)
+    transition: opacity 500ms cubic-bezier(0.22, 1, 0.36, 1)
       calc(120ms + var(--scroll-stagger, 0ms));
   }
-
+  
   .scroll__copy h2 {
     margin: 0;
-    overflow-wrap: anywhere;
-    font-size: clamp(0.85rem, 1.8vw, 1.35rem);
+    max-width: 100%;
+    overflow-wrap: break-word;
+    font-size: clamp(0.75rem, 1.4vw, 1.05rem);
     font-style: normal;
-    color: var(--color-ink);
+    font-weight: 700;
+    line-height: 1.2;
   }
-
+  
   .scroll__copy p {
     display: -webkit-box;
-    margin: 0.25rem 0 0;
-    font-size: clamp(0.7rem, 1.1vw, var(--text-sm));
-    line-height: 1.35;
-    -webkit-line-clamp: 4;
+    margin: 0;
+    max-width: 100%;
+    overflow-wrap: break-word;
+    font-size: clamp(0.6rem, 0.9vw, 0.72rem);
+    line-height: 1.3;
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
-
+  
   .scroll__copy a {
     display: inline-flex;
     align-items: center;
-    gap: 0.25rem;
-    margin-top: 0.25rem;
-    font-size: clamp(0.65rem, 1vw, 0.8rem);
-    color: var(--color-accent);
+    gap: 0.2rem;
+    max-width: 100%;
+    min-width: 0;
+    margin-top: 0;
+    font-size: clamp(0.55rem, 0.8vw, 0.68rem);
+    color: oklch(38% 0.08 45);
     text-decoration: underline;
     text-underline-offset: 0.15em;
-    white-space: nowrap;
+    white-space: normal;
   }
-
+  
+  .scroll__copy a span {
+    min-width: 0;
+    overflow-wrap: break-word;
+  }
+  
   .scroll__copy a:focus-visible {
-    outline: 2px solid var(--color-focus);
+    outline: 2px solid hsl(var(--ring));
     outline-offset: 2px;
   }
-
+  
   @media (max-width: 640px) {
-    .scroll-scene__backdrop {
-      height: min(90vh, 52rem);
-      min-height: min(90vh, 52rem);
-    }
-
     .scroll-scene__hang {
       inset: 2% 0.75% 1%;
     }
-
+  
     .scroll-gallery {
       gap: 0.25rem;
     }
-
-    .scroll__stage {
-      height: clamp(18rem, 64vh, 40rem);
+  
+    .scroll__content {
+      inset: 10% 7% 9%;
+      gap: 0.15rem;
+      --scroll-copy-width: 70%;
     }
-
+  
     .scroll__copy p {
-      -webkit-line-clamp: 3;
+      -webkit-line-clamp: 2;
     }
   }
-
+  
   @media (min-width: 768px) {
     .scroll__copy p {
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
+      -webkit-line-clamp: 2;
     }
   }
 }
@@ -1390,10 +1395,20 @@
     transition: none !important;
   }
 
-  .scroll__body,
-  .scroll__rod--bottom,
+  .scroll__viewport,
+  .scroll__banner,
   .scroll__photo,
   .scroll__copy {
+    transition: none !important;
+  }
+
+  .scroll-gallery.is-unfurled .scroll__viewport {
+    --scroll-clip-bottom: 0% !important;
+  }
+
+  .scroll-gallery.is-shown .scroll__banner,
+  .scroll-gallery.is-shown .scroll__photo,
+  .scroll-gallery.is-shown .scroll__copy {
     transition: none !important;
   }
 
