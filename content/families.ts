@@ -12,14 +12,8 @@ export const familiesContent = {
       "Learn about CSA@UVA's family system and meet this year's families.",
   },
 
-  /** Flip to true after the family reveal to unlock names, bios, photos, and Instagram (also gates roster data shipped to the client). */
+  /** Flip to true after the family reveal to unblur the scrolls and show names/bios. */
   revealed: false as boolean,
-
-  /**
-   * Scrolls with index below this value stay blurred until `revealed` is true.
-   * 0 = all clear · 1 = blur scroll 0 only · N = blur scrolls 0…N-1.
-   */
-  revealFromIndex: 3 as number,
 
   intro: {
     title: "Families",

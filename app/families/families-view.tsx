@@ -5,43 +5,21 @@ import Image from "next/image";
 import { familiesContent } from "@/content/families";
 import type { FamiliesClientPayload } from "./get-families-payload";
 
-const isDev = process.env.NODE_ENV === "development";
 const UNFURL_MS = 1000;
 const STAGGER_MS = 120;
 
-function getDisplayList(payload: FamiliesClientPayload) {
-  if (isDev && payload.devPreviewFamilies.length > 0) {
-    return payload.devPreviewFamilies;
-  }
-  return payload.families;
-}
-
-function isScrollBlurred(
-  index: number,
-  contentRevealed: boolean,
-  devBlurEnabled: boolean,
-  revealFromIndex: number,
-) {
-  if (contentRevealed) return false;
-  if (isDev) return devBlurEnabled;
-  return index < revealFromIndex;
-}
-
 export function FamiliesView({ payload }: { payload: FamiliesClientPayload }) {
-  const { intro, sealed, scrollAssets, revealFromIndex } = familiesContent;
-  const contentRevealed = payload.contentRevealed;
-  const [devBlurEnabled, setDevBlurEnabled] = useState(!contentRevealed);
+  const { intro, sealed, scrollAssets } = familiesContent;
+  const blurred = !payload.contentRevealed;
 
-  const [photosMounted, setPhotosMounted] = useState(false);
   const [unfurled, setUnfurled] = useState(false);
   const [shown, setShown] = useState(false);
 
-  const list = getDisplayList(payload);
+  const list = payload.families;
 
   useEffect(() => {
     setShown(false);
     setUnfurled(false);
-    setPhotosMounted(false);
 
     let innerFrame = 0;
     const outerFrame = window.requestAnimationFrame(() => {
@@ -50,7 +28,6 @@ export function FamiliesView({ payload }: { payload: FamiliesClientPayload }) {
     const unfurlComplete =
       UNFURL_MS + Math.max(0, payload.gateCount - 1) * STAGGER_MS;
     const showTimer = window.setTimeout(() => {
-      setPhotosMounted(true);
       window.requestAnimationFrame(() => setShown(true));
     }, unfurlComplete);
 
@@ -69,31 +46,8 @@ export function FamiliesView({ payload }: { payload: FamiliesClientPayload }) {
     .filter(Boolean)
     .join(" ");
 
-  const anyBlurred =
-    !contentRevealed &&
-    list.some((_, index) =>
-      isScrollBlurred(index, contentRevealed, devBlurEnabled, revealFromIndex),
-    );
-
   return (
     <div className="palace-families">
-      {isDev && !contentRevealed && (
-        <div className="palace-dev-toggle">
-          <button
-            type="button"
-            className="palace-dev-toggle__button"
-            aria-pressed={devBlurEnabled}
-            onClick={() => setDevBlurEnabled((value) => !value)}
-          >
-            Dev: {devBlurEnabled ? "Blur on" : "Blur off"}
-          </button>
-          <p className="palace-dev-toggle__note">
-            Production uses revealFromIndex = {revealFromIndex} (scrolls before
-            this index stay blurred)
-          </p>
-        </div>
-      )}
-
       <section className="palace-proclamation container-custom">
         <h1 className="palace-proclamation__title">{intro.title}</h1>
       </section>
@@ -101,7 +55,7 @@ export function FamiliesView({ payload }: { payload: FamiliesClientPayload }) {
       <section
         className="scroll-scene"
         aria-label={
-          anyBlurred ? "Sealed family scrolls" : "This year's families"
+          blurred ? "Sealed family scrolls" : "This year's families"
         }
       >
         <figure className="scroll-scene__frame">
@@ -127,15 +81,9 @@ export function FamiliesView({ payload }: { payload: FamiliesClientPayload }) {
 
             <ul className={galleryClass}>
               {Array.from({ length: payload.gateCount }, (_, index) => {
-                const family = photosMounted ? list[index] : undefined;
-                const showFamily = Boolean(family?.name);
+                const family = list[index];
                 const bannerSrc = scrollAssets.banners[index];
-                const blurred = isScrollBlurred(
-                  index,
-                  contentRevealed,
-                  devBlurEnabled,
-                  revealFromIndex,
-                );
+                const showCopy = Boolean(family?.name);
 
                 return (
                   <li
@@ -153,7 +101,7 @@ export function FamiliesView({ payload }: { payload: FamiliesClientPayload }) {
                         <div className="scroll__viewport">
                           <div className="scroll__skin" aria-hidden="true" />
                           <div className="scroll__body">
-                            {showFamily && family ? (
+                            {bannerSrc || showCopy ? (
                               <div
                                 className={`scroll__content${blurred ? " is-blurred" : ""}`}
                                 aria-hidden={blurred}
@@ -162,23 +110,30 @@ export function FamiliesView({ payload }: { payload: FamiliesClientPayload }) {
                                   <div className="scroll__banner-frame">
                                     <Image
                                       src={bannerSrc}
-                                      alt={`${family.name} banner`}
+                                      alt={
+                                        blurred || !family?.name
+                                          ? "Family banner"
+                                          : `${family.name} banner`
+                                      }
                                       fill
                                       sizes="(max-width: 768px) 32vw, 30vw"
                                       className="scroll__banner"
                                     />
                                   </div>
                                 ) : null}
-                                <div className="scroll__copy">
-                                  <h2>{family.name}</h2>
-                                  <p>{family.description}</p>
-                                </div>
+                                {showCopy && family ? (
+                                  <div className="scroll__copy">
+                                    <h2>{family.name}</h2>
+                                    <p>{family.description}</p>
+                                  </div>
+                                ) : null}
                               </div>
-                            ) : (
+                            ) : null}
+                            {blurred || !showCopy ? (
                               <span className="sr-only">
                                 {sealed.a11yLabel}
                               </span>
-                            )}
+                            ) : null}
                           </div>
                         </div>
                       </div>

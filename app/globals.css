@@ -900,51 +900,6 @@
     overflow-x: clip;
   }
 
-  .palace-dev-toggle {
-    position: fixed;
-    z-index: 60;
-    right: var(--page-gutter);
-    bottom: var(--space-md);
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: var(--space-3xs);
-  }
-
-  .palace-dev-toggle__button {
-    border: 1px solid var(--color-rule);
-    background: var(--color-paper);
-    color: var(--color-ink);
-    padding: var(--space-2xs) var(--space-sm);
-    font-size: var(--text-xs);
-    letter-spacing: 0.04em;
-    cursor: pointer;
-  }
-
-  .palace-dev-toggle__button:hover {
-    border-color: var(--color-accent);
-    color: var(--color-accent);
-  }
-
-  .palace-dev-toggle__button:focus-visible {
-    outline: 2px solid var(--color-focus);
-    outline-offset: 2px;
-  }
-
-  .palace-dev-toggle__button[aria-pressed="true"] {
-    border-color: var(--color-accent);
-    background: var(--color-accent);
-    color: var(--color-accent-ink);
-  }
-
-  .palace-dev-toggle__note {
-    margin: 0;
-    max-width: 14rem;
-    text-align: right;
-    font-size: var(--text-xs);
-    color: var(--color-ink-2);
-  }
-
   .palace-proclamation {
     padding-block: var(--space-xl) var(--space-lg);
     text-align: center;
@@ -1238,19 +1193,6 @@
   .scroll__banner {
     object-fit: cover;
     object-position: center 12%;
-    opacity: 0;
-    transform: scale(0.97);
-    transition:
-      opacity 280ms cubic-bezier(0.22, 1, 0.36, 1),
-      transform 280ms cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  
-  .scroll-gallery.is-shown .scroll__banner {
-    opacity: 1;
-    transform: none;
-    transition:
-      opacity 600ms cubic-bezier(0.22, 1, 0.36, 1) var(--scroll-stagger, 0ms),
-      transform 600ms cubic-bezier(0.22, 1, 0.36, 1) var(--scroll-stagger, 0ms);
   }
   
   .scroll__photo-frame {
@@ -1298,15 +1240,7 @@
     background: transparent;
     color: oklch(28% 0.04 55);
     text-align: left;
-    opacity: 0;
     overflow: hidden;
-    transition: opacity 220ms cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  
-  .scroll-gallery.is-shown .scroll__copy {
-    opacity: 1;
-    transition: opacity 500ms cubic-bezier(0.22, 1, 0.36, 1)
-      calc(120ms + var(--scroll-stagger, 0ms));
   }
   
   .scroll__copy h2 {
