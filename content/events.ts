@@ -21,9 +21,9 @@ export const eventsContent = {
 
   calendar: {
     iframeTitle: "CSA Events Calendar",
-    caption: "Agenda view · America/New_York",
+    caption: "Month view · America/New_York",
     embedUrl:
-      "https://calendar.google.com/calendar/embed?src=c_o0ntjuei84bjmlpfqbcsr62u3c%40group.calendar.google.com&ctz=America%2FNew_York&mode=AGENDA",
+      "https://calendar.google.com/calendar/embed?src=c_o0ntjuei84bjmlpfqbcsr62u3c%40group.calendar.google.com&ctz=America%2FNew_York&mode=MONTH",
     subscribeUrl:
       "https://calendar.google.com/calendar/u/0?cid=c_o0ntjuei84bjmlpfqbcsr62u3c@group.calendar.google.com",
   },

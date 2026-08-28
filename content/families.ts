@@ -1,5 +1,5 @@
 /**
- * Families page copy — edit page-level text here.
+ * Families page copy â edit page-level text here.
  *
  * Per-family names, bios, and Instagram links live in:
  *   app/families/families-data.json

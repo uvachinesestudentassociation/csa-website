@@ -49,4 +49,25 @@ export const aboutContent = {
     emphasis: ["Culturefest"],
     imageAlt: "YAR Tailgate",
   },
+
+  emphasisLinks: {
+    culture: {
+      FullMoonFest: "/events",
+      Chinafest: "/events",
+      "Dollar Dim Sum": "/events",
+    },
+    community: {
+      "family system": "/families",
+    },
+    outreach: {
+      Culturefest: "/events",
+    },
+  },
+
+  cta: {
+    title: "Come find your people",
+    body: "Ready to join CSA@UVA?",
+    newMemberLabel: "Join as a new member",
+    returningMemberLabel: "Returning member →",
+  },
 } as const

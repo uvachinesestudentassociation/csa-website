@@ -966,8 +966,8 @@
   .palace-proclamation__body {
     margin-inline: auto;
     margin-bottom: 0;
-    max-width: 40rem;
-    font-size: var(--text-md);
+    max-width: 32rem;
+    font-size: var(--text-sm);
     color: var(--color-ink-2);
   }
 
