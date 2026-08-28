@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { SearchInput } from "@/components/search-input";
+import { galleryContent } from "@/content/gallery";
 
 interface GalleryItem {
   name: string;
@@ -26,8 +27,8 @@ export function GalleryList({ items }: GalleryListProps) {
     <div className="space-y-6">
       <SearchInput
         id="gallery-search"
-        label="Search albums"
-        placeholder="Search albums..."
+        label={galleryContent.search.label}
+        placeholder={galleryContent.search.placeholder}
         value={query}
         onChange={setQuery}
       />
@@ -48,7 +49,7 @@ export function GalleryList({ items }: GalleryListProps) {
           ))}
         </div>
       ) : (
-        <p className="text-center text-muted-foreground">No albums match your search.</p>
+        <p className="text-center text-muted-foreground">{galleryContent.search.empty}</p>
       )}
     </div>
   );

@@ -6,6 +6,7 @@ import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import Navbar from "@/components/navbar"
 import Footer from "@/components/footer"
+import { siteContent } from "@/content/site"
 
 const raleway = Raleway({
   subsets: ["latin"],
@@ -25,22 +26,22 @@ const siteUrl = "https://csaatuva.com"
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "CSA@UVA - Chinese Student Association",
-    template: "%s | CSA@UVA",
+    default: siteContent.meta.defaultTitle,
+    template: siteContent.meta.titleTemplate,
   },
-  description: "Chinese Student Association at the University of Virginia",
+  description: siteContent.meta.description,
   openGraph: {
-    title: "CSA@UVA - Chinese Student Association",
-    description: "Chinese Student Association at the University of Virginia",
+    title: siteContent.meta.defaultTitle,
+    description: siteContent.meta.description,
     url: siteUrl,
-    siteName: "CSA@UVA",
+    siteName: siteContent.brand.name,
     locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "CSA@UVA - Chinese Student Association",
-    description: "Chinese Student Association at the University of Virginia",
+    title: siteContent.meta.defaultTitle,
+    description: siteContent.meta.description,
   },
   icons: {
     icon: "/favicon_io/favicon.ico",

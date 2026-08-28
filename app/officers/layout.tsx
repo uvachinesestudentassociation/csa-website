@@ -1,8 +1,9 @@
 import type { Metadata } from "next"
+import { officersContent } from "@/content/officers"
 
 export const metadata: Metadata = {
-  title: "Officers",
-  description: "Meet the CSA@UVA executive and officer board for the current academic year.",
+  title: officersContent.meta.title,
+  description: officersContent.meta.description,
 }
 
 export default function OfficersLayout({ children }: { children: React.ReactNode }) {

@@ -6,6 +6,7 @@ import { Instagram } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent } from "@/components/ui/tabs";
 import { SlidingTabsList } from "@/components/sliding-tabs-list";
+import { familiesContent } from "@/content/families";
 import families from "./families-data.json";
 
 interface Family {
@@ -42,7 +43,7 @@ function FamilyCard({ family }: { family: Family }) {
             className="mt-auto inline-flex items-center gap-2 text-primary transition-colors hover:text-primary/80 dark:text-primary-foreground dark:hover:text-primary-foreground/80"
           >
             <Instagram className="h-5 w-5" />
-            <span>View on Instagram</span>
+            <span>{familiesContent.card.instagramLabel}</span>
           </a>
         </div>
       </div>
@@ -64,13 +65,9 @@ export default function FamiliesPage() {
   return (
     <div className="container-custom">
       <div className="section-title">
-        <h1>CSA Families</h1>
+        <h1>{familiesContent.intro.title}</h1>
         <p className="mx-auto max-w-3xl text-center text-lg">
-          Every year, all members are assigned to different families. Families
-          play a major role in CSA&apos;s social activities, from organizing
-          family events to creating a sense of community for both new and old
-          members. The family system cultivates strong connections, fostering
-          friendships and shared experiences that define the essence of the CSA.
+          {familiesContent.intro.body}
         </p>
       </div>
 
