@@ -1,5 +1,4 @@
 import type { Metadata } from "next"
-import Image from "next/image"
 import { SocialLinks } from "@/components/social-links"
 import { RevealOnScroll } from "@/components/reveal-on-scroll"
 import { MistCloudOverlay } from "@/components/mist-cloud-overlay"
@@ -18,21 +17,14 @@ export default function Home() {
   return (
     <div>
       <section className="home-photo-fold" aria-label="CSA@UVA">
-        <Image
-          src="/images/background.png"
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover"
-          aria-hidden
-        />
-        <MistCloudOverlay tone="hero" />
+        <div className="home-photo-fold__mountains" aria-hidden />
+        <div className="home-photo-fold__mist" aria-hidden>
+          <MistCloudOverlay tone="hero" />
+        </div>
         <div className="home-photo-fold__scrim" aria-hidden />
         <div className="home-photo-fold__caption">
-          <p className="home-photo-fold__place home-rise">{hero.place}</p>
-          <h1 className="home-photo-fold__brand home-rise-delay-1">{hero.headline}</h1>
-          <div className="home-photo-fold__actions home-rise-delay-2">
+          <h1 className="home-photo-fold__brand home-rise">{hero.headline}</h1>
+          <div className="home-photo-fold__actions home-rise-delay-1">
             <a
               className="home-cta-primary"
               href={forms.newMember}

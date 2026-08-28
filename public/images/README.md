@@ -6,7 +6,7 @@ Static images served at `/images/*`. Required for the site to display correctly.
 
 | Path | Used on |
 |------|---------|
-| `background.png` | Home page hero background |
+| `mountains.png` | Home page hero background (behind fog) |
 | `about_cover.jpg` | About page hero |
 | `csa_square_logo.png` | Navbar |
 | `csa_tassel_logo.png` | Footer |

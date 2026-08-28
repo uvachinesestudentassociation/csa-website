@@ -12,9 +12,9 @@ export const siteContent = {
 
   forms: {
     newMember:
-      "https://docs.google.com/forms/d/1IJpfdlxr7xssdubWsDVTqSrGaAiJyIdtcGHYZXeInhw/viewform",
+      "https://docs.google.com/forms/d/e/1FAIpQLSfpPwhkvEMWCsmuBpk0ZUWB4v_4K8YM3_STny9nAg-l0GhYoQ/viewform",
     returningMember:
-      "https://docs.google.com/forms/d/11_qaSL1IiBrtmic8Z_uvV28ASoNvcUp2JaCFi7mtRVk/viewform",
+      "https://docs.google.com/forms/d/e/1FAIpQLSfsO9y5qy9y1vQ4jLGmVxTrhWyMYKaA3fE03xZVDaU1zQYXNA/viewform",
   },
 
   nav: {

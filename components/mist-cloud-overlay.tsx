@@ -50,27 +50,31 @@ export function MistCloudOverlay({
       return ["0%", `${a}%`, `${b}%`, "0%"]
     }
 
+    const heroVerticalSpread = tone === "hero" ? 6 : 2.5
+    const heroVerticalSpreadMid = tone === "hero" ? 7.5 : 3.5
+    const heroVerticalSpreadNear = tone === "hero" ? 9 : 4
+
     const anims = [
       animate(layers[0], {
         x: driftPath(10),
-        y: verticalPath(2.5),
+        y: verticalPath(heroVerticalSpread),
         duration: rnd(38000, 48000),
         ease: "inOutSine",
         loop: true,
       }),
       animate(layers[1], {
         x: driftPath(14),
-        y: verticalPath(3.5),
-        opacity: tone === "hero" ? [0.35, 0.55, 0.4, 0.6, 0.35] : [0.55, 0.85, 0.6, 0.9, 0.55],
+        y: verticalPath(heroVerticalSpreadMid),
+        opacity: tone === "hero" ? [0.24, 0.38, 0.28, 0.42, 0.24] : [0.55, 0.85, 0.6, 0.9, 0.55],
         duration: rnd(28000, 38000),
         ease: "inOutSine",
         loop: true,
       }),
       animate(layers[2], {
         x: driftPath(16),
-        y: verticalPath(4),
+        y: verticalPath(heroVerticalSpreadNear),
         scale: [1.04, 1.1, 1.05, 1.12, 1.04],
-        opacity: tone === "hero" ? [0.2, 0.4, 0.25, 0.45, 0.2] : [0.35, 0.55, 0.4, 0.6, 0.35],
+        opacity: tone === "hero" ? [0.16, 0.28, 0.2, 0.32, 0.16] : [0.35, 0.55, 0.4, 0.6, 0.35],
         duration: rnd(42000, 56000),
         ease: "inOutSine",
         loop: true,

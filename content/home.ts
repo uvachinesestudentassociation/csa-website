@@ -10,7 +10,6 @@ export const homeContent = {
   },
 
   hero: {
-    place: "Grounds · Charlottesville",
     headline: "Culture, community, and home on Grounds",
     ctaNew: "Join as a new member",
     ctaReturning: "Returning member →",

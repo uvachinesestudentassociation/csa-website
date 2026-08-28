@@ -465,34 +465,76 @@
     position: relative;
     min-height: 80dvh;
     overflow: hidden;
+    background: oklch(8% 0 0);
+  }
+
+  .home-photo-fold__mountains {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image: url("/images/mountains.png");
+    background-repeat: no-repeat;
+    background-position: center top;
+    /* Full width so side peaks aren't cropped (image is a wide panorama) */
+    background-size: 100% auto;
+    filter: contrast(1.1) brightness(1.03);
   }
 
   .home-photo-fold__scrim {
     position: absolute;
     inset: 0;
-    z-index: 1;
+    z-index: 3;
     background: linear-gradient(
       to top,
-      var(--color-hero-scrim-from),
-      var(--color-hero-scrim-mid),
-      var(--color-hero-scrim-to)
+      oklch(14% 0.025 25 / 0.82),
+      oklch(18% 0.02 25 / 0.28),
+      transparent
     );
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 52%);
+    mask-image: linear-gradient(to bottom, transparent 0%, black 52%);
   }
 
   .home-photo-fold__caption {
     position: absolute;
     inset: auto auto var(--space-xl) var(--page-gutter);
-    z-index: 2;
+    z-index: 4;
     max-width: min(36rem, calc(100% - 2 * var(--page-gutter)));
     color: white;
     padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .home-photo-fold__mist {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    overflow: hidden;
+    /* Fog spans the section but stays lighter over the peaks */
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.38) 0%,
+      rgba(0, 0, 0, 0.62) 38%,
+      black 72%
+    );
+    mask-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.38) 0%,
+      rgba(0, 0, 0, 0.62) 38%,
+      black 72%
+    );
+  }
+
+  .home-photo-fold__mist .mist-cloud-overlay {
+    position: absolute;
+    inset: 0;
   }
 
   /* Mist overlay on home hero (and reusable elsewhere) */
   .mist-cloud-overlay {
     position: absolute;
     inset: 0;
-    z-index: 0;
+    z-index: 2;
     overflow: hidden;
     pointer-events: none;
   }
@@ -503,19 +545,27 @@
     will-change: transform, opacity;
   }
 
+  .mist-cloud-overlay--hero .mist-cloud-layer {
+    inset: -18% -18% -8%;
+  }
+
+  .mist-cloud-overlay--hero .mist-cloud-layer img {
+    object-position: center 38%;
+  }
+
   .mist-cloud-overlay--hero .mist-cloud-layer--0 {
-    opacity: 0.45;
-    mix-blend-mode: soft-light;
+    opacity: 0.3;
+    mix-blend-mode: normal;
   }
 
   .mist-cloud-overlay--hero .mist-cloud-layer--1 {
-    opacity: 0.4;
-    mix-blend-mode: screen;
+    opacity: 0.26;
+    mix-blend-mode: normal;
   }
 
   .mist-cloud-overlay--hero .mist-cloud-layer--2 {
-    opacity: 0.28;
-    mix-blend-mode: soft-light;
+    opacity: 0.2;
+    mix-blend-mode: normal;
     transform: scale(1.06);
   }
 
@@ -542,15 +592,6 @@
     .mist-cloud-layer {
       will-change: auto;
     }
-  }
-
-  .home-photo-fold__place {
-    margin: 0 0 var(--space-sm);
-    font-size: var(--text-sm);
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: rgb(255 255 255 / 0.72);
   }
 
   .home-photo-fold__brand {
