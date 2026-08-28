@@ -6,6 +6,7 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent } from "@/components/ui/tabs";
 import { SlidingTabsList } from "@/components/sliding-tabs-list";
+import { alumniContent } from "@/content/alumni";
 import alumniData from "./alumni-data.json";
 
 interface AlumniPerson {
@@ -41,7 +42,7 @@ function RoleBadges({ roles }: { roles: string[] }) {
     <div className="flex flex-wrap justify-start gap-1 sm:justify-end">
       {roles.includes("exec") && (
         <Badge variant="default" className="text-xs">
-          Exec
+          {alumniContent.roles.exec}
         </Badge>
       )}
       {roles.includes("oboard") && (
@@ -49,7 +50,7 @@ function RoleBadges({ roles }: { roles: string[] }) {
           variant="outline"
           className="text-xs dark:border-primary/50 dark:text-foreground"
         >
-          Officer
+          {alumniContent.roles.officer}
         </Badge>
       )}
       {roles.includes("famhead") && (
@@ -57,7 +58,7 @@ function RoleBadges({ roles }: { roles: string[] }) {
           variant="secondary"
           className="text-xs dark:bg-secondary dark:text-secondary-foreground"
         >
-          Family Head
+          {alumniContent.roles.familyHead}
         </Badge>
       )}
     </div>
@@ -87,10 +88,10 @@ function AlumniYearHero({
       <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-24 bg-gradient-to-t from-card/80 to-transparent" />
       <div className="absolute inset-x-0 bottom-0 z-20 p-6">
         <h2 className="mb-0 text-2xl font-bold text-foreground dark:text-primary-foreground">
-          Class of {year}
+          {alumniContent.classOf(year)}
         </h2>
         <p className="mb-0 mt-1 text-sm text-muted-foreground">
-          {memberCount} {memberCount === 1 ? "member" : "members"}
+          {alumniContent.memberCount(memberCount)}
         </p>
       </div>
     </div>
@@ -137,18 +138,15 @@ export default function AlumniPage() {
   return (
     <div className="container-custom">
       <div className="section-title">
-        <h1>Alumni</h1>
-        <p className="max-w-3xl mx-auto text-lg text-center">
-          Celebrating our CSA alumni and their contributions to our
-          organization.
-        </p>
+        <h1>{alumniContent.intro.title}</h1>
+        <p className="max-w-3xl mx-auto text-lg text-center">{alumniContent.intro.body}</p>
       </div>
 
       <Card className="mt-12 overflow-hidden p-0 dark:bg-card">
         <Tabs value={activeYear} onValueChange={setActiveYear}>
           <div className="border-b bg-[hsl(0_0%_92%)] px-4 py-3 dark:bg-[hsl(0_0%_8%)] md:hidden">
             <label htmlFor="alumni-year" className="sr-only">
-              Select alumni class year
+              {alumniContent.yearSelectLabel}
             </label>
             <select
               id="alumni-year"
@@ -158,7 +156,7 @@ export default function AlumniPage() {
             >
               {years.map((yearData) => (
                 <option key={yearData.year} value={String(yearData.year)}>
-                  Class of {yearData.year}
+                  {alumniContent.classOf(yearData.year)}
                 </option>
               ))}
             </select>

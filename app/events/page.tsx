@@ -1,31 +1,24 @@
 import type { Metadata } from "next"
 import { Button } from "@/components/ui/button"
+import { eventsContent } from "@/content/events"
 
 export const metadata: Metadata = {
-  title: "Events",
-  description:
-    "Upcoming CSA@UVA events and activities. Subscribe to our Google Calendar to stay in the loop.",
+  title: eventsContent.meta.title,
+  description: eventsContent.meta.description,
 }
-
-const CALENDAR_EMBED_URL =
-  "https://calendar.google.com/calendar/embed?src=c_o0ntjuei84bjmlpfqbcsr62u3c%40group.calendar.google.com&ctz=America%2FNew_York&mode=MONTH"
-const CALENDAR_SUBSCRIBE_URL =
-  "https://calendar.google.com/calendar/u/0?cid=c_o0ntjuei84bjmlpfqbcsr62u3c@group.calendar.google.com"
 
 export default function EventsPage() {
   return (
     <div className="container-custom">
       <div className="section-title">
-        <h1>Events</h1>
-        <p className="mx-auto max-w-3xl text-center text-lg">
-          Stay up to date with our upcoming events. Subscribe to add them to your calendar.
-        </p>
+        <h1>{eventsContent.header.title}</h1>
+        <p className="mx-auto max-w-3xl text-center text-lg">{eventsContent.header.lede}</p>
       </div>
 
       <div className="mt-8">
         <iframe
-          title="CSA Events Calendar"
-          src={CALENDAR_EMBED_URL}
+          title={eventsContent.calendar.iframeTitle}
+          src={eventsContent.calendar.embedUrl}
           style={{ border: 0 }}
           className="h-[min(70dvh,42rem)] min-h-[28rem] w-full"
           loading="lazy"
@@ -34,21 +27,13 @@ export default function EventsPage() {
 
       <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
         <Button asChild size="lg" className="w-full max-w-sm sm:w-auto">
-          <a
-            href={CALENDAR_SUBSCRIBE_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Subscribe
+          <a href={eventsContent.calendar.subscribeUrl} target="_blank" rel="noopener noreferrer">
+            {eventsContent.actions.subscribe}
           </a>
         </Button>
         <Button asChild size="lg" variant="outline" className="w-full max-w-sm sm:w-auto">
-          <a
-            href={CALENDAR_SUBSCRIBE_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Open in Google Calendar
+          <a href={eventsContent.calendar.subscribeUrl} target="_blank" rel="noopener noreferrer">
+            {eventsContent.actions.openCalendar}
           </a>
         </Button>
       </div>

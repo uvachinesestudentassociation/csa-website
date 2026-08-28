@@ -1,8 +1,9 @@
 import type { Metadata } from "next"
+import { alumniContent } from "@/content/alumni"
 
 export const metadata: Metadata = {
-  title: "Alumni",
-  description: "Celebrating CSA@UVA alumni and their contributions to our organization.",
+  title: alumniContent.meta.title,
+  description: alumniContent.meta.description,
 }
 
 export default function AlumniLayout({ children }: { children: React.ReactNode }) {

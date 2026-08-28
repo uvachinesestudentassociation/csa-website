@@ -1,8 +1,9 @@
 import type { Metadata } from "next"
+import { familiesContent } from "@/content/families"
 
 export const metadata: Metadata = {
-  title: "Families",
-  description: "Learn about CSA@UVA's family system and meet this year's families.",
+  title: familiesContent.meta.title,
+  description: familiesContent.meta.description,
 }
 
 export default function FamiliesLayout({ children }: { children: React.ReactNode }) {

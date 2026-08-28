@@ -9,6 +9,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { SearchInput } from "@/components/search-input";
+import { archiveContent } from "@/content/archive";
 
 interface ArchiveEvent {
   name: string;
@@ -49,8 +50,8 @@ export function ArchiveGalleryList({ archiveData }: ArchiveGalleryListProps) {
     <div className="space-y-6">
       <SearchInput
         id="archive-search"
-        label="Search archive albums"
-        placeholder="Search archive albums..."
+        label={archiveContent.search.label}
+        placeholder={archiveContent.search.placeholder}
         value={query}
         onChange={setQuery}
       />
@@ -87,7 +88,7 @@ export function ArchiveGalleryList({ archiveData }: ArchiveGalleryListProps) {
           ))}
         </div>
       ) : (
-        <p className="text-center text-muted-foreground">No albums match your search.</p>
+        <p className="text-center text-muted-foreground">{archiveContent.search.empty}</p>
       )}
     </div>
   );

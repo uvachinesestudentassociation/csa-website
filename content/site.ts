@@ -29,7 +29,7 @@ export const siteContent = {
     ],
     joinLabel: "Join",
     joinMobileLabel: "Join as a new member",
-    openMenuLabel: "Open menu",
+    openMenuLabel: "Toggle menu",
     closeMenuLabel: "Close menu",
   },
 

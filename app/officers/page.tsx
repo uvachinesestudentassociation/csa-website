@@ -4,6 +4,7 @@ import { useState } from "react"
 import Image from "next/image"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Card, CardContent } from "@/components/ui/card"
+import { officersContent } from "@/content/officers"
 import officersData from "./officers-data.json"
 
 function getYoutubeEmbedUrl(watchUrl: string): string | null {
@@ -71,7 +72,7 @@ function OfficerCard({ imagePath, name, description }: OfficerCardProps) {
       </div>
       <CardContent className="p-4 text-center">
         <h3 className="text-lg font-semibold mb-0 dark:text-primary-foreground">{name}</h3>
-        <p className="text-xs text-muted-foreground mt-1">Tap for bio</p>
+        <p className="text-xs text-muted-foreground mt-1">{officersContent.card.tapForBio}</p>
       </CardContent>
     </Card>
   )
@@ -88,7 +89,7 @@ export default function OfficersPage() {
         <div className="relative aspect-video rounded-lg overflow-hidden">
           <Image
             src={officersData.boardImage}
-            alt="Executive and Officer Board"
+            alt={officersContent.boardImageAlt}
             fill
             sizes="(max-width: 768px) 100vw, 50vw"
             className="object-cover"
@@ -98,7 +99,7 @@ export default function OfficersPage() {
           {youtubeEmbedUrl ? (
             <iframe
               src={youtubeEmbedUrl}
-              title="CSA board video"
+              title={officersContent.videoTitle}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
               className="absolute inset-0 h-full w-full border-0"
@@ -110,7 +111,7 @@ export default function OfficersPage() {
               rel="noopener noreferrer"
               className="absolute inset-0 flex items-center justify-center text-white"
             >
-              Watch on YouTube
+              {officersContent.youtubeFallback}
             </a>
           )}
         </div>
@@ -118,8 +119,8 @@ export default function OfficersPage() {
 
       <Tabs defaultValue="executive" className="mb-16">
         <TabsList className="grid w-full grid-cols-2 mb-8">
-          <TabsTrigger value="executive">Executive Board</TabsTrigger>
-          <TabsTrigger value="officer">Officer Board</TabsTrigger>
+          <TabsTrigger value="executive">{officersContent.tabs.executive}</TabsTrigger>
+          <TabsTrigger value="officer">{officersContent.tabs.officer}</TabsTrigger>
         </TabsList>
 
         <TabsContent value="executive">
