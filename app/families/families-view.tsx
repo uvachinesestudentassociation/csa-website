@@ -96,7 +96,6 @@ export function FamiliesView({ payload }: { payload: FamiliesClientPayload }) {
 
       <section className="palace-proclamation container-custom">
         <h1 className="palace-proclamation__title">{intro.title}</h1>
-        <p className="palace-proclamation__body">{intro.body}</p>
       </section>
 
       <section

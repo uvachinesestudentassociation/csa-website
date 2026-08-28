@@ -1,4 +1,4 @@
-@import "../tokens.css";
+﻿@import "../tokens.css";
 
 @tailwind base;
 @tailwind components;
@@ -960,19 +960,10 @@
   }
 
   .palace-proclamation__title {
-    margin-bottom: var(--space-md);
-  }
-
-  .palace-proclamation__body {
-    margin-inline: auto;
     margin-bottom: 0;
-    max-width: 32rem;
-    font-size: var(--text-sm);
-    color: var(--color-ink-2);
   }
 
-  .dark .palace-proclamation__eyebrow,
-  .dark .palace-proclamation__body {
+  .dark .palace-proclamation__eyebrow {
     color: oklch(78% 0.02 45);
   }
 

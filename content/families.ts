@@ -23,7 +23,6 @@ export const familiesContent = {
 
   intro: {
     title: "Families",
-    body: "Every year, all members are assigned to different families. Families play a major role in CSA's social activities, from organizing family events to creating a sense of community for both new and old members. The family system cultivates strong connections, fostering friendships and shared experiences that define the essence of the CSA.",
   },
 
   sealed: {
