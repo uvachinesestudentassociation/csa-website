@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import { SocialLinks } from "@/components/social-links"
 import { RevealOnScroll } from "@/components/reveal-on-scroll"
-import { MistCloudOverlay } from "@/components/mist-cloud-overlay"
+import { HomeHeroMedia } from "@/components/home-hero-media"
 import { previewAssets } from "@/app/animations-preview/assets"
 import { homeContent } from "@/content/home"
 import { siteContent } from "@/content/site"
@@ -22,19 +22,7 @@ export default function Home() {
         <link key={src} rel="preload" as="image" href={src} />
       ))}
       <section className="home-photo-fold" aria-label="CSA@UVA">
-        <div className="home-photo-fold__mountains" aria-hidden>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/images/mountains.png"
-            alt=""
-            fetchPriority="high"
-            decoding="async"
-            className="home-photo-fold__mountains-img"
-          />
-        </div>
-        <div className="home-photo-fold__mist" aria-hidden>
-          <MistCloudOverlay tone="hero" />
-        </div>
+        <HomeHeroMedia />
         <div className="home-photo-fold__scrim" aria-hidden />
         <div className="home-photo-fold__caption">
           <h1 className="home-photo-fold__brand home-rise">{hero.headline}</h1>
