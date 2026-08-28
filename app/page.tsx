@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { SocialLinks } from "@/components/social-links"
 import { RevealOnScroll } from "@/components/reveal-on-scroll"
 import { MistCloudOverlay } from "@/components/mist-cloud-overlay"
+import { previewAssets } from "@/app/animations-preview/assets"
 import { homeContent } from "@/content/home"
 import { siteContent } from "@/content/site"
 
@@ -16,8 +17,21 @@ export default function Home() {
 
   return (
     <div>
+      <link rel="preload" as="image" href="/images/mountains.png" />
+      {previewAssets.cloudMistLayers.map((src) => (
+        <link key={src} rel="preload" as="image" href={src} />
+      ))}
       <section className="home-photo-fold" aria-label="CSA@UVA">
-        <div className="home-photo-fold__mountains" aria-hidden />
+        <div className="home-photo-fold__mountains" aria-hidden>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/mountains.png"
+            alt=""
+            fetchPriority="high"
+            decoding="async"
+            className="home-photo-fold__mountains-img"
+          />
+        </div>
         <div className="home-photo-fold__mist" aria-hidden>
           <MistCloudOverlay tone="hero" />
         </div>

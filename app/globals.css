@@ -473,11 +473,13 @@
     inset: 0;
     z-index: 0;
     pointer-events: none;
-    background-image: url("/images/mountains.png");
-    background-repeat: no-repeat;
-    background-position: center top;
-    /* Full width so side peaks aren't cropped (image is a wide panorama) */
-    background-size: 100% auto;
+    overflow: hidden;
+  }
+
+  .home-photo-fold__mountains-img {
+    display: block;
+    width: 100%;
+    height: auto;
     filter: contrast(1.1) brightness(1.03);
   }
 
@@ -567,6 +569,15 @@
     opacity: 0.2;
     mix-blend-mode: normal;
     transform: scale(1.06);
+  }
+
+  .mist-cloud-overlay--hero:not(.mist-cloud-overlay--ready) {
+    opacity: 0;
+  }
+
+  .mist-cloud-overlay--hero.mist-cloud-overlay--ready {
+    opacity: 1;
+    transition: opacity 0.5s ease;
   }
 
   .mist-cloud-overlay--demo {

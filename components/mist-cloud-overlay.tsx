@@ -1,7 +1,7 @@
 "use client"
 
 import Image from "next/image"
-import { useEffect, useRef } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import { animate } from "animejs"
 import { previewAssets } from "@/app/animations-preview/assets"
 import { cn } from "@/lib/utils"
@@ -21,10 +21,30 @@ export function MistCloudOverlay({
   tone = "hero",
 }: MistCloudOverlayProps) {
   const stageRef = useRef<HTMLDivElement>(null)
+  const [imagesReady, setImagesReady] = useState(false)
+  const loadedCountRef = useRef(0)
+  const layerCount = previewAssets.cloudMistLayers.length
+
+  const handleImageLoad = useCallback(() => {
+    loadedCountRef.current += 1
+    if (loadedCountRef.current >= layerCount) {
+      setImagesReady(true)
+    }
+  }, [layerCount])
 
   useEffect(() => {
     const stage = stageRef.current
-    if (!stage) return
+    if (!stage || imagesReady) return
+
+    const imgs = stage.querySelectorAll("img")
+    if (imgs.length >= layerCount && Array.from(imgs).every((img) => img.complete)) {
+      setImagesReady(true)
+    }
+  }, [imagesReady, layerCount])
+
+  useEffect(() => {
+    const stage = stageRef.current
+    if (!stage || !imagesReady) return
 
     const layers = stage.querySelectorAll<HTMLElement>(".mist-cloud-layer")
     if (prefersReducedMotion()) {
@@ -65,7 +85,7 @@ export function MistCloudOverlay({
       animate(layers[1], {
         x: driftPath(14),
         y: verticalPath(heroVerticalSpreadMid),
-        opacity: tone === "hero" ? [0.24, 0.38, 0.28, 0.42, 0.24] : [0.55, 0.85, 0.6, 0.9, 0.55],
+        opacity: tone === "hero" ? [0.26, 0.38, 0.28, 0.42, 0.26] : [0.55, 0.85, 0.6, 0.9, 0.55],
         duration: rnd(28000, 38000),
         ease: "inOutSine",
         loop: true,
@@ -73,8 +93,8 @@ export function MistCloudOverlay({
       animate(layers[2], {
         x: driftPath(16),
         y: verticalPath(heroVerticalSpreadNear),
-        scale: [1.04, 1.1, 1.05, 1.12, 1.04],
-        opacity: tone === "hero" ? [0.16, 0.28, 0.2, 0.32, 0.16] : [0.35, 0.55, 0.4, 0.6, 0.35],
+        scale: tone === "hero" ? [1.06, 1.1, 1.05, 1.12, 1.06] : [1.04, 1.1, 1.05, 1.12, 1.04],
+        opacity: tone === "hero" ? [0.2, 0.28, 0.2, 0.32, 0.2] : [0.35, 0.55, 0.4, 0.6, 0.35],
         duration: rnd(42000, 56000),
         ease: "inOutSine",
         loop: true,
@@ -87,12 +107,17 @@ export function MistCloudOverlay({
         anim.revert()
       })
     }
-  }, [tone])
+  }, [imagesReady, tone])
 
   return (
     <div
       ref={stageRef}
-      className={cn("mist-cloud-overlay", `mist-cloud-overlay--${tone}`, className)}
+      className={cn(
+        "mist-cloud-overlay",
+        `mist-cloud-overlay--${tone}`,
+        imagesReady && "mist-cloud-overlay--ready",
+        className
+      )}
       aria-hidden
     >
       {previewAssets.cloudMistLayers.map((src, i) => (
@@ -104,7 +129,8 @@ export function MistCloudOverlay({
             sizes="100vw"
             className="object-cover"
             unoptimized
-            priority={tone === "hero" && i === 0}
+            priority={tone === "hero"}
+            onLoad={handleImageLoad}
           />
         </div>
       ))}
