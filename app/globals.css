@@ -512,18 +512,20 @@
     z-index: 2;
     pointer-events: none;
     overflow: hidden;
-    /* Fog spans the section but stays lighter over the peaks */
-    -webkit-mask-image: linear-gradient(
-      to bottom,
-      rgba(0, 0, 0, 0.38) 0%,
-      rgba(0, 0, 0, 0.62) 38%,
-      black 72%
+    /* Densest through the mid band so fog reads centered on the hero */
+    -webkit-mask-image: radial-gradient(
+      ellipse 120% 70% at 50% 48%,
+      black 0%,
+      black 42%,
+      rgba(0, 0, 0, 0.75) 68%,
+      rgba(0, 0, 0, 0.35) 100%
     );
-    mask-image: linear-gradient(
-      to bottom,
-      rgba(0, 0, 0, 0.38) 0%,
-      rgba(0, 0, 0, 0.62) 38%,
-      black 72%
+    mask-image: radial-gradient(
+      ellipse 120% 70% at 50% 48%,
+      black 0%,
+      black 42%,
+      rgba(0, 0, 0, 0.75) 68%,
+      rgba(0, 0, 0, 0.35) 100%
     );
   }
 
@@ -548,24 +550,26 @@
   }
 
   .mist-cloud-overlay--hero .mist-cloud-layer {
-    inset: -18% -18% -8%;
+    inset: -16% -18%;
   }
 
   .mist-cloud-overlay--hero .mist-cloud-layer img {
-    object-position: center 38%;
+    object-position: center center;
   }
 
   /* nth-child — Tailwind/Lightning drops `.mist-cloud-layer--0` style rules */
   .mist-cloud-overlay--hero .mist-cloud-layer:nth-child(1) {
-    opacity: 0.3;
+    opacity: 0.55;
     mix-blend-mode: normal;
+    filter: brightness(1.15) contrast(1.05);
     animation: mist-drift-far 28s linear infinite;
     animation-delay: -11s;
   }
 
   .mist-cloud-overlay--hero .mist-cloud-layer:nth-child(2) {
-    opacity: 0.26;
+    opacity: 0.48;
     mix-blend-mode: normal;
+    filter: brightness(1.12);
     animation:
       mist-drift-mid 22s linear infinite,
       mist-breathe-mid 22s ease-in-out infinite;
@@ -573,8 +577,9 @@
   }
 
   .mist-cloud-overlay--hero .mist-cloud-layer:nth-child(3) {
-    opacity: 0.2;
+    opacity: 0.4;
     mix-blend-mode: normal;
+    filter: brightness(1.1);
     animation:
       mist-drift-near 32s linear infinite,
       mist-breathe-near 32s ease-in-out infinite;
@@ -1367,32 +1372,32 @@
 @keyframes mist-breathe-mid {
   0%,
   100% {
-    opacity: 0.26;
+    opacity: 0.48;
   }
   25% {
-    opacity: 0.38;
+    opacity: 0.62;
   }
   50% {
-    opacity: 0.28;
+    opacity: 0.5;
   }
   75% {
-    opacity: 0.42;
+    opacity: 0.68;
   }
 }
 
 @keyframes mist-breathe-near {
   0%,
   100% {
-    opacity: 0.2;
+    opacity: 0.4;
   }
   25% {
-    opacity: 0.28;
+    opacity: 0.52;
   }
   50% {
-    opacity: 0.2;
+    opacity: 0.42;
   }
   75% {
-    opacity: 0.32;
+    opacity: 0.58;
   }
 }
 
