@@ -1,5 +1,5 @@
 /**
- * About page copy.
+ * About page copy — edit any string below.
  */
 
 export const aboutContent = {
@@ -14,7 +14,7 @@ export const aboutContent = {
   },
 
   intro: {
-    title: "About CSA@UVA",
+    title: "About",
     paragraphs: [
       "The Chinese Student Association at the University of Virginia (CSA@UVA) seeks to promote Chinese culture within the University and greater Charlottesville community.",
       "CSA welcomes and encourages people of all ages, races, and backgrounds!",
@@ -27,6 +27,7 @@ export const aboutContent = {
       "Our primary goal is to nurture and celebrate Chinese culture and heritage. We hold two large cultural showcases annually: FullMoonFest for Mid-Autumn Festival, and Chinafest for Lunar New Year. Both include dances, skits, and other entertainment, exhibiting facets of both traditional and modern Chinese culture.",
       "Even though our primary goal is to celebrate Chinese culture, we invite people from all cultures and backgrounds to join CSA. Our events like Dollar Dim Sum provide opportunities for everyone to experience authentic Chinese cuisine and traditions.",
     ],
+    /** Words to render bold inside the paragraphs above (matched as whole phrases). */
     emphasis: ["FullMoonFest", "Chinafest", "Dollar Dim Sum"],
     imageAlt: "Dragon Dance at Chinafest",
   },
@@ -47,5 +48,26 @@ export const aboutContent = {
     ],
     emphasis: ["Culturefest"],
     imageAlt: "YAR Tailgate",
+  },
+
+  emphasisLinks: {
+    culture: {
+      FullMoonFest: "/events",
+      Chinafest: "/events",
+      "Dollar Dim Sum": "/events",
+    },
+    community: {
+      "family system": "/families",
+    },
+    outreach: {
+      Culturefest: "/events",
+    },
+  },
+
+  cta: {
+    title: "Come find your people",
+    body: "Ready to join CSA@UVA?",
+    newMemberLabel: "Join as a new member",
+    returningMemberLabel: "Returning member →",
   },
 } as const

@@ -12,24 +12,31 @@ export const metadata: Metadata = {
 }
 
 export default function ArchivePage() {
+  const { title, backLabel, search, facebookAlbums } = archiveContent
+
   return (
     <div className="container-custom">
       <div className="flex items-center mb-8">
         <Button variant="outline" size="icon" asChild className="mr-4">
           <Link href="/gallery">
             <ChevronLeft className="h-4 w-4" />
-            <span className="sr-only">{archiveContent.backLabel}</span>
+            <span className="sr-only">{backLabel}</span>
           </Link>
         </Button>
-        <h1 className="mb-0">{archiveContent.title}</h1>
+        <h1 className="mb-0">{title}</h1>
       </div>
 
-      <ArchiveGalleryList archiveData={archiveData} />
+      <ArchiveGalleryList
+        archiveData={archiveData}
+        searchLabel={search.label}
+        searchPlaceholder={search.placeholder}
+        emptyMessage={search.empty}
+      />
 
       <div className="mt-12 text-center">
         <Button asChild variant="outline" size="lg">
-          <a href={archiveContent.facebookAlbums.href} target="_blank" rel="noopener noreferrer">
-            {archiveContent.facebookAlbums.label}
+          <a href={facebookAlbums.href} target="_blank" rel="noopener noreferrer">
+            {facebookAlbums.label}
           </a>
         </Button>
       </div>

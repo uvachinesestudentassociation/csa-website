@@ -58,7 +58,8 @@ const config = {
       },
       fontFamily: {
         raleway: ["var(--font-raleway)"],
-        display: ["var(--font-display)", "Georgia", "serif"],
+        display: ["var(--font-display)"],
+        palace: ["var(--font-palace)"],
       },
       keyframes: {
         "accordion-down": {

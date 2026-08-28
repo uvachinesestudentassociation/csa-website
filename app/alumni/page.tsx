@@ -1,48 +1,50 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import Image from "next/image";
-import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsContent } from "@/components/ui/tabs";
-import { SlidingTabsList } from "@/components/sliding-tabs-list";
-import { alumniContent } from "@/content/alumni";
-import alumniData from "./alumni-data.json";
+import { useState } from "react"
+import Image from "next/image"
+import { Card } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { Tabs, TabsContent } from "@/components/ui/tabs"
+import { SlidingTabsList } from "@/components/sliding-tabs-list"
+import { alumniContent } from "@/content/alumni"
+import alumniData from "./alumni-data.json"
 
 interface AlumniPerson {
-  name: string;
-  roles: string[];
+  name: string
+  roles: string[]
 }
 
 interface AlumniYear {
-  year: number;
-  imageSrc: string;
-  people: AlumniPerson[];
+  year: number
+  imageSrc: string
+  people: AlumniPerson[]
 }
 
 function getRolePriority(roles: string[]): number {
-  if (roles.includes("exec")) return 0;
-  if (roles.includes("oboard")) return 1;
-  if (roles.includes("famhead")) return 2;
-  return 3;
+  if (roles.includes("exec")) return 0
+  if (roles.includes("oboard")) return 1
+  if (roles.includes("famhead")) return 2
+  return 3
 }
 
 function sortPeopleByRole(people: AlumniPerson[]): AlumniPerson[] {
   return [...people].sort((a, b) => {
-    const priorityDiff = getRolePriority(a.roles) - getRolePriority(b.roles);
-    if (priorityDiff !== 0) return priorityDiff;
-    return a.name.localeCompare(b.name, undefined, { sensitivity: "base" });
-  });
+    const priorityDiff = getRolePriority(a.roles) - getRolePriority(b.roles)
+    if (priorityDiff !== 0) return priorityDiff
+    return a.name.localeCompare(b.name, undefined, { sensitivity: "base" })
+  })
 }
 
 function RoleBadges({ roles }: { roles: string[] }) {
-  if (roles.length === 0) return null;
+  if (roles.length === 0) return null
+
+  const { roles: roleLabels } = alumniContent
 
   return (
     <div className="flex flex-wrap justify-start gap-1 sm:justify-end">
       {roles.includes("exec") && (
         <Badge variant="default" className="text-xs">
-          {alumniContent.roles.exec}
+          {roleLabels.exec}
         </Badge>
       )}
       {roles.includes("oboard") && (
@@ -50,7 +52,7 @@ function RoleBadges({ roles }: { roles: string[] }) {
           variant="outline"
           className="text-xs dark:border-primary/50 dark:text-foreground"
         >
-          {alumniContent.roles.officer}
+          {roleLabels.officer}
         </Badge>
       )}
       {roles.includes("famhead") && (
@@ -58,11 +60,11 @@ function RoleBadges({ roles }: { roles: string[] }) {
           variant="secondary"
           className="text-xs dark:bg-secondary dark:text-secondary-foreground"
         >
-          {alumniContent.roles.familyHead}
+          {roleLabels.familyHead}
         </Badge>
       )}
     </div>
-  );
+  )
 }
 
 function AlumniYearHero({
@@ -70,9 +72,9 @@ function AlumniYearHero({
   imageSrc,
   memberCount,
 }: {
-  year: number;
-  imageSrc: string;
-  memberCount: number;
+  year: number
+  imageSrc: string
+  memberCount: number
 }) {
   return (
     <div className="relative w-full">
@@ -95,11 +97,11 @@ function AlumniYearHero({
         </p>
       </div>
     </div>
-  );
+  )
 }
 
 function AlumniRoster({ year, imageSrc, people }: AlumniYear) {
-  const sortedPeople = sortPeopleByRole(people);
+  const sortedPeople = sortPeopleByRole(people)
 
   return (
     <div>
@@ -121,32 +123,33 @@ function AlumniRoster({ year, imageSrc, people }: AlumniYear) {
         ))}
       </ul>
     </div>
-  );
+  )
 }
 
-const years = alumniData as AlumniYear[];
-const defaultYear = String(years[0]?.year ?? "");
+const years = alumniData as AlumniYear[]
+const defaultYear = String(years[0]?.year ?? "")
 
 const alumniTabs = years.map((yearData) => ({
   value: String(yearData.year),
   label: yearData.year,
-}));
+}))
 
 export default function AlumniPage() {
-  const [activeYear, setActiveYear] = useState(defaultYear);
+  const [activeYear, setActiveYear] = useState(defaultYear)
+  const { intro, yearSelectLabel } = alumniContent
 
   return (
     <div className="container-custom">
       <div className="section-title">
-        <h1>{alumniContent.intro.title}</h1>
-        <p className="max-w-3xl mx-auto text-lg text-center">{alumniContent.intro.body}</p>
+        <h1>{intro.title}</h1>
+        <p className="max-w-3xl mx-auto text-lg text-center">{intro.body}</p>
       </div>
 
       <Card className="mt-12 overflow-hidden p-0 dark:bg-card">
         <Tabs value={activeYear} onValueChange={setActiveYear}>
           <div className="border-b bg-[hsl(0_0%_92%)] px-4 py-3 dark:bg-[hsl(0_0%_8%)] md:hidden">
             <label htmlFor="alumni-year" className="sr-only">
-              {alumniContent.yearSelectLabel}
+              {yearSelectLabel}
             </label>
             <select
               id="alumni-year"
@@ -181,5 +184,5 @@ export default function AlumniPage() {
         </Tabs>
       </Card>
     </div>
-  );
+  )
 }

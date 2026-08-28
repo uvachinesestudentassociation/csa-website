@@ -1,6 +1,5 @@
 /**
- * Home page copy.
- * Edit strings here — app/page.tsx imports from this file.
+ * Home page copy — edit any string below.
  */
 
 export const homeContent = {
@@ -12,8 +11,14 @@ export const homeContent = {
 
   hero: {
     headline: "Culture, community, and home on Grounds",
-    body: "One of UVA's largest Asian-American cultural organizations — celebrating Chinese heritage and welcoming every background in Charlottesville.",
-    ctaNew: "New Members Form",
-    ctaReturning: "Returning Members",
+    ctaNew: "Join as a new member",
+    ctaReturning: "Returning member →",
   },
-} as const
+
+  join: {
+    title: "Come find your people",
+    body: "Whether you're new to Grounds or returning for another year, joining has never been easier.",
+    ctaNew: "New member form",
+    ctaReturning: "Returning members →",
+  },
+} as const;

@@ -1,89 +1,131 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import Link from "next/link"
-import Image from "next/image"
-import { Menu, X } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { ThemeToggle } from "@/components/theme-provider"
-import { siteContent } from "@/content/site"
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { usePathname } from "next/navigation";
+import { Menu, X } from "lucide-react";
+import { ThemeToggle } from "@/components/theme-provider";
+import { cn } from "@/lib/utils";
+import { siteContent } from "@/content/site";
 
 export default function Navbar() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const pathname = usePathname();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const { brand, nav, forms } = siteContent;
 
   useEffect(() => {
-    if (!mobileMenuOpen) return
+    setMenuOpen(false);
+  }, [pathname]);
 
-    const previousOverflow = document.body.style.overflow
-    document.body.style.overflow = "hidden"
-
+  useEffect(() => {
+    if (!menuOpen) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
     return () => {
-      document.body.style.overflow = previousOverflow
-    }
-  }, [mobileMenuOpen])
-
-  const closeMobileMenu = () => setMobileMenuOpen(false)
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [menuOpen]);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 pt-[env(safe-area-inset-top)] backdrop-blur supports-[backdrop-filter]:bg-background/60 dark:bg-background/80">
-      <div className="container flex h-16 items-center justify-between">
-        <Link href="/" className="flex items-center gap-2">
-          <Image
-            src="/images/csa_square_logo.png"
-            alt={`${siteContent.brand.name} Logo`}
-            width={48}
-            height={48}
-            className="h-12 w-auto"
-          />
-          <span className="sr-only">{siteContent.brand.name}</span>
-        </Link>
+    <header className="site-mast">
+      <div className="site-mast__inner">
+        <p className="site-mast__eyebrow">{brand.eyebrow}</p>
 
-        <nav className="hidden md:flex items-center gap-6">
-          {siteContent.nav.links.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="text-foreground/80 hover:text-primary font-semibold transition-colors"
+        <div className="site-mast__brand-row">
+          <Link
+            href="/"
+            className="site-mast__brand"
+            onClick={() => setMenuOpen(false)}
+          >
+            <Image
+              src="/images/csa_square_logo.png"
+              alt=""
+              width={48}
+              height={48}
+              className="site-mast__logo"
+              aria-hidden
+            />
+            <span className="site-mast__title">{brand.name}</span>
+          </Link>
+
+          <div className="site-mast__tools">
+            <ThemeToggle />
+            <button
+              type="button"
+              className="site-mast__menu-btn md:hidden"
+              aria-expanded={menuOpen}
+              aria-controls="site-mast-panel"
+              onClick={() => setMenuOpen((open) => !open)}
             >
-              {link.name}
-            </Link>
-          ))}
-          <ThemeToggle />
-        </nav>
-
-        <div className="md:hidden flex items-center gap-2">
-          <ThemeToggle />
-          <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-            {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-            <span className="sr-only">{siteContent.nav.openMenuLabel}</span>
-          </Button>
+              {menuOpen ? (
+                <X className="h-6 w-6" aria-hidden />
+              ) : (
+                <Menu className="h-6 w-6" aria-hidden />
+              )}
+              <span className="sr-only">
+                {menuOpen ? nav.closeMenuLabel : nav.openMenuLabel}
+              </span>
+            </button>
+          </div>
         </div>
-      </div>
 
-      {mobileMenuOpen && (
-        <>
-          <button
-            type="button"
-            aria-label={siteContent.nav.closeMenuLabel}
-            className="fixed inset-0 top-16 z-40 bg-black/40 md:hidden"
-            onClick={closeMobileMenu}
-          />
-          <nav className="fixed inset-x-0 top-16 z-50 max-h-[calc(100dvh-4rem)] overflow-y-auto border-b bg-background shadow-lg md:hidden animate-in slide-in-from-top-2 duration-200">
-            <div className="container space-y-1 py-4">
-              {siteContent.nav.links.map((link) => (
+        <nav className="site-mast__links" aria-label="Primary">
+          <ul>
+            {nav.links.map((link) => (
+              <li key={link.href}>
                 <Link
-                  key={link.href}
                   href={link.href}
-                  className="block rounded-md px-2 py-3 text-foreground/80 hover:text-primary font-semibold transition-colors"
-                  onClick={closeMobileMenu}
+                  className={cn(pathname === link.href && "is-active")}
                 >
                   {link.name}
                 </Link>
-              ))}
-            </div>
-          </nav>
-        </>
+              </li>
+            ))}
+            <li>
+              <a
+                className="site-mast__join"
+                href={forms.newMember}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {nav.joinLabel}
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <hr className="site-mast__rule" aria-hidden />
+      </div>
+
+      {menuOpen && (
+        <nav
+          id="site-mast-panel"
+          className="site-mast__panel md:hidden"
+          aria-label="Site"
+        >
+          <div className="site-mast__panel-inner">
+            {nav.links.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={cn(pathname === link.href && "is-active")}
+                onClick={() => setMenuOpen(false)}
+              >
+                {link.name}
+              </Link>
+            ))}
+            <a
+              href={forms.newMember}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setMenuOpen(false)}
+            >
+              {nav.joinMobileLabel}
+            </a>
+          </div>
+        </nav>
       )}
     </header>
-  )
+  );
 }

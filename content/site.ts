@@ -29,7 +29,7 @@ export const siteContent = {
     ],
     joinLabel: "Join",
     joinMobileLabel: "Join as a new member",
-    openMenuLabel: "Toggle menu",
+    openMenuLabel: "Open menu",
     closeMenuLabel: "Close menu",
   },
 
@@ -49,4 +49,4 @@ export const siteContent = {
     titleTemplate: "%s | CSA@UVA",
     description: "Chinese Student Association at the University of Virginia",
   },
-} as const;
+} as const

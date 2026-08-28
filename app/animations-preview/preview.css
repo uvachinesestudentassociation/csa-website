@@ -1,0 +1,228 @@
+/* Temporary playground — traditional Chinese themed anime.js tests */
+
+.anim-preview {
+  --ap-paper: oklch(96% 0.015 45);
+  --ap-ink: oklch(22% 0.03 25);
+  --ap-ink-soft: oklch(42% 0.025 30);
+  --ap-oxblood: oklch(38% 0.14 25);
+  --ap-gold: oklch(72% 0.12 75);
+  --ap-petal: oklch(78% 0.08 10);
+  --ap-stage: oklch(18% 0.04 25);
+
+  padding: 2rem clamp(1rem, 4vw, 3rem) 4rem;
+  background: var(--ap-paper);
+  color: var(--ap-ink);
+  min-height: 60vh;
+}
+
+.anim-preview__header {
+  max-width: 72rem;
+  margin: 0 auto 2.5rem;
+}
+
+.anim-preview__eyebrow {
+  margin: 0 0 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ap-ink-soft);
+}
+
+.anim-preview__title {
+  margin: 0 0 0.75rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  font-weight: 400;
+  line-height: 1.1;
+}
+
+.anim-preview__lede {
+  margin: 0;
+  max-width: 42ch;
+  color: var(--ap-ink-soft);
+  line-height: 1.55;
+}
+
+.anim-preview__grid {
+  display: grid;
+  gap: 1.5rem;
+  max-width: 72rem;
+  margin-inline: auto;
+}
+
+@media (min-width: 900px) {
+  .anim-preview__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.anim-preview__card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid oklch(88% 0.015 40);
+  background: oklch(98% 0.008 45);
+  overflow: hidden;
+}
+
+.anim-preview__card-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid oklch(88% 0.015 40);
+}
+
+.anim-preview__card-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 400;
+}
+
+.anim-preview__card-note {
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--ap-ink-soft);
+}
+
+.anim-preview__replay {
+  appearance: none;
+  border: 1px solid oklch(80% 0.02 40);
+  background: transparent;
+  color: var(--ap-ink);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.35rem 0.7rem;
+  cursor: pointer;
+}
+
+.anim-preview__replay:hover {
+  border-color: var(--ap-oxblood);
+  color: var(--ap-oxblood);
+}
+
+.anim-preview__replay:focus-visible {
+  outline: 2px solid var(--ap-oxblood);
+  outline-offset: 2px;
+}
+
+.anim-preview__stage {
+  position: relative;
+  height: 220px;
+  background: var(--ap-stage);
+  overflow: hidden;
+}
+
+/* --- Petals (AI sprite) --- */
+.anim-preview__stage--petals {
+  background:
+    radial-gradient(ellipse at 50% 0%, oklch(35% 0.04 25 / 0.5), transparent 55%),
+    var(--ap-stage);
+}
+
+.anim-petal {
+  position: absolute;
+  top: -36px;
+  display: block;
+  aspect-ratio: 1;
+  opacity: 0;
+  will-change: transform, opacity;
+  filter: drop-shadow(0 2px 4px oklch(0% 0 0 / 0.35));
+}
+
+.anim-petal__img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+/* --- Clouds (shared MistCloudOverlay) --- */
+.anim-preview__stage--clouds {
+  background: oklch(12% 0.03 250);
+}
+
+.anim-preview__stage--clouds .mist-cloud-overlay {
+  position: absolute;
+  inset: 0;
+}
+
+/* --- Ink blossom (AI meihua) --- */
+.anim-preview__stage--blossom {
+  background:
+    radial-gradient(ellipse at 50% 60%, oklch(92% 0.02 45 / 0.12), transparent 60%),
+    var(--ap-stage);
+  display: grid;
+  place-items: center;
+}
+
+.anim-blossom-wash {
+  position: absolute;
+  inset: 8%;
+  border-radius: 50%;
+  background: radial-gradient(circle, oklch(88% 0.04 45 / 0.25), transparent 70%);
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.anim-blossom {
+  position: relative;
+  width: min(70%, 180px);
+  aspect-ratio: 3 / 4;
+  opacity: 0;
+  will-change: transform, opacity;
+  filter: drop-shadow(0 8px 20px oklch(0% 0 0 / 0.45));
+}
+
+/* --- Lanterns --- */
+.anim-lantern {
+  position: absolute;
+  bottom: 28px;
+  width: 36px;
+  height: 48px;
+  transform-origin: top center;
+  will-change: transform, filter;
+}
+
+.anim-lantern__cord {
+  position: absolute;
+  left: 50%;
+  top: -28px;
+  width: 1px;
+  height: 28px;
+  background: oklch(70% 0.04 75 / 0.7);
+  transform: translateX(-50%);
+}
+
+.anim-lantern__body {
+  width: 100%;
+  height: 100%;
+  border-radius: 45% 45% 40% 40%;
+  background: linear-gradient(
+    180deg,
+    oklch(55% 0.18 35) 0%,
+    oklch(42% 0.16 30) 55%,
+    oklch(32% 0.12 28) 100%
+  );
+  box-shadow: 0 0 24px oklch(55% 0.16 40 / 0.45);
+}
+
+.anim-lantern__glow {
+  position: absolute;
+  inset: 20% 15%;
+  border-radius: 50%;
+  background: oklch(80% 0.14 70 / 0.55);
+  filter: blur(6px);
+  opacity: 0.6;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .anim-petal,
+  .anim-lantern,
+  .anim-blossom,
+  .anim-blossom-wash {
+    transition: none !important;
+  }
+}

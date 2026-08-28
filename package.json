@@ -5,9 +5,14 @@
   "packageManager": "pnpm@9.15.9",
   "scripts": {
     "dev": "next dev",
+    "dev:clean": "node scripts/clean-next.mjs && next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "check:encoding": "node scripts/check-encoding.mjs",
+    "fix:encoding": "node scripts/fix-encoding.mjs"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "1.2.2",
@@ -36,6 +41,7 @@
     "postcss": "^8",
     "shadcn": "^4.16.1",
     "tailwindcss": "^3.4.17",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^4.1.11"
   }
 }

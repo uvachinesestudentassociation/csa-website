@@ -1,5 +1,5 @@
 /**
- * Events page copy and calendar URLs.
+ * Events page copy — edit any string below.
  */
 
 export const eventsContent = {
@@ -11,16 +11,17 @@ export const eventsContent = {
 
   header: {
     title: "Events",
-    lede: "Stay up to date with our upcoming events. Subscribe to add them to your calendar.",
+    lede: "Stay updated by checking our regularly updated Google Calendar!",
   },
 
   actions: {
-    subscribe: "Subscribe",
-    openCalendar: "Open in Google Calendar",
+    subscribe: "Subscribe to calendar",
+    openCalendar: "Open in Google Calendar →",
   },
 
   calendar: {
     iframeTitle: "CSA Events Calendar",
+    caption: "Month view · America/New_York",
     embedUrl:
       "https://calendar.google.com/calendar/embed?src=c_o0ntjuei84bjmlpfqbcsr62u3c%40group.calendar.google.com&ctz=America%2FNew_York&mode=MONTH",
     subscribeUrl:

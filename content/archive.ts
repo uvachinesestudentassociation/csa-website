@@ -1,5 +1,8 @@
 /**
- * Gallery archive page copy.
+ * Gallery archive page copy — edit any string below.
+ *
+ * Archived album list lives in:
+ *   app/gallery/archive/archive-data.json
  */
 
 export const archiveContent = {

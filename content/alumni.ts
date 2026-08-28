@@ -1,5 +1,8 @@
 /**
- * Alumni page copy.
+ * Alumni page copy — edit page-level text here.
+ *
+ * Class years, photos, and member rosters live in:
+ *   app/alumni/alumni-data.json
  */
 
 export const alumniContent = {
@@ -15,7 +18,8 @@ export const alumniContent = {
 
   yearSelectLabel: "Select alumni class year",
   classOf: (year: number) => `Class of ${year}`,
-  memberCount: (count: number) => `${count} ${count === 1 ? "member" : "members"}`,
+  memberCount: (count: number) =>
+    `${count} ${count === 1 ? "member" : "members"}`,
 
   roles: {
     exec: "Exec",

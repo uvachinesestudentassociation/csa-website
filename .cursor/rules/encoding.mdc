@@ -1,0 +1,34 @@
+---
+description: UTF-8 no-BOM for all text files; detect and convert UTF-16 after agent edits on Windows
+alwaysApply: true
+---
+
+# File encoding (UTF-8)
+
+All text source (`.ts`, `.tsx`, `.js`, `.jsx`, `.mjs`, `.cjs`, `.css`, `.json`, `.md`, etc.) must be **UTF-8 without BOM**. Never leave a file as UTF-16.
+
+`Write` / `StrReplace` on Windows can silently save UTF-16. Do not "fix" that by calling those tools again.
+
+## After every file write
+
+After `Write`, `StrReplace`, or any Shell that writes a text file, check the first bytes:
+
+- `FF FE` (or `FE FF`) = UTF-16 BOM
+- `00` between ASCII letters (e.g. `22 00 75 00`) = UTF-16 LE without BOM
+
+If either matches, convert immediately with PowerShell (UTF-8 no BOM). Do not use `StrReplace` or `Write` to rewrite the file.
+
+```powershell
+$path = "<file>"
+$text = [System.IO.File]::ReadAllText($path, [System.Text.Encoding]::Unicode)
+$utf8 = New-Object System.Text.UTF8Encoding $false
+[System.IO.File]::WriteAllText($path, $text, $utf8)
+```
+
+## PowerShell
+
+Never use `Set-Content` or `Out-File` without `-Encoding utf8NoBOM`. Windows PowerShell 5.1 defaults to UTF-16.
+
+## Bulk recovery
+
+If many files are wrong, ask before running node, then: `pnpm fix:encoding`. CI runs `pnpm check:encoding`.

@@ -11,18 +11,25 @@ export const metadata: Metadata = {
 }
 
 export default function GalleryPage() {
+  const { intro, archiveButton, search } = galleryContent
+
   return (
     <div className="container-custom">
       <div className="section-title">
-        <h1>{galleryContent.intro.title}</h1>
-        <p className="max-w-3xl mx-auto text-lg text-center">{galleryContent.intro.body}</p>
+        <h1>{intro.title}</h1>
+        <p className="max-w-3xl mx-auto text-lg text-center">{intro.body}</p>
       </div>
 
-      <GalleryList items={galleryItems} />
+      <GalleryList
+        items={galleryItems}
+        searchLabel={search.label}
+        searchPlaceholder={search.placeholder}
+        emptyMessage={search.empty}
+      />
 
       <div className="mt-12 text-center">
         <Button asChild>
-          <Link href="/gallery/archive">{galleryContent.archiveButton}</Link>
+          <Link href="/gallery/archive">{archiveButton}</Link>
         </Button>
       </div>
     </div>

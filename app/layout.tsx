@@ -12,36 +12,41 @@ const raleway = Raleway({
   subsets: ["latin"],
   variable: "--font-raleway",
   weight: ["400", "600", "700"],
+  display: "block",
+  preload: true,
 })
 
 const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
   weight: "400",
   variable: "--font-display",
-  display: "swap",
+  display: "block",
+  preload: true,
 })
 
 const siteUrl = "https://csaatuva.com"
 
+const { meta, brand } = siteContent
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: siteContent.meta.defaultTitle,
-    template: siteContent.meta.titleTemplate,
+    default: meta.defaultTitle,
+    template: meta.titleTemplate,
   },
-  description: siteContent.meta.description,
+  description: meta.description,
   openGraph: {
-    title: siteContent.meta.defaultTitle,
-    description: siteContent.meta.description,
+    title: meta.defaultTitle,
+    description: meta.description,
     url: siteUrl,
-    siteName: siteContent.brand.name,
+    siteName: brand.name,
     locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: siteContent.meta.defaultTitle,
-    description: siteContent.meta.description,
+    title: meta.defaultTitle,
+    description: meta.description,
   },
   icons: {
     icon: "/favicon_io/favicon.ico",

@@ -1,5 +1,8 @@
 /**
- * Gallery page copy.
+ * Gallery page copy — edit any string below.
+ *
+ * Current-year album list lives in:
+ *   app/gallery/gallery-data.json
  */
 
 export const galleryContent = {

@@ -1,5 +1,4 @@
 import type { Metadata } from "next"
-import { Button } from "@/components/ui/button"
 import { eventsContent } from "@/content/events"
 
 export const metadata: Metadata = {
@@ -8,35 +7,44 @@ export const metadata: Metadata = {
 }
 
 export default function EventsPage() {
-  return (
-    <div className="container-custom">
-      <div className="section-title">
-        <h1>{eventsContent.header.title}</h1>
-        <p className="mx-auto max-w-3xl text-center text-lg">{eventsContent.header.lede}</p>
-      </div>
+  const { header, actions, calendar } = eventsContent
 
-      <div className="mt-8">
+  return (
+    <div className="events-page">
+      <header className="events-page__header">
+        <div className="events-page__intro">
+          <h1 className="events-page__title">{header.title}</h1>
+          <p className="events-page__lede">{header.lede}</p>
+        </div>
+        <div className="events-page__actions">
+          <a
+            className="events-page__subscribe"
+            href={calendar.subscribeUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {actions.subscribe}
+          </a>
+          <a
+            className="events-page__open"
+            href={calendar.subscribeUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {actions.openCalendar}
+          </a>
+        </div>
+      </header>
+
+      <figure className="events-page__calendar">
         <iframe
-          title={eventsContent.calendar.iframeTitle}
-          src={eventsContent.calendar.embedUrl}
-          style={{ border: 0 }}
-          className="h-[min(70dvh,42rem)] min-h-[28rem] w-full"
+          title={calendar.iframeTitle}
+          src={calendar.embedUrl}
+          className="events-page__frame"
           loading="lazy"
         />
-      </div>
-
-      <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-        <Button asChild size="lg" className="w-full max-w-sm sm:w-auto">
-          <a href={eventsContent.calendar.subscribeUrl} target="_blank" rel="noopener noreferrer">
-            {eventsContent.actions.subscribe}
-          </a>
-        </Button>
-        <Button asChild size="lg" variant="outline" className="w-full max-w-sm sm:w-auto">
-          <a href={eventsContent.calendar.subscribeUrl} target="_blank" rel="noopener noreferrer">
-            {eventsContent.actions.openCalendar}
-          </a>
-        </Button>
-      </div>
+        <figcaption className="events-page__caption">{calendar.caption}</figcaption>
+      </figure>
     </div>
   )
 }

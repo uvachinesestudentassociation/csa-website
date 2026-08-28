@@ -1,5 +1,8 @@
 /**
- * Officers page UI copy (roster data stays in officers-data.json).
+ * Officers page UI copy — edit labels here.
+ *
+ * Board title, names, roles, and bios live in:
+ *   app/officers/officers-data.json
  */
 
 export const officersContent = {

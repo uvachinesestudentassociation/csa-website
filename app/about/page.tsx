@@ -1,20 +1,37 @@
 import type { Metadata } from "next"
 import Image from "next/image"
+import { AboutSection } from "@/components/about-section"
+import { RevealOnScroll } from "@/components/reveal-on-scroll"
 import { aboutContent } from "@/content/about"
+import { siteContent } from "@/content/site"
 
 export const metadata: Metadata = {
   title: aboutContent.meta.title,
   description: aboutContent.meta.description,
+  openGraph: {
+    title: aboutContent.meta.title,
+    description: aboutContent.meta.description,
+    images: [{ url: "/images/about_cover.jpg", alt: aboutContent.cover.alt }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["/images/about_cover.jpg"],
+  },
 }
 
 export default function AboutPage() {
+  const { intro, culture, community, outreach, cover, emphasisLinks, cta } =
+    aboutContent
+  const { forms } = siteContent
+
   return (
     <div className="bg-background">
-      <div className="relative w-full h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden">
+      <div className="relative w-full h-[280px] md:h-[360px] lg:h-[440px] overflow-hidden">
         <Image
           src="/images/about_cover.jpg"
-          alt={aboutContent.cover.alt}
+          alt={cover.alt}
           fill
+          sizes="100vw"
           className="object-cover object-center"
           priority
         />
@@ -22,89 +39,107 @@ export default function AboutPage() {
       </div>
 
       <div className="container-custom max-w-6xl">
-        <div className="section-title -mt-16 md:-mt-24 relative z-10 mb-16 md:mb-24">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-8 text-primary dark:text-primary-foreground drop-shadow-sm">
-            {aboutContent.intro.title}
-          </h1>
-          <div className="max-w-3xl mx-auto bg-card/90 dark:bg-card/90 backdrop-blur-sm p-6 md:p-8 rounded-lg shadow-md">
-            {aboutContent.intro.paragraphs.map((paragraph) => (
-              <p
-                key={paragraph.slice(0, 32)}
-                className="text-xl md:text-2xl font-medium leading-relaxed mb-4 last:mb-0 text-center"
-              >
-                {paragraph}
-              </p>
-            ))}
-          </div>
-        </div>
+        <section
+          className="section-title -mt-12 md:-mt-20 relative z-10 mb-16 md:mb-24"
+          aria-labelledby="about-intro"
+        >
+          <RevealOnScroll>
+            <h1
+              id="about-intro"
+              className="text-4xl md:text-5xl lg:text-6xl mb-8 text-primary dark:text-primary-foreground drop-shadow-sm"
+            >
+              {intro.title}
+            </h1>
+          </RevealOnScroll>
+          <RevealOnScroll delayMs={140}>
+            <div className="max-w-3xl mx-auto bg-card/90 dark:bg-card/90 backdrop-blur-sm p-6 md:p-8 rounded-lg shadow-md">
+              {intro.paragraphs.map((paragraph, i) => (
+                <p
+                  key={i}
+                  className={`text-xl md:text-2xl font-medium leading-relaxed text-center ${
+                    i < intro.paragraphs.length - 1 ? "mb-4" : ""
+                  }`}
+                >
+                  {paragraph}
+                </p>
+              ))}
+            </div>
+          </RevealOnScroll>
+        </section>
 
-        <div className="grid md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 mb-20 md:mb-32 items-center">
-          <div className="order-2 md:order-1">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-primary dark:text-primary-foreground">
-              {aboutContent.culture.title}
-            </h2>
-            <p className="mb-4 leading-relaxed">
-              Our primary goal is to nurture and celebrate Chinese culture and heritage. We hold two large cultural
-              showcases annually: <span className="font-semibold">FullMoonFest</span> for Mid-Autumn Festival, and{" "}
-              <span className="font-semibold">Chinafest</span> for Lunar New Year. Both include dances, skits, and
-              other entertainment, exhibiting facets of both traditional and modern Chinese culture.
-            </p>
-            <p className="leading-relaxed">
-              Even though our primary goal is to celebrate Chinese culture, we invite people from all cultures and
-              backgrounds to join CSA. Our events like <span className="font-semibold">Dollar Dim Sum</span> provide
-              opportunities for everyone to experience authentic Chinese cuisine and traditions.
-            </p>
-          </div>
-          <div className="aspect-[4/3] w-full relative rounded-xl overflow-hidden shadow-lg order-1 md:order-2 transform transition-transform duration-500 md:hover:scale-[1.02]">
-            <Image
-              src="/images/gallery/chinafest_dragon_justin_2023.JPG"
-              alt={aboutContent.culture.imageAlt}
-              fill
-              className="object-cover"
-            />
-          </div>
-        </div>
+        <AboutSection
+          id="about-culture"
+          title={culture.title}
+          paragraphs={culture.paragraphs}
+          emphasis={culture.emphasis}
+          emphasisLinks={emphasisLinks.culture}
+          imageSrc="/images/gallery/chinafest_dragon_justin_2023.JPG"
+          imageAlt={culture.imageAlt}
+          imagePosition="right"
+          revealDelayMs={0}
+        />
 
-        <div className="grid md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 mb-20 md:mb-32 items-center">
-          <div className="aspect-[4/3] w-full relative rounded-xl overflow-hidden shadow-lg transform transition-transform duration-500 md:hover:scale-[1.02]">
-            <Image
-              src="/images/gallery/asu_exec_2023.jpg"
-              alt={aboutContent.community.imageAlt}
-              fill
-              className="object-cover"
-            />
-          </div>
-          <div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-primary dark:text-primary-foreground">
-              {aboutContent.community.title}
-            </h2>
-            <p className="leading-relaxed">
-              Beyond cultural celebrations, CSA prides itself on our community and unity. Our{" "}
-              <span className="font-semibold">family system</span> forges lifelong connections, where individuals find
-              support, mentorship, and a sense of belonging. We spend time and connect with friends old and new,
-              whether through sports, parties, or other social events. We create bonds beyond just cultural
-              affiliations.
-            </p>
-          </div>
-        </div>
+        <AboutSection
+          id="about-community"
+          title={community.title}
+          paragraphs={community.paragraphs}
+          emphasis={community.emphasis}
+          emphasisLinks={emphasisLinks.community}
+          imageSrc="/images/gallery/asu_exec_2023.jpg"
+          imageAlt={community.imageAlt}
+          imagePosition="left"
+          revealDelayMs={140}
+        />
 
-        <div className="grid md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 mb-20 items-center">
-          <div className="order-2 md:order-1">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-primary dark:text-primary-foreground">
-              {aboutContent.outreach.title}
+        <AboutSection
+          id="about-outreach"
+          title={outreach.title}
+          paragraphs={outreach.paragraphs}
+          emphasis={outreach.emphasis}
+          emphasisLinks={emphasisLinks.outreach}
+          imageSrc="/images/gallery/yar_2023.jpg"
+          imageAlt={outreach.imageAlt}
+          imagePosition="right"
+          revealDelayMs={280}
+          className="mb-20"
+        />
+
+        <section
+          className="mb-20 text-center"
+          aria-labelledby="about-cta"
+        >
+          <RevealOnScroll>
+            <h2 id="about-cta" className="text-primary dark:text-primary-foreground">
+              {cta.title}
             </h2>
-            <p className="leading-relaxed">
-              Finally, CSA spreads our goals throughout the whole surrounding community. We participate in{" "}
-              <span className="font-semibold">Culturefest</span>, UVA&apos;s annual multicultural showcase; interact and
-              co-host events with other CIOs on-grounds such as UPC and other multicultural organizations; and invite
-              the whole UVA and Charlottesville community to come to our events, especially for our large culture
-              shows like FullMoonFest and Chinafest. We celebrate Chinese culture with anyone and everyone.
+          </RevealOnScroll>
+          <RevealOnScroll delayMs={140}>
+            <p className="max-w-xl mx-auto text-lg text-muted-foreground">
+              {cta.body}
             </p>
-          </div>
-          <div className="aspect-[4/3] w-full relative rounded-xl overflow-hidden shadow-lg order-1 md:order-2 transform transition-transform duration-500 md:hover:scale-[1.02]">
-            <Image src="/images/gallery/yar_2023.jpg" alt={aboutContent.outreach.imageAlt} fill className="object-cover" />
-          </div>
-        </div>
+          </RevealOnScroll>
+          <RevealOnScroll
+            delayMs={220}
+            className="mt-8 flex flex-col sm:flex-row gap-4 justify-center items-center"
+          >
+            <a
+              className="events-page__subscribe"
+              href={forms.newMember}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {cta.newMemberLabel}
+            </a>
+            <a
+              className="events-page__open"
+              href={forms.returningMember}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {cta.returningMemberLabel}
+            </a>
+          </RevealOnScroll>
+        </section>
       </div>
     </div>
   )

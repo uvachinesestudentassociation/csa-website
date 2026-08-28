@@ -52,33 +52,39 @@ function OfficerCard({ imagePath, name, description }: OfficerCardProps) {
   }
 
   return (
-    <Card
-      className="overflow-hidden cursor-pointer dark:bg-card"
-      onClick={() => setShowDescription((prev) => !prev)}
-    >
-      <div className="relative aspect-square">
-        <Image
-          src={imagePath || "/placeholder.svg"}
-          alt={name}
-          fill
-          sizes="(max-width: 768px) 100vw, 25vw"
-          className={`object-cover transition-opacity ${showDescription ? "opacity-70" : ""}`}
-        />
-        {showDescription && (
-          <div className="absolute inset-0 flex items-center justify-center p-4 bg-black/50 text-white">
-            <p className="text-sm text-center">{description}</p>
-          </div>
-        )}
-      </div>
-      <CardContent className="p-4 text-center">
-        <h3 className="text-lg font-semibold mb-0 dark:text-primary-foreground">{name}</h3>
-        <p className="text-xs text-muted-foreground mt-1">{officersContent.card.tapForBio}</p>
-      </CardContent>
+    <Card className="overflow-hidden dark:bg-card">
+      <button
+        type="button"
+        aria-expanded={showDescription}
+        onClick={() => setShowDescription((prev) => !prev)}
+        className="w-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+      >
+        <div className="relative aspect-square">
+          <Image
+            src={imagePath || "/placeholder.svg"}
+            alt={name}
+            fill
+            sizes="(max-width: 768px) 100vw, 25vw"
+            className={`object-cover transition-opacity ${showDescription ? "opacity-70" : ""}`}
+          />
+          {showDescription && (
+            <div className="absolute inset-0 flex items-center justify-center p-4 bg-black/50 text-white">
+              <p className="text-sm text-center">{description}</p>
+            </div>
+          )}
+        </div>
+        <CardContent className="p-4 text-center">
+          <h3 className="text-lg font-semibold mb-0 dark:text-primary-foreground">{name}</h3>
+          <p className="text-xs text-muted-foreground mt-1">{officersContent.card.tapForBio}</p>
+        </CardContent>
+      </button>
     </Card>
   )
 }
 
 export default function OfficersPage() {
+  const ui = officersContent
+
   return (
     <div className="container-custom">
       <div className="section-title">
@@ -89,7 +95,7 @@ export default function OfficersPage() {
         <div className="relative aspect-video rounded-lg overflow-hidden">
           <Image
             src={officersData.boardImage}
-            alt={officersContent.boardImageAlt}
+            alt={ui.boardImageAlt}
             fill
             sizes="(max-width: 768px) 100vw, 50vw"
             className="object-cover"
@@ -99,7 +105,7 @@ export default function OfficersPage() {
           {youtubeEmbedUrl ? (
             <iframe
               src={youtubeEmbedUrl}
-              title={officersContent.videoTitle}
+              title={ui.videoTitle}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
               className="absolute inset-0 h-full w-full border-0"
@@ -111,7 +117,7 @@ export default function OfficersPage() {
               rel="noopener noreferrer"
               className="absolute inset-0 flex items-center justify-center text-white"
             >
-              {officersContent.youtubeFallback}
+              {ui.youtubeFallback}
             </a>
           )}
         </div>
@@ -119,8 +125,8 @@ export default function OfficersPage() {
 
       <Tabs defaultValue="executive" className="mb-16">
         <TabsList className="grid w-full grid-cols-2 mb-8">
-          <TabsTrigger value="executive">{officersContent.tabs.executive}</TabsTrigger>
-          <TabsTrigger value="officer">{officersContent.tabs.officer}</TabsTrigger>
+          <TabsTrigger value="executive">{ui.tabs.executive}</TabsTrigger>
+          <TabsTrigger value="officer">{ui.tabs.officer}</TabsTrigger>
         </TabsList>
 
         <TabsContent value="executive">

@@ -1,38 +1,45 @@
-"use client";
+"use client"
 
-import { useMemo, useState } from "react";
-import { Button } from "@/components/ui/button";
+import { useMemo, useState } from "react"
+import { Button } from "@/components/ui/button"
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion";
-import { SearchInput } from "@/components/search-input";
-import { archiveContent } from "@/content/archive";
+} from "@/components/ui/accordion"
+import { SearchInput } from "@/components/search-input"
 
 interface ArchiveEvent {
-  name: string;
-  date: string;
-  link: string;
+  name: string
+  date: string
+  link: string
 }
 
 interface ArchiveYearGroup {
-  year: string;
-  value: string;
-  events: ArchiveEvent[];
+  year: string
+  value: string
+  events: ArchiveEvent[]
 }
 
 interface ArchiveGalleryListProps {
-  archiveData: ArchiveYearGroup[];
+  archiveData: ArchiveYearGroup[]
+  searchLabel: string
+  searchPlaceholder: string
+  emptyMessage: string
 }
 
-export function ArchiveGalleryList({ archiveData }: ArchiveGalleryListProps) {
-  const [query, setQuery] = useState("");
+export function ArchiveGalleryList({
+  archiveData,
+  searchLabel,
+  searchPlaceholder,
+  emptyMessage,
+}: ArchiveGalleryListProps) {
+  const [query, setQuery] = useState("")
 
   const filteredData = useMemo(() => {
-    const normalized = query.trim().toLowerCase();
-    if (!normalized) return archiveData;
+    const normalized = query.trim().toLowerCase()
+    if (!normalized) return archiveData
 
     return archiveData
       .map((yearGroup) => ({
@@ -43,15 +50,15 @@ export function ArchiveGalleryList({ archiveData }: ArchiveGalleryListProps) {
             event.date.toLowerCase().includes(normalized),
         ),
       }))
-      .filter((yearGroup) => yearGroup.events.length > 0);
-  }, [archiveData, query]);
+      .filter((yearGroup) => yearGroup.events.length > 0)
+  }, [archiveData, query])
 
   return (
     <div className="space-y-6">
       <SearchInput
         id="archive-search"
-        label={archiveContent.search.label}
-        placeholder={archiveContent.search.placeholder}
+        label={searchLabel}
+        placeholder={searchPlaceholder}
         value={query}
         onChange={setQuery}
       />
@@ -88,8 +95,8 @@ export function ArchiveGalleryList({ archiveData }: ArchiveGalleryListProps) {
           ))}
         </div>
       ) : (
-        <p className="text-center text-muted-foreground">{archiveContent.search.empty}</p>
+        <p className="text-center text-muted-foreground">{emptyMessage}</p>
       )}
     </div>
-  );
+  )
 }
