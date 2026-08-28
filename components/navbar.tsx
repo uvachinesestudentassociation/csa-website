@@ -1,31 +1,31 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import Link from "next/link"
-import Image from "next/image"
-import { usePathname } from "next/navigation"
-import { Menu, X } from "lucide-react"
-import { ThemeToggle } from "@/components/theme-provider"
-import { cn } from "@/lib/utils"
-import { siteContent } from "@/content/site"
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { usePathname } from "next/navigation";
+import { Menu, X } from "lucide-react";
+import { ThemeToggle } from "@/components/theme-provider";
+import { cn } from "@/lib/utils";
+import { siteContent } from "@/content/site";
 
 export default function Navbar() {
-  const pathname = usePathname()
-  const [menuOpen, setMenuOpen] = useState(false)
-  const { brand, nav, forms } = siteContent
+  const pathname = usePathname();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const { brand, nav, forms } = siteContent;
 
   useEffect(() => {
-    setMenuOpen(false)
-  }, [pathname])
+    setMenuOpen(false);
+  }, [pathname]);
 
   useEffect(() => {
-    if (!menuOpen) return
-    const previousOverflow = document.body.style.overflow
-    document.body.style.overflow = "hidden"
+    if (!menuOpen) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
     return () => {
-      document.body.style.overflow = previousOverflow
-    }
-  }, [menuOpen])
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [menuOpen]);
 
   return (
     <header className="site-mast">
@@ -33,7 +33,11 @@ export default function Navbar() {
         <p className="site-mast__eyebrow">{brand.eyebrow}</p>
 
         <div className="site-mast__brand-row">
-          <Link href="/" className="site-mast__brand" onClick={() => setMenuOpen(false)}>
+          <Link
+            href="/"
+            className="site-mast__brand"
+            onClick={() => setMenuOpen(false)}
+          >
             <Image
               src="/images/csa_square_logo.png"
               alt=""
@@ -54,7 +58,11 @@ export default function Navbar() {
               aria-controls="site-mast-panel"
               onClick={() => setMenuOpen((open) => !open)}
             >
-              {menuOpen ? <X className="h-6 w-6" aria-hidden /> : <Menu className="h-6 w-6" aria-hidden />}
+              {menuOpen ? (
+                <X className="h-6 w-6" aria-hidden />
+              ) : (
+                <Menu className="h-6 w-6" aria-hidden />
+              )}
               <span className="sr-only">
                 {menuOpen ? nav.closeMenuLabel : nav.openMenuLabel}
               </span>
@@ -91,7 +99,11 @@ export default function Navbar() {
       </div>
 
       {menuOpen && (
-        <nav id="site-mast-panel" className="site-mast__panel md:hidden" aria-label="Site">
+        <nav
+          id="site-mast-panel"
+          className="site-mast__panel md:hidden"
+          aria-label="Site"
+        >
           <div className="site-mast__panel-inner">
             {nav.links.map((link) => (
               <Link
@@ -115,5 +127,5 @@ export default function Navbar() {
         </nav>
       )}
     </header>
-  )
+  );
 }

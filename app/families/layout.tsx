@@ -6,7 +6,7 @@ const notoSerifSC = Noto_Serif_SC({
   subsets: ["latin"],
   weight: ["500", "700"],
   variable: "--font-palace",
-  display: "swap",
+  display: "block",
   preload: true,
 })
 

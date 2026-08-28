@@ -12,13 +12,16 @@ const raleway = Raleway({
   subsets: ["latin"],
   variable: "--font-raleway",
   weight: ["400", "600", "700"],
+  display: "block",
+  preload: true,
 })
 
 const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
   weight: "400",
   variable: "--font-display",
-  display: "swap",
+  display: "block",
+  preload: true,
 })
 
 const siteUrl = "https://csaatuva.com"

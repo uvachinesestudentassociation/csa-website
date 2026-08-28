@@ -101,7 +101,7 @@ function PlumPetalsDemo({ replayKey }: { replayKey: number }) {
 function CloudDriftDemo({ replayKey }: { replayKey: number }) {
   return (
     <div className="anim-preview__stage anim-preview__stage--clouds" aria-hidden>
-      {/* key remounts overlay so Replay regenerates drift paths */}
+      {/* key remounts overlay so Replay restarts CSS drift */}
       <MistCloudOverlay key={replayKey} tone="demo" />
     </div>
   )
