@@ -1,0 +1,19 @@
+---
+description: UTF-8 encoding rules and recovery on Windows
+globs: **/*.{ts,tsx,js,jsx,mjs,cjs}
+alwaysApply: false
+---
+
+# File encoding (UTF-8)
+
+All TypeScript/JavaScript source must be **UTF-8 without BOM**.
+
+## After editing `.ts` / `.tsx` on Windows
+
+- Prefer small `StrReplace` hunks over full-file `Write` when possible.
+- If `tsc` reports mass `Invalid character` errors, the file was likely saved as UTF-16.
+- Recovery: `git checkout -- <file>`, then rewrite with UTF-8 no-BOM, or run `pnpm fix:encoding`.
+
+## Verify
+
+Run `pnpm check:encoding` after large agent edits to source files.

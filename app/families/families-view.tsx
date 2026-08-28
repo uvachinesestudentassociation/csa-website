@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { Instagram } from "lucide-react";
 import { familiesContent } from "@/content/families";
 import type { FamiliesClientPayload } from "./get-families-payload";
 
@@ -10,37 +9,36 @@ const isDev = process.env.NODE_ENV === "development";
 const UNFURL_MS = 1000;
 const STAGGER_MS = 120;
 
+function getDisplayList(payload: FamiliesClientPayload) {
+  if (isDev && payload.devPreviewFamilies.length > 0) {
+    return payload.devPreviewFamilies;
+  }
+  return payload.families;
+}
+
+function isScrollBlurred(
+  index: number,
+  contentRevealed: boolean,
+  devBlurEnabled: boolean,
+  revealFromIndex: number,
+) {
+  if (contentRevealed) return false;
+  if (isDev) return devBlurEnabled;
+  return index < revealFromIndex;
+}
+
 export function FamiliesView({ payload }: { payload: FamiliesClientPayload }) {
-  const { intro, sealed, card, scrollAssets } = familiesContent;
+  const { intro, sealed, scrollAssets, revealFromIndex } = familiesContent;
   const contentRevealed = payload.contentRevealed;
-  // In dev the toggle fully controls sealed ↔ revealed so the unfurl can be replayed
-  const [devPreviewRevealed, setDevPreviewRevealed] = useState(contentRevealed);
-  const revealed = isDev ? devPreviewRevealed : contentRevealed;
+  const [devBlurEnabled, setDevBlurEnabled] = useState(!contentRevealed);
 
   const [photosMounted, setPhotosMounted] = useState(false);
   const [unfurled, setUnfurled] = useState(false);
   const [shown, setShown] = useState(false);
 
-  const list =
-    isDev && !contentRevealed
-      ? revealed
-        ? payload.devPreviewFamilies
-        : payload.families
-      : payload.families;
+  const list = getDisplayList(payload);
 
   useEffect(() => {
-    if (!revealed) {
-      setUnfurled(false);
-      setShown(false);
-      const hide = window.setTimeout(
-        () => setPhotosMounted(false),
-        UNFURL_MS + 100,
-      );
-      return () => window.clearTimeout(hide);
-    }
-
-    // Unfurl empty scrolls first, then mount photos so image decode doesn't
-    // compete with the clip-path animation on the main thread
     setShown(false);
     setUnfurled(false);
     setPhotosMounted(false);
@@ -61,7 +59,7 @@ export function FamiliesView({ payload }: { payload: FamiliesClientPayload }) {
       window.cancelAnimationFrame(innerFrame);
       window.clearTimeout(showTimer);
     };
-  }, [revealed, payload.gateCount]);
+  }, [payload.gateCount]);
 
   const galleryClass = [
     "scroll-gallery",
@@ -71,23 +69,28 @@ export function FamiliesView({ payload }: { payload: FamiliesClientPayload }) {
     .filter(Boolean)
     .join(" ");
 
+  const anyBlurred =
+    !contentRevealed &&
+    list.some((_, index) =>
+      isScrollBlurred(index, contentRevealed, devBlurEnabled, revealFromIndex),
+    );
+
   return (
     <div className="palace-families">
-      {isDev && (
+      {isDev && !contentRevealed && (
         <div className="palace-dev-toggle">
           <button
             type="button"
             className="palace-dev-toggle__button"
-            aria-pressed={devPreviewRevealed}
-            onClick={() => setDevPreviewRevealed((value) => !value)}
+            aria-pressed={devBlurEnabled}
+            onClick={() => setDevBlurEnabled((value) => !value)}
           >
-            Dev: {devPreviewRevealed ? "Showing revealed" : "Showing sealed"}
+            Dev: {devBlurEnabled ? "Blur on" : "Blur off"}
           </button>
-          {contentRevealed && (
-            <p className="palace-dev-toggle__note">
-              content.revealed is true — toggle still overrides in dev
-            </p>
-          )}
+          <p className="palace-dev-toggle__note">
+            Production uses revealFromIndex = {revealFromIndex} (scrolls before
+            this index stay blurred)
+          </p>
         </div>
       )}
 
@@ -98,7 +101,9 @@ export function FamiliesView({ payload }: { payload: FamiliesClientPayload }) {
 
       <section
         className="scroll-scene"
-        aria-label={revealed ? "This year's families" : "Sealed family scrolls"}
+        aria-label={
+          anyBlurred ? "Sealed family scrolls" : "This year's families"
+        }
       >
         <figure className="scroll-scene__frame">
           <div
@@ -126,6 +131,12 @@ export function FamiliesView({ payload }: { payload: FamiliesClientPayload }) {
                 const family = photosMounted ? list[index] : undefined;
                 const showFamily = Boolean(family?.name);
                 const bannerSrc = scrollAssets.banners[index];
+                const blurred = isScrollBlurred(
+                  index,
+                  contentRevealed,
+                  devBlurEnabled,
+                  revealFromIndex,
+                );
 
                 return (
                   <li
@@ -144,7 +155,10 @@ export function FamiliesView({ payload }: { payload: FamiliesClientPayload }) {
                           <div className="scroll__skin" aria-hidden="true" />
                           <div className="scroll__body">
                             {showFamily && family ? (
-                              <div className="scroll__content">
+                              <div
+                                className={`scroll__content${blurred ? " is-blurred" : ""}`}
+                                aria-hidden={blurred}
+                              >
                                 {bannerSrc ? (
                                   <div className="scroll__banner-frame">
                                     <Image
@@ -159,19 +173,6 @@ export function FamiliesView({ payload }: { payload: FamiliesClientPayload }) {
                                 <div className="scroll__copy">
                                   <h2>{family.name}</h2>
                                   <p>{family.description}</p>
-                                  {family.instagramUrl ? (
-                                    <a
-                                      href={family.instagramUrl}
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                    >
-                                      <Instagram
-                                        className="h-3.5 w-3.5 shrink-0"
-                                        aria-hidden="true"
-                                      />
-                                      <span>{card.instagramLabel}</span>
-                                    </a>
-                                  ) : null}
                                 </div>
                               </div>
                             ) : (

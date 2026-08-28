@@ -1,4 +1,4 @@
-﻿# Graphic Art Elements
+# Graphic Art Elements
 
 Optional decorative assets served at `/images/graphics/*`.
 

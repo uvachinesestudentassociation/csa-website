@@ -1,4 +1,6 @@
 {
+  "files.encoding": "utf8",
+  "files.autoGuessEncoding": false,
   "css.lint.unknownAtRules": "ignore",
   "scss.lint.unknownAtRules": "ignore",
   "less.lint.unknownAtRules": "ignore"

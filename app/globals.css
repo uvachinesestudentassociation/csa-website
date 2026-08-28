@@ -1,4 +1,4 @@
-﻿@import "../tokens.css";
+@import "../tokens.css";
 
 @tailwind base;
 @tailwind components;
@@ -1215,16 +1215,24 @@
   
   .scroll__content {
     position: absolute;
-    inset: 11% 8% 10%;
+    inset: 11% 8% 7%;
     z-index: 1;
     display: flex;
     min-width: 0;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    gap: clamp(0.15rem, 0.5vw, 0.3rem);
+    gap: clamp(0.2rem, 0.6vw, 0.45rem);
     overflow: hidden;
     --scroll-copy-width: 74%;
+    transition: filter 400ms ease, opacity 400ms ease;
+  }
+
+  .scroll__content.is-blurred {
+    filter: blur(10px);
+    opacity: 0.55;
+    pointer-events: none;
+    user-select: none;
   }
   
   .scroll__banner-frame {
@@ -1293,7 +1301,8 @@
     flex-direction: column;
     align-items: stretch;
     justify-content: flex-start;
-    gap: 0.15rem;
+    gap: 0.1rem;
+    margin-top: 0.15rem;
     padding: 0;
     background: transparent;
     color: oklch(28% 0.04 55);
@@ -1320,39 +1329,11 @@
   }
   
   .scroll__copy p {
-    display: -webkit-box;
     margin: 0;
     max-width: 100%;
     overflow-wrap: break-word;
-    font-size: clamp(0.6rem, 0.9vw, 0.72rem);
+    font-size: clamp(0.58rem, 0.85vw, 0.7rem);
     line-height: 1.3;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-  
-  .scroll__copy a {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.2rem;
-    max-width: 100%;
-    min-width: 0;
-    margin-top: 0;
-    font-size: clamp(0.55rem, 0.8vw, 0.68rem);
-    color: oklch(38% 0.08 45);
-    text-decoration: underline;
-    text-underline-offset: 0.15em;
-    white-space: normal;
-  }
-  
-  .scroll__copy a span {
-    min-width: 0;
-    overflow-wrap: break-word;
-  }
-  
-  .scroll__copy a:focus-visible {
-    outline: 2px solid hsl(var(--ring));
-    outline-offset: 2px;
   }
   
   @media (max-width: 640px) {
@@ -1365,19 +1346,9 @@
     }
   
     .scroll__content {
-      inset: 10% 7% 9%;
-      gap: 0.15rem;
+      inset: 10% 7% 6%;
+      gap: 0.2rem;
       --scroll-copy-width: 70%;
-    }
-  
-    .scroll__copy p {
-      -webkit-line-clamp: 2;
-    }
-  }
-  
-  @media (min-width: 768px) {
-    .scroll__copy p {
-      -webkit-line-clamp: 2;
     }
   }
 }
