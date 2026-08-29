@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -12,6 +12,8 @@ import { siteContent } from "@/content/site";
 export default function Navbar() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [mastHeight, setMastHeight] = useState(0);
+  const headerRef = useRef<HTMLElement>(null);
   const { brand, nav, forms } = siteContent;
 
   useEffect(() => {
@@ -19,16 +21,60 @@ export default function Navbar() {
   }, [pathname]);
 
   useEffect(() => {
+    const header = headerRef.current;
+    if (!header) return;
+
+    const updateHeight = () => setMastHeight(header.offsetHeight);
+
+    updateHeight();
+    const observer = new ResizeObserver(updateHeight);
+    observer.observe(header);
+    return () => observer.disconnect();
+  }, []);
+
+  useLayoutEffect(() => {
     if (!menuOpen) return;
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+
+    const header = headerRef.current;
+    if (header) {
+      setMastHeight(header.offsetHeight);
+    }
+
+    const scrollY = window.scrollY;
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+    const { style: bodyStyle } = document.body;
+    const { style: htmlStyle } = document.documentElement;
+
+    htmlStyle.overflow = "hidden";
+    bodyStyle.position = "fixed";
+    bodyStyle.top = `-${scrollY}px`;
+    bodyStyle.left = "0";
+    bodyStyle.right = "0";
+    bodyStyle.width = "100%";
+    bodyStyle.overflow = "hidden";
+    if (scrollbarWidth > 0) {
+      bodyStyle.paddingRight = `${scrollbarWidth}px`;
+    }
+
     return () => {
-      document.body.style.overflow = previousOverflow;
+      htmlStyle.overflow = "";
+      bodyStyle.position = "";
+      bodyStyle.top = "";
+      bodyStyle.left = "";
+      bodyStyle.right = "";
+      bodyStyle.width = "";
+      bodyStyle.overflow = "";
+      bodyStyle.paddingRight = "";
+      window.scrollTo(0, scrollY);
     };
   }, [menuOpen]);
 
   return (
-    <header className="site-mast">
+    <>
+    <header
+      ref={headerRef}
+      className={cn("site-mast", menuOpen && "site-mast--menu-open")}
+    >
       <div className="site-mast__inner">
         <p className="site-mast__eyebrow">{brand.eyebrow}</p>
 
@@ -103,6 +149,7 @@ export default function Navbar() {
           id="site-mast-panel"
           className="site-mast__panel md:hidden"
           aria-label="Site"
+          style={{ "--mast-height": `${mastHeight}px` } as CSSProperties}
         >
           <div className="site-mast__panel-inner">
             {nav.links.map((link) => (
@@ -127,5 +174,13 @@ export default function Navbar() {
         </nav>
       )}
     </header>
+    {menuOpen && (
+      <div
+        className="site-mast__spacer md:hidden"
+        style={{ height: mastHeight }}
+        aria-hidden
+      />
+    )}
+    </>
   );
 }

@@ -1,6 +1,5 @@
 import type { Metadata } from "next"
 import { SocialLinks } from "@/components/social-links"
-import { RevealOnScroll } from "@/components/reveal-on-scroll"
 import { HomeHeroMedia } from "@/components/home-hero-media"
 import { previewAssets } from "@/app/animations-preview/assets"
 import { homeContent } from "@/content/home"
@@ -12,7 +11,7 @@ export const metadata: Metadata = {
 }
 
 export default function Home() {
-  const { hero, join } = homeContent
+  const { hero } = homeContent
   const { forms } = siteContent
 
   return (
@@ -49,39 +48,6 @@ export default function Home() {
             className="gap-5 pt-5 home-rise-delay-2"
             linkClassName="cursor-pointer text-white/75 transition-colors hover:text-white"
           />
-        </div>
-      </section>
-
-      <section className="home-join-fold" aria-labelledby="home-join">
-        <div className="home-join-fold__inner">
-          <div>
-            <RevealOnScroll>
-              <h2 id="home-join" className="home-join-fold__title">
-                {join.title}
-              </h2>
-            </RevealOnScroll>
-            <RevealOnScroll delayMs={140}>
-              <p className="home-join-fold__body">{join.body}</p>
-            </RevealOnScroll>
-          </div>
-          <RevealOnScroll delayMs={220} className="home-join-fold__actions">
-            <a
-              className="home-join-fold__primary"
-              href={forms.newMember}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {join.ctaNew}
-            </a>
-            <a
-              className="home-join-fold__link"
-              href={forms.returningMember}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {join.ctaReturning}
-            </a>
-          </RevealOnScroll>
         </div>
       </section>
     </div>

@@ -14,11 +14,4 @@ export const homeContent = {
     ctaNew: "Join as a new member",
     ctaReturning: "Returning member →",
   },
-
-  join: {
-    title: "Come find your people",
-    body: "Whether you're new to Grounds or returning for another year, joining has never been easier.",
-    ctaNew: "New member form",
-    ctaReturning: "Returning members →",
-  },
 } as const;

@@ -8,30 +8,52 @@ import type { FamiliesClientPayload } from "./get-families-payload";
 const UNFURL_MS = 1000;
 const STAGGER_MS = 120;
 
+function getDisplayList(payload: FamiliesClientPayload) {
+  if (payload.devPreviewFamilies.length > 0) {
+    return payload.devPreviewFamilies;
+  }
+  return payload.families;
+}
+
 export function FamiliesView({ payload }: { payload: FamiliesClientPayload }) {
   const { intro, sealed, scrollAssets } = familiesContent;
-  const blurred = !payload.contentRevealed;
+  const contentRevealed = payload.contentRevealed;
+  const showDevToggle = payload.showDevToggle;
+  const [devBlurEnabled, setDevBlurEnabled] = useState(true);
 
   const [unfurled, setUnfurled] = useState(false);
   const [shown, setShown] = useState(false);
 
-  const list = payload.families;
+  const list = getDisplayList(payload);
+  const blurred = contentRevealed
+    ? false
+    : showDevToggle
+      ? devBlurEnabled
+      : true;
 
   useEffect(() => {
+    let cancelled = false;
+
     setShown(false);
     setUnfurled(false);
 
     let innerFrame = 0;
     const outerFrame = window.requestAnimationFrame(() => {
-      innerFrame = window.requestAnimationFrame(() => setUnfurled(true));
+      innerFrame = window.requestAnimationFrame(() => {
+        if (!cancelled) setUnfurled(true);
+      });
     });
+
     const unfurlComplete =
       UNFURL_MS + Math.max(0, payload.gateCount - 1) * STAGGER_MS;
     const showTimer = window.setTimeout(() => {
-      window.requestAnimationFrame(() => setShown(true));
+      if (!cancelled) {
+        window.requestAnimationFrame(() => setShown(true));
+      }
     }, unfurlComplete);
 
     return () => {
+      cancelled = true;
       window.cancelAnimationFrame(outerFrame);
       window.cancelAnimationFrame(innerFrame);
       window.clearTimeout(showTimer);
@@ -47,106 +69,124 @@ export function FamiliesView({ payload }: { payload: FamiliesClientPayload }) {
     .join(" ");
 
   return (
-    <div className="palace-families">
-      <section className="palace-proclamation container-custom">
-        <h1 className="palace-proclamation__title">{intro.title}</h1>
-      </section>
+    <>
+      {showDevToggle ? (
+        <button
+          type="button"
+          className="palace-dev-toggle__button fixed bottom-4 right-4 z-[60]"
+          aria-pressed={devBlurEnabled}
+          aria-label={
+            devBlurEnabled
+              ? "Dev preview: scroll blur on"
+              : "Dev preview: scroll blur off"
+          }
+          onClick={() => setDevBlurEnabled((value) => !value)}
+        >
+          Dev: {devBlurEnabled ? "Blur on" : "Blur off"}
+        </button>
+      ) : null}
 
-      <section
-        className="scroll-scene"
-        aria-label={
-          blurred ? "Sealed family scrolls" : "This year's families"
-        }
-      >
-        <figure className="scroll-scene__frame">
-          <div
-            className="scroll-scene__backdrop"
-            role="img"
-            aria-label={sealed.sceneBackdropAlt}
-            style={
-              scrollAssets.backdrop
-                ? ({
-                    "--scroll-backdrop-url": `url(${scrollAssets.backdrop})`,
-                  } as React.CSSProperties)
-                : undefined
-            }
-          />
+      <div className="palace-families">
+        <section className="palace-proclamation container-custom">
+          <h1 className="palace-proclamation__title">{intro.title}</h1>
+        </section>
 
-          <div className="scroll-scene__hang">
-            <div className="scroll-beam" aria-hidden="true">
-              <span className="scroll-beam__finial scroll-beam__finial--left" />
-              <span className="scroll-beam__rail" />
-              <span className="scroll-beam__finial scroll-beam__finial--right" />
-            </div>
+        <section
+          className="scroll-scene"
+          aria-label={
+            blurred ? "Sealed family scrolls" : "This year's families"
+          }
+        >
+          <figure className="scroll-scene__frame">
+            <div
+              className="scroll-scene__backdrop"
+              role="img"
+              aria-label={sealed.sceneBackdropAlt}
+              style={
+                scrollAssets.backdrop
+                  ? ({
+                      "--scroll-backdrop-url": `url(${scrollAssets.backdrop})`,
+                    } as React.CSSProperties)
+                  : undefined
+              }
+            />
 
-            <ul className={galleryClass}>
-              {Array.from({ length: payload.gateCount }, (_, index) => {
-                const family = list[index];
-                const bannerSrc = scrollAssets.banners[index];
-                const showCopy = Boolean(family?.name);
+            <div className="scroll-scene__hang">
+              <div className="scroll-beam" aria-hidden="true">
+                <span className="scroll-beam__finial scroll-beam__finial--left" />
+                <span className="scroll-beam__rail" />
+                <span className="scroll-beam__finial scroll-beam__finial--right" />
+              </div>
 
-                return (
-                  <li
-                    key={`scroll-${index}`}
-                    className="scroll"
-                    style={
-                      {
-                        "--scroll-stagger": `${index * STAGGER_MS}ms`,
-                        "--scroll-url": `url(${scrollAssets.scroll})`,
-                      } as React.CSSProperties
-                    }
-                  >
-                    <div className="scroll__sway">
-                      <div className="scroll__stage">
-                        <div className="scroll__viewport">
-                          <div className="scroll__skin" aria-hidden="true" />
-                          <div className="scroll__body">
-                            {bannerSrc || showCopy ? (
-                              <div
-                                className={`scroll__content${blurred ? " is-blurred" : ""}`}
-                                aria-hidden={blurred}
-                              >
-                                {bannerSrc ? (
-                                  <div className="scroll__banner-frame">
-                                    <Image
-                                      src={bannerSrc}
-                                      alt={
-                                        blurred || !family?.name
-                                          ? "Family banner"
-                                          : `${family.name} banner`
-                                      }
-                                      fill
-                                      sizes="(max-width: 768px) 32vw, 30vw"
-                                      className="scroll__banner"
-                                    />
-                                  </div>
-                                ) : null}
-                                {showCopy && family ? (
-                                  <div className="scroll__copy">
-                                    <h2>{family.name}</h2>
-                                    <p>{family.description}</p>
-                                  </div>
-                                ) : null}
-                              </div>
-                            ) : null}
-                            {blurred || !showCopy ? (
-                              <span className="sr-only">
-                                {sealed.a11yLabel}
-                              </span>
-                            ) : null}
+              <ul className={galleryClass}>
+                {Array.from({ length: payload.gateCount }, (_, index) => {
+                  const family = list[index];
+                  const bannerSrc = scrollAssets.banners[index];
+                  const showCopy = Boolean(family?.name);
+
+                  return (
+                    <li
+                      key={`scroll-${index}`}
+                      className="scroll"
+                      style={
+                        {
+                          "--scroll-stagger": `${index * STAGGER_MS}ms`,
+                          "--scroll-url": `url(${scrollAssets.scroll})`,
+                        } as React.CSSProperties
+                      }
+                    >
+                      <div className="scroll__sway">
+                        <div className="scroll__stage">
+                          <div className="scroll__viewport">
+                            <div className="scroll__skin" aria-hidden="true" />
+                            <div className="scroll__body">
+                              {bannerSrc || showCopy ? (
+                                <div
+                                  className={`scroll__content${blurred ? " is-blurred" : ""}`}
+                                  aria-hidden={blurred}
+                                >
+                                  {bannerSrc ? (
+                                    <div className="scroll__banner-frame">
+                                      <Image
+                                        src={bannerSrc}
+                                        alt={
+                                          blurred || !family?.name
+                                            ? "Family banner"
+                                            : `${family.name} banner`
+                                        }
+                                        fill
+                                        sizes="(max-width: 768px) 32vw, 30vw"
+                                        className="scroll__banner"
+                                      />
+                                    </div>
+                                  ) : null}
+                                  {showCopy && family ? (
+                                    <div className="scroll__copy">
+                                      <h2>{family.name}</h2>
+                                      <p>{family.description}</p>
+                                    </div>
+                                  ) : null}
+                                </div>
+                              ) : null}
+                              {blurred || !showCopy ? (
+                                <span className="sr-only">
+                                  {sealed.a11yLabel}
+                                </span>
+                              ) : null}
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
 
-          <figcaption className="sr-only">{sealed.sceneSealedAlt}</figcaption>
-        </figure>
-      </section>
-    </div>
+            <figcaption className="sr-only">{sealed.sceneSealedAlt}</figcaption>
+          </figure>
+        </section>
+      </div>
+    </>
   );
 }
