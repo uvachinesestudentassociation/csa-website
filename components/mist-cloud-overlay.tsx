@@ -4,12 +4,16 @@ import { useCallback, useEffect, useRef, useState } from "react"
 import { previewAssets } from "@/app/animations-preview/assets"
 import { cn } from "@/lib/utils"
 
+type MistShift = { x: number; y: number }
+
 type MistCloudOverlayProps = {
   className?: string
   /** Softer blend for photo heroes (default). Use "demo" for the preview stage. */
   tone?: "hero" | "demo"
   /** Fires once when every mist layer has decoded (hero). */
   onReady?: () => void
+  /** Optional parallax translate per layer (hero home). */
+  shifts?: readonly MistShift[]
 }
 
 /**
@@ -20,6 +24,7 @@ export function MistCloudOverlay({
   className,
   tone = "hero",
   onReady,
+  shifts,
 }: MistCloudOverlayProps) {
   const stageRef = useRef<HTMLDivElement>(null)
   const loadedCountRef = useRef(0)
@@ -66,20 +71,29 @@ export function MistCloudOverlay({
       )}
       aria-hidden
     >
-      {previewAssets.cloudMistLayers.map((src, i) => (
-        <div key={src} className={`mist-cloud-layer mist-cloud-layer--${i}`}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={src}
-            alt=""
-            decoding="async"
-            fetchPriority={tone === "hero" ? "high" : "auto"}
-            className="mist-cloud-layer__img"
-            onLoad={handleImageLoad}
-            onError={handleImageLoad}
-          />
-        </div>
-      ))}
+      {previewAssets.cloudMistLayers.map((src, i) => {
+        const shift = shifts?.[i] ?? { x: 0, y: 0 }
+        return (
+          <div
+            key={src}
+            className={`mist-cloud-layer mist-cloud-layer--${i}`}
+            style={{ transform: `translate(${shift.x}px, ${shift.y}px)` }}
+          >
+            <div className="mist-cloud-layer__drift">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={src}
+                alt=""
+                decoding="async"
+                fetchPriority={tone === "hero" ? "high" : "auto"}
+                className="mist-cloud-layer__img"
+                onLoad={handleImageLoad}
+                onError={handleImageLoad}
+              />
+            </div>
+          </div>
+        )
+      })}
     </div>
   )
 }
