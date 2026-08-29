@@ -10,6 +10,8 @@ export type FamilyPublic = {
 export type FamiliesClientPayload = {
   /** True when UI may show open state from content flag (not dev toggle). */
   contentRevealed: boolean
+  /** Dev-only blur toggle for local preview. Always false in production builds. */
+  showDevToggle: boolean
   /** Roster safe to serialize to the client component. */
   families: FamilyPublic[]
   gateCount: number
@@ -42,6 +44,7 @@ export function getFamiliesClientPayload({
   if (revealed) {
     return {
       contentRevealed: true,
+      showDevToggle: false,
       families,
       gateCount,
       devPreviewFamilies: [],
@@ -53,6 +56,7 @@ export function getFamiliesClientPayload({
   if (isDev) {
     return {
       contentRevealed: false,
+      showDevToggle: true,
       families: stubs,
       gateCount,
       devPreviewFamilies: families,
@@ -61,6 +65,7 @@ export function getFamiliesClientPayload({
 
   return {
     contentRevealed: false,
+    showDevToggle: false,
     families: stubs,
     gateCount,
     devPreviewFamilies: [],

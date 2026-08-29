@@ -40,6 +40,7 @@ describe("getFamiliesClientPayload", () => {
     })
 
     expect(payload.contentRevealed).toBe(true)
+    expect(payload.showDevToggle).toBe(false)
     expect(payload.gateCount).toBe(2)
     expect(payload.families).toEqual(sampleFamilies)
     expect(payload.devPreviewFamilies).toEqual([])
@@ -53,6 +54,7 @@ describe("getFamiliesClientPayload", () => {
     })
 
     expect(payload.contentRevealed).toBe(false)
+    expect(payload.showDevToggle).toBe(false)
     expect(payload.gateCount).toBe(2)
     expect(payload.families).toHaveLength(2)
     payload.families.forEach(assertEmptyStub)
@@ -72,6 +74,7 @@ describe("getFamiliesClientPayload", () => {
     })
 
     expect(payload.contentRevealed).toBe(false)
+    expect(payload.showDevToggle).toBe(true)
     expect(payload.gateCount).toBe(2)
     expect(payload.families).toHaveLength(2)
     payload.families.forEach(assertEmptyStub)

@@ -9,7 +9,7 @@ export default function Footer() {
 
   return (
     <footer className="site-footer">
-      <p className="site-footer__line">{footer.tagline}</p>
+      <p className="site-footer__line">{brand.fullName}</p>
 
       <div className="site-footer__meta">
         <Link href="/" className="site-footer__brand">
