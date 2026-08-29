@@ -1,8 +1,11 @@
 import type { Metadata } from "next"
+import Link from "next/link"
 import { HomeHeroMedia } from "@/components/home-hero-media"
+import { RevealOnScroll } from "@/components/reveal-on-scroll"
 import { previewAssets } from "@/app/animations-preview/assets"
 import { homeContent } from "@/content/home"
 import { siteContent } from "@/content/site"
+import { getHomeHubLinks } from "@/lib/home-hub"
 
 export const metadata: Metadata = {
   title: homeContent.meta.title,
@@ -12,6 +15,7 @@ export const metadata: Metadata = {
 export default function Home() {
   const { hero } = homeContent
   const { forms } = siteContent
+  const hubLinks = getHomeHubLinks(siteContent.nav.links)
 
   return (
     <div>
@@ -43,6 +47,22 @@ export default function Home() {
             </a>
           </div>
         </div>
+      </section>
+      <section className="home-hub" aria-labelledby="home-hub-heading">
+        <h2 id="home-hub-heading" className="sr-only">
+          {siteContent.brand.name}
+        </h2>
+        <ul className="home-hub__list">
+          {hubLinks.map((link, index) => (
+            <li key={link.href}>
+              <RevealOnScroll delayMs={index * 80}>
+                <Link href={link.href} className="home-hub__link">
+                  {link.name}
+                </Link>
+              </RevealOnScroll>
+            </li>
+          ))}
+        </ul>
       </section>
     </div>
   )
