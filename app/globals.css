@@ -446,7 +446,7 @@
     font-style: normal;
     line-height: 1.1;
     letter-spacing: -0.02em;
-    max-width: 18ch;
+    max-width: 36ch;
     margin: 0 0 var(--space-sm);
     overflow-wrap: anywhere;
   }

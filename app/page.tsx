@@ -1,5 +1,4 @@
 import type { Metadata } from "next"
-import { SocialLinks } from "@/components/social-links"
 import { HomeHeroMedia } from "@/components/home-hero-media"
 import { previewAssets } from "@/app/animations-preview/assets"
 import { homeContent } from "@/content/home"
@@ -43,11 +42,6 @@ export default function Home() {
               {hero.ctaReturning}
             </a>
           </div>
-          <SocialLinks
-            iconClassName="h-5 w-5"
-            className="gap-5 pt-5 home-rise-delay-2"
-            linkClassName="cursor-pointer text-white/75 transition-colors hover:text-white"
-          />
         </div>
       </section>
     </div>
