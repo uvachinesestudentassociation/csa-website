@@ -8,7 +8,8 @@
 export const officersContent = {
   meta: {
     title: "Officers",
-    description: "Meet the CSA@UVA executive and officer board for the current academic year.",
+    description:
+      "Meet the CSA@UVA executive and officer board for the current academic year.",
   },
 
   boardImageAlt: "Executive and Officer Board",
@@ -23,4 +24,10 @@ export const officersContent = {
   card: {
     tapForBio: "Tap for bio",
   },
-} as const
+
+  /** Remove or set enabled: false when the 2026–27 board is ready to publish. */
+  comingSoon: {
+    enabled: true as boolean,
+    banner: "26-27 Officers Coming soon",
+  },
+} as const;

@@ -121,12 +121,12 @@ export function FamiliesView({ payload }: { payload: FamiliesClientPayload }) {
               <ul className={galleryClass}>
                 {Array.from({ length: payload.gateCount }, (_, index) => {
                   const family = list[index];
-                  const bannerSrc = scrollAssets.banners[index];
+                  const imageSrc = family?.image;
                   const showCopy = Boolean(family?.name);
 
                   return (
                     <li
-                      key={`scroll-${index}`}
+                      key={family?.id ?? `scroll-${index}`}
                       className="scroll"
                       style={
                         {
@@ -140,19 +140,19 @@ export function FamiliesView({ payload }: { payload: FamiliesClientPayload }) {
                           <div className="scroll__viewport">
                             <div className="scroll__skin" aria-hidden="true" />
                             <div className="scroll__body">
-                              {bannerSrc || showCopy ? (
+                              {imageSrc || showCopy ? (
                                 <div
                                   className={`scroll__content${blurred ? " is-blurred" : ""}`}
                                   aria-hidden={blurred}
                                 >
-                                  {bannerSrc ? (
+                                  {imageSrc ? (
                                     <div className="scroll__banner-frame">
                                       <Image
-                                        src={bannerSrc}
+                                        src={imageSrc}
                                         alt={
                                           blurred || !family?.name
-                                            ? "Family banner"
-                                            : `${family.name} banner`
+                                            ? "Family photo"
+                                            : `${family.name} photo`
                                         }
                                         fill
                                         sizes="(max-width: 768px) 32vw, 30vw"

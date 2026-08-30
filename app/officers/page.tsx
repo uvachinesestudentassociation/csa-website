@@ -12,8 +12,6 @@ function getYoutubeEmbedUrl(watchUrl: string): string | null {
   if (!match?.[1]) return null
 
   const params = new URLSearchParams({
-    autoplay: "1",
-    mute: "1",
     playsinline: "1",
     rel: "0",
   })
@@ -84,8 +82,9 @@ function OfficerCard({ imagePath, name, description }: OfficerCardProps) {
 
 export default function OfficersPage() {
   const ui = officersContent
+  const showComingSoon = ui.comingSoon.enabled
 
-  return (
+  const pageBody = (
     <div className="container-custom">
       <div className="section-title">
         <h1>{officersData.title}</h1>
@@ -155,6 +154,21 @@ export default function OfficersPage() {
           </div>
         </TabsContent>
       </Tabs>
+    </div>
+  )
+
+  if (!showComingSoon) {
+    return pageBody
+  }
+
+  return (
+    <div className="officers-gate">
+      <div className="officers-gate__content" aria-hidden="true">
+        {pageBody}
+      </div>
+      <div className="officers-gate__overlay" role="status" aria-live="polite">
+        <p className="officers-gate__banner">{ui.comingSoon.banner}</p>
+      </div>
     </div>
   )
 }

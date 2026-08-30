@@ -1,13 +1,29 @@
 {
-  "year": "2025-2026",
-  "title": "2025-2026 Executive and Officer Board",
+  "year": "2026-2027",
+  "title": "2026-2027 Executive and Officer Board",
   "boardImage": "/images/2025-2026/officers/board.jpg",
   "youtubeUrl": "https://www.youtube.com/watch?v=heCIvZLClME",
   "executive": [
-    { "role": "President", "imagePath": "/images/2025-2026/officers/president.jpg", "name": "Dylan Lee" },
-    { "role": "Vice President", "imagePath": "/images/2025-2026/officers/vice_president.jpg", "name": "Alice Chen" },
-    { "role": "Secretary", "imagePath": "/images/2025-2026/officers/secretary.jpg", "name": "Audrey Eng" },
-    { "role": "Treasurer", "imagePath": "/images/2025-2026/officers/treasurer.jpg", "name": "Maggie Zheng" }
+    {
+      "role": "President",
+      "imagePath": "/images/2025-2026/officers/president.jpg",
+      "name": "Dylan Lee"
+    },
+    {
+      "role": "Vice President",
+      "imagePath": "/images/2025-2026/officers/vice_president.jpg",
+      "name": "Alice Chen"
+    },
+    {
+      "role": "Secretary",
+      "imagePath": "/images/2025-2026/officers/secretary.jpg",
+      "name": "Audrey Eng"
+    },
+    {
+      "role": "Treasurer",
+      "imagePath": "/images/2025-2026/officers/treasurer.jpg",
+      "name": "Maggie Zheng"
+    }
   ],
   "officers": [
     {
