@@ -1452,6 +1452,51 @@
       --scroll-copy-width: 70%;
     }
   }
+
+  /* Officers — temporary coming-soon gate (delete when board is live) */
+  .officers-gate {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .officers-gate__content {
+    filter: blur(14px);
+    opacity: 0.35;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .officers-gate__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-lg) var(--page-gutter);
+    pointer-events: auto;
+  }
+
+  .officers-gate__banner {
+    margin: 0;
+    padding: var(--space-md) var(--space-xl);
+    font-family: var(--font-display);
+    font-size: clamp(2.25rem, 10vw, 5.5rem);
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    text-align: center;
+    color: hsl(var(--foreground));
+    background: hsl(var(--background) / 0.92);
+    border: 3px solid hsl(var(--primary));
+    box-shadow: 0 16px 48px hsl(var(--foreground) / 0.18);
+  }
+
+  .dark .officers-gate__banner {
+    color: hsl(var(--primary-foreground));
+    background: hsl(var(--card) / 0.94);
+  }
 }
 
 @layer base {
