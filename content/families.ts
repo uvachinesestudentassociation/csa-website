@@ -1,7 +1,7 @@
 /**
  * Families page copy — edit page-level text here.
  *
- * Per-family names, bios, and Instagram links live in:
+ * Per-family names, bios, photos, and Instagram links live in:
  *   app/families/families-data.json
  */
 
@@ -28,12 +28,6 @@ export const familiesContent = {
   scrollAssets: {
     backdrop: "",
     scroll: "/images/graphics/blank-scroll.png",
-    /** One banner per scroll, left to right */
-    banners: [
-      "/images/graphics/Azure dragon banner.png",
-      "/images/graphics/Monkey king banner.png",
-      "/images/graphics/White Tiger banner.png",
-    ],
   },
 
   card: {

@@ -12,7 +12,8 @@ Static images served at `/images/*`. Required for the site to display correctly.
 | `csa_tassel_logo.png` | Footer |
 | `chinafest-covers/*` | Alumni page year covers (see `app/alumni/alumni-data.json`) |
 | `2025-2026/officers/*` | Officers page (see `app/officers/officers-data.json`) |
-| `2025-2026/families/*` | Family portrait photos (see `app/families/families-data.json`) |
+| `2025-2026/families/*` | Prior-year family portrait photos (archived) |
+| `2026-2027/families/*` | Current family scroll photos (see `app/families/families-data.json`) |
 | `families/scroll-backdrop.png` | Families page scroll gallery backdrop |
 | `families/scroll-parchment.png` | Families page empty scroll parchment |
 | `families/scroll-rod-top.png` | Optional top scroll rod art |
