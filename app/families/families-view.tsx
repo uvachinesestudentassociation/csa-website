@@ -8,13 +8,6 @@ import type { FamiliesClientPayload } from "./get-families-payload";
 const UNFURL_MS = 1000;
 const STAGGER_MS = 120;
 
-function getDisplayList(payload: FamiliesClientPayload) {
-  if (payload.devPreviewFamilies.length > 0) {
-    return payload.devPreviewFamilies;
-  }
-  return payload.families;
-}
-
 export function FamiliesView({ payload }: { payload: FamiliesClientPayload }) {
   const { intro, sealed, scrollAssets } = familiesContent;
   const contentRevealed = payload.contentRevealed;
@@ -24,7 +17,7 @@ export function FamiliesView({ payload }: { payload: FamiliesClientPayload }) {
   const [unfurled, setUnfurled] = useState(false);
   const [shown, setShown] = useState(false);
 
-  const list = getDisplayList(payload);
+  const list = payload.families;
   const blurred = contentRevealed
     ? false
     : showDevToggle
@@ -77,12 +70,12 @@ export function FamiliesView({ payload }: { payload: FamiliesClientPayload }) {
           aria-pressed={devBlurEnabled}
           aria-label={
             devBlurEnabled
-              ? "Dev preview: scroll blur on"
-              : "Dev preview: scroll blur off"
+              ? "Dev preview: blurred (default)"
+              : "Dev preview: unblurred"
           }
           onClick={() => setDevBlurEnabled((value) => !value)}
         >
-          Dev: {devBlurEnabled ? "Blur on" : "Blur off"}
+          Dev: {devBlurEnabled ? "Blurred" : "Unblurred"}
         </button>
       ) : null}
 

@@ -20,19 +20,8 @@ const sampleFamilies: FamilyPublic[] = [
   },
 ]
 
-function assertEmptyStub(family: FamilyPublic, index: number) {
-  expect(family).toEqual({
-    id: `sealed-${index}`,
-    name: "",
-    shortTabLabel: "",
-    image: "",
-    instagramUrl: "",
-    description: "",
-  })
-}
-
 describe("getFamiliesClientPayload", () => {
-  it("production revealed → full roster in families, empty devPreview", () => {
+  it("production revealed → full roster, no dev toggle", () => {
     const payload = getFamiliesClientPayload({
       revealed: true,
       isDev: false,
@@ -43,10 +32,9 @@ describe("getFamiliesClientPayload", () => {
     expect(payload.showDevToggle).toBe(false)
     expect(payload.gateCount).toBe(2)
     expect(payload.families).toEqual(sampleFamilies)
-    expect(payload.devPreviewFamilies).toEqual([])
   })
 
-  it("production sealed → empty stubs only, no real fields, empty devPreview", () => {
+  it("production sealed → full roster for blurred display, no dev toggle", () => {
     const payload = getFamiliesClientPayload({
       revealed: false,
       isDev: false,
@@ -56,17 +44,10 @@ describe("getFamiliesClientPayload", () => {
     expect(payload.contentRevealed).toBe(false)
     expect(payload.showDevToggle).toBe(false)
     expect(payload.gateCount).toBe(2)
-    expect(payload.families).toHaveLength(2)
-    payload.families.forEach(assertEmptyStub)
-    expect(payload.devPreviewFamilies).toEqual([])
-
-    const serialized = JSON.stringify(payload)
-    expect(serialized).not.toContain("Golden Guppies")
-    expect(serialized).not.toContain("guppies.jpg")
-    expect(serialized).not.toContain("instagram.com")
+    expect(payload.families).toEqual(sampleFamilies)
   })
 
-  it("development sealed → stubs in families, full roster only in devPreview", () => {
+  it("development sealed → full roster with dev blur toggle", () => {
     const payload = getFamiliesClientPayload({
       revealed: false,
       isDev: true,
@@ -76,8 +57,6 @@ describe("getFamiliesClientPayload", () => {
     expect(payload.contentRevealed).toBe(false)
     expect(payload.showDevToggle).toBe(true)
     expect(payload.gateCount).toBe(2)
-    expect(payload.families).toHaveLength(2)
-    payload.families.forEach(assertEmptyStub)
-    expect(payload.devPreviewFamilies).toEqual(sampleFamilies)
+    expect(payload.families).toEqual(sampleFamilies)
   })
 })

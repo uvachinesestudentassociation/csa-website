@@ -8,26 +8,12 @@ export type FamilyPublic = {
 }
 
 export type FamiliesClientPayload = {
-  /** True when UI may show open state from content flag (not dev toggle). */
+  /** True when the public reveal flag is on (no blur). */
   contentRevealed: boolean
-  /** Dev-only blur toggle for local preview. Always false in production builds. */
+  /** Dev-only: toggle blur off to preview unblurred scrolls. Always false in production. */
   showDevToggle: boolean
-  /** Roster safe to serialize to the client component. */
   families: FamilyPublic[]
   gateCount: number
-  /** Dev-only: full roster for local preview toggle. Always [] in production builds. */
-  devPreviewFamilies: FamilyPublic[]
-}
-
-function sealedStubs(gateCount: number): FamilyPublic[] {
-  return Array.from({ length: gateCount }, (_, i) => ({
-    id: `sealed-${i}`,
-    name: "",
-    shortTabLabel: "",
-    image: "",
-    instagramUrl: "",
-    description: "",
-  }))
 }
 
 export function getFamiliesClientPayload({
@@ -47,27 +33,13 @@ export function getFamiliesClientPayload({
       showDevToggle: false,
       families,
       gateCount,
-      devPreviewFamilies: [],
-    }
-  }
-
-  const stubs = sealedStubs(gateCount)
-
-  if (isDev) {
-    return {
-      contentRevealed: false,
-      showDevToggle: true,
-      families: stubs,
-      gateCount,
-      devPreviewFamilies: families,
     }
   }
 
   return {
     contentRevealed: false,
-    showDevToggle: false,
-    families: stubs,
+    showDevToggle: isDev,
+    families,
     gateCount,
-    devPreviewFamilies: [],
   }
 }

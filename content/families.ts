@@ -12,7 +12,7 @@ export const familiesContent = {
       "Learn about CSA@UVA's family system and meet this year's families.",
   },
 
-  /** Flip to true after the family reveal to unblur the scrolls and show names/bios. */
+  /** Flip to true after the family reveal to unblur the scrolls for everyone. */
   revealed: false as boolean,
 
   intro: {
