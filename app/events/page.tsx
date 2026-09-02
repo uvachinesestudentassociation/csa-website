@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { eventsContent } from "@/content/events"
+import { CalendarFeed } from "./calendar-feed"
 
 export const metadata: Metadata = {
   title: eventsContent.meta.title,
@@ -7,7 +8,7 @@ export const metadata: Metadata = {
 }
 
 export default function EventsPage() {
-  const { header, actions, calendar } = eventsContent
+  const { header, actions, calendar, calendarFeed } = eventsContent
 
   return (
     <div className="events-page">
@@ -25,14 +26,14 @@ export default function EventsPage() {
           >
             {actions.subscribe}
           </a>
-          <a
-            className="events-page__open"
-            href={calendar.subscribeUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {actions.openCalendar}
-          </a>
+          <CalendarFeed
+            url={calendar.icsUrl}
+            buttonLabel={calendarFeed.button}
+            title={calendarFeed.title}
+            instructions={calendarFeed.instructions}
+            viewLabel={calendarFeed.viewLink}
+            closeLabel={calendarFeed.close}
+          />
         </div>
       </header>
 

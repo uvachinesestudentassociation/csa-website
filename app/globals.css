@@ -1,4 +1,4 @@
-﻿@import "../tokens.css";
+@import "../tokens.css";
 
 @tailwind base;
 @tailwind components;
@@ -966,17 +966,121 @@
     outline-offset: 3px;
   }
 
-  .events-page__open {
+  .events-page__feed-trigger {
+    appearance: none;
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+    min-height: 2.75rem;
+    padding: 0.7rem 1.25rem;
+    border: var(--rule-hair) solid hsl(var(--border));
+    background: hsl(var(--card));
     color: hsl(var(--foreground));
+    font: inherit;
     font-weight: 600;
     font-size: var(--text-sm);
-    text-decoration: underline;
-    text-underline-offset: 0.2em;
-    white-space: nowrap;
+    cursor: pointer;
   }
 
-  .events-page__open:hover {
+  .events-page__feed-trigger:hover {
+    border-color: hsl(var(--foreground));
+  }
+
+  .events-page__feed-trigger:focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 3px;
+  }
+
+  .events-page__feed-dialog {
+    margin: auto;
+    padding: 0;
+    border: var(--rule-hair) solid hsl(var(--border));
+    background: hsl(var(--card));
+    color: hsl(var(--foreground));
+    max-width: min(28rem, calc(100vw - 2rem));
+    width: 100%;
+  }
+
+  .events-page__feed-dialog::backdrop {
+    background: hsl(var(--foreground) / 0.35);
+  }
+
+  .events-page__feed-panel {
+    display: grid;
+    gap: var(--space-md);
+    padding: var(--space-md) var(--space-lg) var(--space-lg);
+  }
+
+  .events-page__feed-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-sm);
+    padding-bottom: var(--space-sm);
+    border-bottom: var(--rule-hair) solid hsl(var(--border));
+  }
+
+  .events-page__feed-title {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 400;
+    line-height: 1.2;
+  }
+
+  .events-page__feed-close {
+    appearance: none;
+    background: none;
+    border: 0;
+    padding: 0.15rem 0.4rem;
+    cursor: pointer;
+    font-size: 1.5rem;
+    line-height: 1;
+    color: hsl(var(--muted-foreground));
+  }
+
+  .events-page__feed-close:hover {
+    color: hsl(var(--foreground));
+  }
+
+  .events-page__feed-close:focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+  }
+
+  .events-page__feed-instructions {
+    margin: 0;
+    font-size: var(--text-sm);
+    line-height: 1.5;
+    color: hsl(var(--muted-foreground));
+  }
+
+  .events-page__feed-input {
+    width: 100%;
+    min-height: 2.5rem;
+    padding: 0.5rem 0.75rem;
+    border: var(--rule-hair) solid hsl(var(--border));
+    background: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-size: var(--text-sm);
+    font-family: inherit;
+  }
+
+  .events-page__feed-input:focus {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+  }
+
+  .events-page__feed-view {
+    font-size: var(--text-sm);
+    font-weight: 600;
     color: hsl(var(--primary));
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  .events-page__feed-view:hover {
+    filter: brightness(1.08);
   }
 
   .events-page__calendar {
