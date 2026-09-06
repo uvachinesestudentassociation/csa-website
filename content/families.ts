@@ -13,7 +13,7 @@ export const familiesContent = {
   },
 
   /** Flip to true after the family reveal to unblur the scrolls for everyone. */
-  revealed: false as boolean,
+  revealed: true as boolean,
 
   intro: {
     title: "Families",
