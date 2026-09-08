@@ -6,6 +6,7 @@ import { SearchInput } from "@/components/search-input"
 
 interface GalleryItem {
   name: string
+  date: string
   url: string
 }
 
@@ -27,7 +28,11 @@ export function GalleryList({
   const filteredItems = useMemo(() => {
     const normalized = query.trim().toLowerCase()
     if (!normalized) return items
-    return items.filter((item) => item.name.toLowerCase().includes(normalized))
+    return items.filter(
+      (item) =>
+        item.name.toLowerCase().includes(normalized) ||
+        item.date.toLowerCase().includes(normalized),
+    )
   }, [items, query])
 
   return (
@@ -44,13 +49,16 @@ export function GalleryList({
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {filteredItems.map((item) => (
             <Button
-              key={item.name}
+              key={`${item.name}-${item.date}`}
               variant="outline"
               className="h-auto w-full justify-start py-6 text-left"
               asChild
             >
               <a href={item.url} target="_blank" rel="noopener noreferrer">
-                <span className="font-semibold">{item.name}</span>
+                <div>
+                  <div className="font-semibold">{item.name}</div>
+                  <div className="text-sm text-muted-foreground">{item.date}</div>
+                </div>
               </a>
             </Button>
           ))}

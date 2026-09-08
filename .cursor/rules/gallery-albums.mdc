@@ -1,0 +1,27 @@
+---
+description: When adding gallery/archive albums, look up dates on the CSA Google Calendar ICS
+globs: app/gallery/**/*.json,content/gallery.ts,content/archive.ts
+alwaysApply: false
+---
+
+# Gallery / Archive albums
+
+Album lists live in:
+
+- Current year: `app/gallery/gallery-data.json` (`name`, `date`, `url`)
+- Archive: `app/gallery/archive/archive-data.json` (`name`, `date`, `link` per event)
+
+## Dates
+
+Before adding or renaming an album, check the CSA Events calendar ICS:
+
+https://calendar.google.com/calendar/ical/c_o0ntjuei84bjmlpfqbcsr62u3c%40group.calendar.google.com/public/basic.ics
+
+- Set `date` as `M/D/YYYY` (same format as existing Archive rows), matching the calendar event.
+- If the album is a recap / media dump with no calendar event, use `""`.
+- If the matching event date is unclear, ask the user before writing a date. Do not guess.
+
+## Drive links
+
+- Do not invent Google Drive folder URLs.
+- Ask the user for a shareable folder link (Anyone with the link → Viewer) if they have not provided one.
