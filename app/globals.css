@@ -1211,8 +1211,8 @@
     --scroll-art-top-inset: 0.1341;
     /* auto 100% = full scroll height (both rods); horizontal crop via overflow */
     --scroll-skin-fit: auto 100%;
-    --scroll-stage-height: clamp(32rem, 92vh, 72rem);
-    --scroll-scene-height: min(98vh, 76rem);
+    --scroll-stage-height: clamp(36rem, 98vh, 82rem);
+    --scroll-scene-height: min(100vh, 86rem);
     margin: 0 0 2rem;
     padding: 0;
     width: 100%;
@@ -1222,8 +1222,8 @@
   @media (max-width: 640px) {
     .scroll-scene {
       --scroll-rolled-inset: 78%;
-      --scroll-stage-height: clamp(26rem, 86vh, 60rem);
-      --scroll-scene-height: min(96vh, 64rem);
+      --scroll-stage-height: clamp(30rem, 92vh, 70rem);
+      --scroll-scene-height: min(100vh, 74rem);
     }
   }
 
