@@ -4,12 +4,11 @@ import { useCallback, useEffect, useRef, useState } from "react"
 import { MistCloudOverlay } from "@/components/mist-cloud-overlay"
 import { cn } from "@/lib/utils"
 
-/** Mountains + mist fade in together once both are decoded — no bright-then-muddy flash. */
+/** Mountains and mist fade in independently once each is decoded. */
 export function HomeHeroMedia() {
   const [mountainsReady, setMountainsReady] = useState(false)
   const [mistReady, setMistReady] = useState(false)
   const mountainsRef = useRef<HTMLImageElement>(null)
-  const ready = mountainsReady && mistReady
 
   useEffect(() => {
     const img = mountainsRef.current
@@ -29,7 +28,7 @@ export function HomeHeroMedia() {
   return (
     <>
       <div
-        className={cn("home-photo-fold__mountains", ready && "is-ready")}
+        className={cn("home-photo-fold__mountains", mountainsReady && "is-ready")}
         aria-hidden
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -45,7 +44,7 @@ export function HomeHeroMedia() {
         />
       </div>
       <div
-        className={cn("home-photo-fold__mist", ready && "is-ready")}
+        className={cn("home-photo-fold__mist", mistReady && "is-ready")}
         aria-hidden
       >
         <MistCloudOverlay tone="hero" onReady={onMistReady} />
