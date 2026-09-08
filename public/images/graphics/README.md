@@ -4,7 +4,7 @@ Optional decorative assets served at `/images/graphics/*`.
 
 | File | Purpose |
 |------|---------|
-| `blank-scroll.png` | Full hanging scroll art for Families reveal (rods + parchment) |
+| `blank-scroll.png` | Full hanging scroll art for Families reveal (rods + parchment). Wired in `content/families.ts` (`scrollAssets.scroll`). |
 | `wooden-beam-only.png` | Unused spare rod sprite (kept for reference) |
 
 Use this folder for logos, icons, illustrations, banners, and other non-photo graphics (PNG/SVG/WebP recommended for transparency).
@@ -19,4 +19,4 @@ Use this folder for logos, icons, illustrations, banners, and other non-photo gr
 background-image: url("/images/graphics/blank-scroll.png");
 ```
 
-Families scroll parchment is configured in [`content/families.ts`](../../content/families.ts) (`scrollAssets.scroll`). Per-family photos are in [`app/families/families-data.json`](../../app/families/families-data.json).
+Per-family photos live under `public/images/2026-2027/families/` and are listed in [`app/families/families-data.json`](../../app/families/families-data.json).
