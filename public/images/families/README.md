@@ -1,12 +1,11 @@
-# Families scroll assets
+# Families scroll assets (legacy folder)
 
-Place artwork here for the Families page scroll gallery.
+This folder no longer holds the live Families scroll artwork.
 
-| File | Purpose |
-|------|---------|
-| `scroll-backdrop.png` | Room/interior behind the scrolls (~1600×900) |
-| `scroll-parchment.png` | Empty parchment texture (~400×1200, tall) |
-| `scroll-rod-top.png` | Optional top dowel (+ hanging string) |
-| `scroll-rod-bottom.png` | Optional bottom dowel |
+| What you need | Where it lives |
+|---------------|----------------|
+| Scroll parchment / rods art | [`../graphics/blank-scroll.png`](../graphics/blank-scroll.png) — set via `content/families.ts` → `scrollAssets.scroll` |
+| Optional backdrop | `content/families.ts` → `scrollAssets.backdrop` (empty = CSS fallback hall) |
+| Per-family banner photos | [`../2026-2027/families/`](../2026-2027/) — paths in `app/families/families-data.json` |
 
-Until these files exist, the page uses CSS wood/parchment fallbacks.
+See also [`../graphics/README.md`](../graphics/README.md) and the root [`../../README.md`](../../README.md) content section.
