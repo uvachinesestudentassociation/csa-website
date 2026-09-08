@@ -3,6 +3,10 @@
  *
  * Archived album list lives in:
  *   app/gallery/archive/archive-data.json
+ *
+ * When adding an album, look up the event on the CSA Google Calendar and set
+ * `date` as M/D/YYYY (or "" if it is a recap / not on the calendar):
+ *   https://calendar.google.com/calendar/ical/c_o0ntjuei84bjmlpfqbcsr62u3c%40group.calendar.google.com/public/basic.ics
  */
 
 export const archiveContent = {
