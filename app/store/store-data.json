@@ -1,0 +1,40 @@
+[
+  {
+    "id": "hoodie",
+    "name": "CSA Hoodie",
+    "price": 35,
+    "description": "Placeholder — real design coming later.",
+    "image": "/images/csa_square_logo.png",
+    "images": [
+      "/images/csa_square_logo.png",
+      "/images/csa_tassel_logo.png",
+      "/images/mountains.png"
+    ],
+    "sizes": ["S", "M", "L", "XL"]
+  },
+  {
+    "id": "tee",
+    "name": "CSA Tee",
+    "price": 20,
+    "description": "Placeholder — real design coming later.",
+    "image": "/images/csa_square_logo.png",
+    "images": [
+      "/images/csa_tassel_logo.png",
+      "/images/csa_square_logo.png",
+      "/images/mountains.png"
+    ],
+    "sizes": ["S", "M", "L", "XL"]
+  },
+  {
+    "id": "stickers",
+    "name": "Sticker pack",
+    "price": 5,
+    "description": "Placeholder — real design coming later.",
+    "image": "/images/csa_square_logo.png",
+    "images": [
+      "/images/mountains.png",
+      "/images/csa_square_logo.png",
+      "/images/csa_tassel_logo.png"
+    ]
+  }
+]

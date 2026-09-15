@@ -7,14 +7,17 @@ import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-provider";
 import { cn } from "@/lib/utils";
-import { siteContent } from "@/content/site";
+import { siteContent } from "@/content/site"
+import { storeMockEnabled, storeNavLink } from "@/content/store-nav";
 
 export default function Navbar() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const [mastHeight, setMastHeight] = useState(0);
   const headerRef = useRef<HTMLElement>(null);
-  const { brand, nav, forms } = siteContent;
+  const { brand, nav, forms } = siteContent
+  const navLinks = [...nav.links, storeNavLink]
+  const storeLive = storeMockEnabled
 
   useEffect(() => {
     setMenuOpen(false);
@@ -118,16 +121,35 @@ export default function Navbar() {
 
         <nav className="site-mast__links" aria-label="Primary">
           <ul>
-            {nav.links.map((link) => (
-              <li key={link.href}>
-                <Link
-                  href={link.href}
-                  className={cn(pathname === link.href && "is-active")}
-                >
-                  {link.name}
-                </Link>
-              </li>
-            ))}
+            {navLinks.map((link) => {
+              const isStore = link.href === storeNavLink.href
+              if (isStore && !storeLive) {
+                return (
+                  <li key={link.href}>
+                    <span
+                      className="site-mast__store site-mast__store--soon"
+                      aria-disabled="true"
+                      title="Coming soon"
+                    >
+                      {link.name}
+                    </span>
+                  </li>
+                )
+              }
+              return (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className={cn(
+                      isStore && "site-mast__store",
+                      (pathname === link.href || (isStore && pathname.startsWith("/store"))) && "is-active",
+                    )}
+                  >
+                    {link.name}
+                  </Link>
+                </li>
+              )
+            })}
             <li>
               <a
                 className="site-mast__join"
@@ -152,16 +174,34 @@ export default function Navbar() {
           style={{ "--mast-height": `${mastHeight}px` } as CSSProperties}
         >
           <div className="site-mast__panel-inner">
-            {nav.links.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={cn(pathname === link.href && "is-active")}
-                onClick={() => setMenuOpen(false)}
-              >
-                {link.name}
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              const isStore = link.href === storeNavLink.href
+              if (isStore && !storeLive) {
+                return (
+                  <span
+                    key={link.href}
+                    className="site-mast__store site-mast__store--soon"
+                    aria-disabled="true"
+                    title="Coming soon"
+                  >
+                    {link.name}
+                  </span>
+                )
+              }
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={cn(
+                    isStore && "site-mast__store",
+                    (pathname === link.href || (isStore && pathname.startsWith("/store"))) && "is-active",
+                  )}
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {link.name}
+                </Link>
+              )
+            })}
             <a
               href={forms.newMember}
               target="_blank"

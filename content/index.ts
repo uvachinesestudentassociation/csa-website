@@ -11,6 +11,7 @@
  *   gallery.ts   — Gallery (albums → app/gallery/gallery-data.json)
  *   archive.ts   — Gallery archive (albums → app/gallery/archive/archive-data.json)
  *   alumni.ts    — Alumni intro (rosters → app/alumni/alumni-data.json)
+ *   store.ts     — Dev-only Store mock (items → app/store/store-data.json)
  */
 
 export { siteContent } from "./site"
@@ -22,3 +23,4 @@ export { officersContent } from "./officers"
 export { galleryContent } from "./gallery"
 export { archiveContent } from "./archive"
 export { alumniContent } from "./alumni"
+export { storeContent, storeMockEnabled } from "./store"
