@@ -1243,8 +1243,8 @@
     --scroll-art-top-inset: 0.1341;
     /* auto 100% = full scroll height (both rods); horizontal crop via overflow */
     --scroll-skin-fit: auto 100%;
-    --scroll-stage-height: clamp(36rem, 98vh, 82rem);
-    --scroll-scene-height: min(100vh, 86rem);
+    --scroll-stage-height: clamp(44rem, 112vh, 94rem);
+    --scroll-scene-height: min(115vh, 98rem);
     margin: 0 0 2rem;
     padding: 0;
     width: 100%;
@@ -1255,8 +1255,8 @@
     .scroll-scene {
       --scroll-rolled-inset: 78%;
       /* Keep stage tall enough that the parchment band can hold copy */
-      --scroll-stage-height: clamp(34rem, 100dvh, 76rem);
-      --scroll-scene-height: min(105dvh, 80rem);
+      --scroll-stage-height: clamp(42rem, 120dvh, 90rem);
+      --scroll-scene-height: min(126dvh, 94rem);
     }
   }
 
@@ -1590,11 +1590,11 @@
     }
 
     .scroll__banner-frame {
-      flex: 3.2 1 0;
+      flex: 2.6 1 0;
     }
 
     .scroll__copy {
-      flex: 5.5 1 0;
+      flex: 6.2 1 0;
       margin-top: 0.05rem;
     }
 
