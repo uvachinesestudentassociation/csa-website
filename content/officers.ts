@@ -15,6 +15,7 @@ export const officersContent = {
   boardImageAlt: "Executive and Officer Board",
   videoTitle: "CSA board video",
   youtubeFallback: "Watch on YouTube",
+  videoPlaceholder: "Intro video coming soon",
 
   tabs: {
     executive: "Executive Board",
@@ -27,7 +28,7 @@ export const officersContent = {
 
   /** Remove or set enabled: false when the 2026–27 board is ready to publish. */
   comingSoon: {
-    enabled: true as boolean,
+    enabled: false as boolean,
     banner: "26-27 Officers Coming soon",
   },
 } as const;
