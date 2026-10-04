@@ -109,7 +109,7 @@ export default function OfficersPage() {
               allowFullScreen
               className="absolute inset-0 h-full w-full border-0"
             />
-          ) : (
+          ) : officersData.youtubeUrl ? (
             <a
               href={officersData.youtubeUrl}
               target="_blank"
@@ -118,6 +118,10 @@ export default function OfficersPage() {
             >
               {ui.youtubeFallback}
             </a>
+          ) : (
+            <p className="absolute inset-0 flex items-center justify-center px-6 text-center text-sm text-white">
+              {ui.videoPlaceholder}
+            </p>
           )}
         </div>
       </div>
