@@ -65,7 +65,7 @@ function PhotoStage({
       onMouseLeave={close}
     >
       <div className={open ? "store-item is-open" : "store-item"}>
-        <div className="store-well">
+        <div className={item.id === "stickers" ? "store-well store-well--logo" : "store-well"}>
           {slides.map((src, slide) => (
             <Image
               key={`${item.id}-${slide}`}

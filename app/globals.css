@@ -1930,8 +1930,18 @@
 
 .store-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-xl) var(--space-md);
+}
+
+.store-grid > * {
+  min-width: 0;
+}
+
+@media (min-width: 768px) {
+  .store-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
 .store-well {
@@ -1943,10 +1953,14 @@
 }
 
 .store-well__img {
-  object-fit: contain;
-  padding: 14%;
+  object-fit: cover;
   opacity: 0;
   transition: opacity var(--dur-short) var(--ease-out);
+}
+
+.store-well--logo .store-well__img {
+  object-fit: contain;
+  padding: 14%;
 }
 
 .store-well__img.is-current {
@@ -2029,17 +2043,61 @@
   opacity: 1;
 }
 
+.store-arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  transform: translateY(-50%);
+  border: 0;
+  background: transparent;
+  color: oklch(25% 0 0 / 0.55);
+  cursor: pointer;
+}
+
+.store-arrow svg {
+  width: 1.75rem;
+  height: 1.75rem;
+}
+
+.store-arrow--prev {
+  left: 0.1rem;
+}
+
+.store-arrow--next {
+  right: 0.1rem;
+}
+
+.store-arrow:hover {
+  color: oklch(18% 0 0 / 0.85);
+}
+
 .store-gallery__dot:focus-visible,
 .store-chip:focus-visible,
 .store-buy:focus-visible,
+.store-arrow:focus-visible,
 .store-gallery__step:focus-visible {
   outline: 2px solid var(--color-focus);
   outline-offset: 2px;
 }
 
+.store-arrow:focus-visible {
+  outline-offset: -3px;
+}
+
 .store-meta {
   min-width: 0;
   padding-top: var(--space-sm);
+}
+
+.store-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-sm);
 }
 
 .store-meta h2 {
@@ -2053,9 +2111,10 @@
 }
 
 .store-price {
-  margin: 0.15rem 0 0;
+  margin: 0;
   font-size: var(--text-xs);
   color: var(--color-ink-2);
+  white-space: nowrap;
 }
 
 .store-sizes {
@@ -2115,26 +2174,10 @@
   color: var(--color-ink-2);
 }
 
-@media (max-width: 1100px) {
-  .store-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
-
 @media (max-width: 768px) {
-  .store-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
   .store-gallery {
     opacity: 1;
     pointer-events: auto;
-  }
-}
-
-@media (max-width: 480px) {
-  .store-grid {
-    grid-template-columns: minmax(0, 1fr);
   }
 }
 
