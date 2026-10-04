@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Image from "next/image"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Card, CardContent } from "@/components/ui/card"
@@ -83,6 +83,30 @@ function OfficerCard({ imagePath, name, description }: OfficerCardProps) {
 export default function OfficersPage() {
   const ui = officersContent
   const showComingSoon = ui.comingSoon.enabled
+  const [frameNode, setFrameNode] = useState<HTMLDivElement | null>(null)
+  const [frameIn, setFrameIn] = useState(false)
+
+  useEffect(() => {
+    if (!frameNode) {
+      setFrameIn(false)
+      return
+    }
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setFrameIn(true)
+      return
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry?.isIntersecting) return
+        setFrameIn(true)
+        observer.disconnect()
+      },
+      { threshold: 0.35 },
+    )
+    observer.observe(frameNode)
+    return () => observer.disconnect()
+  }, [frameNode])
 
   const pageBody = (
     <div className="container-custom">
@@ -145,17 +169,52 @@ export default function OfficersPage() {
 
         <TabsContent value="officer">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {officersData.officers.map((officer) => (
-              <div key={officer.role}>
-                <h3 className="text-center mb-4">{officer.role}</h3>
-                <OfficerCard
-                  imagePath={officer.imagePath}
-                  name={officer.name}
-                  description={officer.description}
-                />
+            {officersData.officers
+              .filter((officer) => officer.role !== "Webmaster")
+              .map((officer) => (
+                <div key={officer.role}>
+                  <h3 className="text-center mb-4">{officer.role}</h3>
+                  <OfficerCard
+                    imagePath={officer.imagePath}
+                    name={officer.name}
+                    description={officer.description}
+                  />
+                </div>
+              ))}
+          </div>
+          {officersData.officers
+            .filter((officer) => officer.role === "Webmaster")
+            .map((officer) => (
+              <div
+                key={officer.role}
+                ref={setFrameNode}
+                className={frameIn ? "webmaster-spotlight is-in mx-auto mt-10" : "webmaster-spotlight mx-auto mt-10"}
+              >
+                <h3 className="mb-4 text-center font-display font-normal text-primary">
+                  {officer.role}
+                </h3>
+                <div className="webmaster-portrait">
+                  <div className="webmaster-frame" aria-hidden="true" />
+                  <div className="webmaster-frame__photo">
+                    <Image
+                      src={officer.imagePath || "/placeholder.svg"}
+                      alt={officer.name}
+                      fill
+                      sizes="24rem"
+                      className="object-cover"
+                    />
+                  </div>
+                </div>
+                <div className="px-4 pb-4 text-center">
+                  <h3 className="mb-2 text-lg font-semibold dark:text-primary-foreground">
+                    {officer.name}
+                  </h3>
+                  {officer.description ? (
+                    <p className="text-sm text-muted-foreground">{officer.description}</p>
+                  ) : null}
+                </div>
               </div>
             ))}
-          </div>
         </TabsContent>
       </Tabs>
     </div>
