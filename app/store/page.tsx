@@ -1,5 +1,4 @@
 import type { Metadata } from "next"
-import Link from "next/link"
 import { notFound } from "next/navigation"
 import { StoreGrid } from "@/components/store-grid"
 import { storeContent, storeMockEnabled, storePurchaseCopy } from "@/content/store"
@@ -21,9 +20,6 @@ export default function StorePage() {
       <header className="store-opener">
         <h1>{intro.title}</h1>
         <p>{intro.body}</p>
-        <p>
-          <Link href="/store/preview">Compare store layouts</Link>
-        </p>
       </header>
       <StoreGrid items={items} copy={storePurchaseCopy} />
     </div>
