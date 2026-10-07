@@ -15,7 +15,7 @@ export const officersContent = {
   boardImageAlt: "Executive and Officer Board",
   videoTitle: "CSA board video",
   youtubeFallback: "Watch on YouTube",
-  videoPlaceholder: "Intro video coming soon",
+  videoPlaceholder: "Intro video coming soon!",
 
   tabs: {
     executive: "Executive Board",
