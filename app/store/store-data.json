@@ -1,38 +1,35 @@
 [
   {
-    "id": "hoodie",
-    "name": "CSA Hoodie",
-    "price": 35,
-    "description": "Cream hoodie with the Full Moon Fest koi and lantern print.",
-    "image": "/images/store/hoodie-front.jpg",
-    "images": [
-      "/images/store/hoodie-front.jpg",
-      "/images/store/hoodie-worn.jpg"
-    ],
-    "sizes": ["S", "M", "L", "XL"]
-  },
-  {
     "id": "tee",
-    "name": "CSA Tee",
-    "price": 20,
-    "description": "White tee with the Full Moon Fest koi and lantern print.",
-    "image": "/images/store/tee-front.jpg",
+    "name": "Cream shirt",
+    "price": 15,
+    "description": "Cream tee. Chest logo on the front, Full Moon Fest print on the back.",
+    "image": "/images/store/tee-front-2.jpg",
     "images": [
-      "/images/store/tee-front.jpg",
-      "/images/store/tee-worn.jpg"
+      "/images/store/tee-front-2.jpg",
+      "/images/store/tee-back.jpg"
     ],
-    "sizes": ["S", "M", "L", "XL"]
+    "sizes": [
+      { "label": "S", "available": 15 },
+      { "label": "M", "available": 35 },
+      { "label": "L", "available": 30 },
+      { "label": "XL", "available": 15 }
+    ]
   },
   {
-    "id": "stickers",
-    "name": "Sticker pack",
-    "price": 5,
-    "description": "Placeholder — real design coming later.",
-    "image": "/images/csa_square_logo.png",
-    "images": [
-      "/images/mountains.png",
-      "/images/csa_square_logo.png",
-      "/images/csa_tassel_logo.png"
-    ]
+    "id": "soon-1",
+    "name": "Coming soon",
+    "price": 0,
+    "description": "",
+    "image": "",
+    "comingSoon": true
+  },
+  {
+    "id": "soon-2",
+    "name": "Coming soon",
+    "price": 0,
+    "description": "",
+    "image": "",
+    "comingSoon": true
   }
 ]

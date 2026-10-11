@@ -1,5 +1,7 @@
 import type { Metadata } from "next"
+import Image from "next/image"
 import { notFound } from "next/navigation"
+import { StoreArrivalNote } from "@/components/store-arrival-note"
 import { StoreGrid } from "@/components/store-grid"
 import { storeContent, storeMockEnabled, storePurchaseCopy } from "@/content/store"
 import items from "./store-data.json"
@@ -18,8 +20,29 @@ export default function StorePage() {
   return (
     <div className="container-custom store-page">
       <header className="store-opener">
-        <h1>{intro.title}</h1>
-        <p>{intro.body}</p>
+        <Image
+          src="/images/graphics/store-border.png"
+          alt=""
+          width={800}
+          height={450}
+          className="store-opener__mark"
+          aria-hidden
+        />
+        <div className="store-opener__title">
+          <h1>{intro.title}</h1>
+          <StoreArrivalNote
+            until={storePurchaseCopy.preorderUntil}
+            note={storePurchaseCopy.arrivalNote}
+          />
+        </div>
+        <Image
+          src="/images/graphics/store-border.png"
+          alt=""
+          width={800}
+          height={450}
+          className="store-opener__mark store-opener__mark--end"
+          aria-hidden
+        />
       </header>
       <StoreGrid items={items} copy={storePurchaseCopy} />
     </div>

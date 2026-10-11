@@ -3,6 +3,7 @@
 import { useState } from "react"
 import Image from "next/image"
 import { ChevronLeft, ChevronRight } from "lucide-react"
+import { isShirtPreorder } from "@/lib/preorder"
 import { storeItemNote, venmoPayUrl } from "@/lib/venmo"
 
 export interface StoreItem {
@@ -12,14 +13,28 @@ export interface StoreItem {
   description: string
   image: string
   images?: string[]
-  sizes?: string[]
+  sizes?: { label: string; available: number }[]
+  comingSoon?: boolean
 }
 
 export type StorePurchaseCopy = {
   venmoUsername: string
   purchaseLabel: string
+  preorderLabel: string
+  preorderUntil: string
+  arrivalNote: string
   purchaseCaption: string
   sizeLabel: string
+}
+
+function ComingSoonTile() {
+  return (
+    <article className="store-item store-item--soon" aria-label="Coming soon">
+      <div className="store-well store-soon">
+        <p>Coming soon</p>
+      </div>
+    </article>
+  )
 }
 
 function ProductTile({ item, copy }: { item: StoreItem; copy: StorePurchaseCopy }) {
@@ -29,7 +44,10 @@ function ProductTile({ item, copy }: { item: StoreItem; copy: StorePurchaseCopy 
   const [size, setSize] = useState("")
   const [index, setIndex] = useState(0)
   const ready = !needsSize || size !== ""
-  const note = storeItemNote(item.name, needsSize ? size : undefined)
+  const selected = sizes.find((option) => option.label === size)
+  const preorder = isShirtPreorder(new Date(), copy.preorderUntil)
+  const buyLabel = preorder ? copy.preorderLabel : copy.purchaseLabel
+  const note = storeItemNote(item.name, needsSize ? size : undefined, preorder)
   const href = venmoPayUrl(copy.venmoUsername, item.price, note)
   const src = slides[index] ?? item.image
 
@@ -73,24 +91,25 @@ function ProductTile({ item, copy }: { item: StoreItem; copy: StorePurchaseCopy 
           <div className="store-sizes" role="group" aria-label={copy.sizeLabel}>
             {sizes.map((option) => (
               <button
-                key={option}
+                key={option.label}
                 type="button"
                 className="store-chip"
-                aria-pressed={size === option}
-                onClick={() => setSize(option)}
+                aria-pressed={size === option.label}
+                onClick={() => setSize(option.label)}
               >
-                {option}
+                {option.label}
               </button>
             ))}
           </div>
         ) : null}
         {ready ? (
           <a className="store-buy" href={href} target="_blank" rel="noopener noreferrer">
-            {copy.purchaseLabel}
+            {buyLabel}
+            {selected ? <span className="store-buy__count">{selected.available} left</span> : null}
           </a>
         ) : (
           <button type="button" className="store-buy" disabled>
-            {copy.purchaseLabel}
+            {buyLabel}
           </button>
         )}
       </div>
@@ -102,9 +121,13 @@ export function StoreGrid({ items, copy }: { items: StoreItem[]; copy: StorePurc
   return (
     <div className="store-catalog">
       <div className="store-grid">
-        {items.map((item) => (
-          <ProductTile key={item.id} item={item} copy={copy} />
-        ))}
+        {items.map((item) =>
+          item.comingSoon ? (
+            <ComingSoonTile key={item.id} />
+          ) : (
+            <ProductTile key={item.id} item={item} copy={copy} />
+          ),
+        )}
       </div>
       <p className="store-caption">{copy.purchaseCaption}</p>
     </div>

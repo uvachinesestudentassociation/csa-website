@@ -18,7 +18,7 @@ export default function StoreLayoutPreviewPage() {
       <p className="lab-back">
         <Link href="/store">Back to store</Link>
       </p>
-      <StoreLayoutLab items={items} copy={storePurchaseCopy} />
+      <StoreLayoutLab items={items.filter((item) => !item.comingSoon)} copy={storePurchaseCopy} />
     </div>
   )
 }
