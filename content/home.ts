@@ -21,7 +21,7 @@ export const homeContent = {
       title: "Culture",
       line: "FullMoonFest, Chinafest, and events that showcase Chinese heritage on Grounds.",
       href: "/about#about-culture",
-      imageSrc: "/images/gallery/chinafest_dragon_justin_2023.JPG",
+      imageSrc: "/images/home/culture.jpg",
       imageAlt: "Dragon dance at Chinafest",
     },
     {
@@ -29,8 +29,8 @@ export const homeContent = {
       title: "Community",
       line: "Families, socials, and friendships that last beyond graduation.",
       href: "/about#about-community",
-      imageSrc: "/images/gallery/asu_exec_2023.jpg",
-      imageAlt: "CSA executive board",
+      imageSrc: "/images/home/community.jpg",
+      imageAlt: "CSA members on the Lawn in front of the Rotunda",
     },
     {
       id: "outreach",

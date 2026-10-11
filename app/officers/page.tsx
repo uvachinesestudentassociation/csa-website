@@ -12,6 +12,8 @@ function getYoutubeEmbedUrl(watchUrl: string): string | null {
   if (!match?.[1]) return null
 
   const params = new URLSearchParams({
+    autoplay: "1",
+    mute: "1",
     playsinline: "1",
     rel: "0",
   })
