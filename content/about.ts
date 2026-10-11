@@ -38,7 +38,7 @@ export const aboutContent = {
       "Beyond cultural celebrations, CSA prides itself on our community and unity. Our family system forges lifelong connections, where individuals find support, mentorship, and a sense of belonging. We spend time and connect with friends old and new, whether through sports, parties, or other social events. We create bonds beyond just cultural affiliations.",
     ],
     emphasis: ["family system"],
-    imageAlt: "CSA Executive Board",
+    imageAlt: "CSA members on the Lawn in front of the Rotunda",
   },
 
   outreach: {

@@ -58,14 +58,14 @@ export function AboutSection({
 
       <RevealOnScroll
         delayMs={revealDelayMs + 80}
-        className={`aspect-[4/3] w-full relative rounded-xl overflow-hidden shadow-lg transform transition-transform duration-500 md:hover:scale-[1.02] ${imageOrder}`}
+        className={`aspect-[4/3] w-full relative rounded-xl overflow-hidden shadow-lg ${imageOrder}`}
       >
         <Image
           src={imageSrc}
           alt={imageAlt}
           fill
           sizes={SECTION_IMAGE_SIZES}
-          className="object-cover"
+          className="object-cover transition-transform duration-500 md:hover:scale-[1.02]"
         />
       </RevealOnScroll>
     </section>

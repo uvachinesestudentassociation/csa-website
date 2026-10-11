@@ -73,7 +73,7 @@ export default function AboutPage() {
           paragraphs={culture.paragraphs}
           emphasis={culture.emphasis}
           emphasisLinks={emphasisLinks.culture}
-          imageSrc="/images/gallery/chinafest_dragon_justin_2023.JPG"
+          imageSrc="/images/home/culture.jpg"
           imageAlt={culture.imageAlt}
           imagePosition="right"
           revealDelayMs={0}
@@ -85,7 +85,7 @@ export default function AboutPage() {
           paragraphs={community.paragraphs}
           emphasis={community.emphasis}
           emphasisLinks={emphasisLinks.community}
-          imageSrc="/images/gallery/asu_exec_2023.jpg"
+          imageSrc="/images/home/community.jpg"
           imageAlt={community.imageAlt}
           imagePosition="left"
           revealDelayMs={140}
