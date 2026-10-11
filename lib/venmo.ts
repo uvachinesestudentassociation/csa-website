@@ -8,6 +8,7 @@ export function venmoPayUrl(username: string, amount: number, note: string) {
   return `https://venmo.com/${username}?${params.toString()}`
 }
 
-export function storeItemNote(name: string, size?: string) {
-  return size ? `${name} - ${size}` : name
+export function storeItemNote(name: string, size?: string, preorder = false) {
+  const label = preorder ? `${name} pre-order` : name
+  return size ? `${label} - ${size}` : label
 }

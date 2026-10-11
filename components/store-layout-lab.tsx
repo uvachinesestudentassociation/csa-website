@@ -119,13 +119,14 @@ function BuyRow({ item, copy }: { item: StoreItem; copy: StorePurchaseCopy }) {
         <div className="store-sizes" role="group" aria-label={copy.sizeLabel}>
           {sizes.map((option) => (
             <button
-              key={option}
+              key={option.label}
               type="button"
               className="store-chip"
-              aria-pressed={size === option}
-              onClick={() => setSize(option)}
+              aria-pressed={size === option.label}
+              onClick={() => setSize(option.label)}
             >
-              {option}
+              {option.label}
+              <span className="store-chip__count">{option.available}</span>
             </button>
           ))}
         </div>
