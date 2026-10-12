@@ -1,5 +1,10 @@
 [
   {
+    "name": "Carter's Mountain",
+    "date": "4/16/2026",
+    "url": "https://drive.google.com/drive/folders/1JtOofohsiFpip7n0eZsl7QDaDZPYGxzn"
+  },
+  {
     "name": "Summer Recap",
     "date": "5/2026 - 8/2026",
     "url": "https://drive.google.com/drive/folders/1VLAKbdDeuPglVLZTtNH56_q9Y0k_Oy46"
@@ -8,6 +13,11 @@
     "name": "Beach Week",
     "date": "5/11/2026",
     "url": "https://drive.google.com/drive/folders/11GXTdQUQ3gCOOb4lBs_p2L5GfenaQQgJ"
+  },
+  {
+    "name": "Photoshoot",
+    "date": "8/24/2026",
+    "url": "https://drive.google.com/drive/folders/1STmbFtoWJ5vBDAIYru-jXgcVuV1eF5jq"
   },
   {
     "name": "First GBM",
@@ -50,6 +60,11 @@
     "url": "https://drive.google.com/drive/folders/1bNizZGfzsQVz3M4z4_TSugKBTwHGoZww"
   },
   {
+    "name": "Mid-Autumn Festival",
+    "date": "9/25/2026",
+    "url": "https://drive.google.com/drive/folders/1Rs8F-TPqQBM22z7nvPPNNYNT9tDGsG9v"
+  },
+  {
     "name": "Big and Little Reveals",
     "date": "9/26/2026",
     "url": "https://drive.google.com/drive/folders/1ZTLc2hUjiGfQpqpntT0YF2De5KlWTGf5"
@@ -58,5 +73,20 @@
     "name": "September Recap",
     "date": "9/2026",
     "url": "https://drive.google.com/drive/folders/1TkmqMh_ZVrpM-cgp-SZE3W0oIgQZKNuz"
+  },
+  {
+    "name": "October GBM",
+    "date": "10/7/2026",
+    "url": "https://drive.google.com/drive/folders/1zjKOeP54ZBt8qbb5DA6GoFjU-frpiWmv"
+  },
+  {
+    "name": "YAR Tailgate",
+    "date": "10/10/2026",
+    "url": "https://drive.google.com/drive/folders/1JqdoxRzForANi29W45_JZZk-DEX-WNQN"
+  },
+  {
+    "name": "October Recap",
+    "date": "10/2026",
+    "url": "https://drive.google.com/drive/folders/1iOt0iTWTBjvNW8Sk93HCpyXYh599Pbaj"
   }
 ]
