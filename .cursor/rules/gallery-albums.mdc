@@ -25,3 +25,11 @@ https://calendar.google.com/calendar/ical/c_o0ntjuei84bjmlpfqbcsr62u3c%40group.c
 
 - Do not invent Google Drive folder URLs.
 - Ask the user for a shareable folder link (Anyone with the link → Viewer) if they have not provided one.
+
+## Held back (do not add yet)
+
+These three folders are not public, so they are not in `gallery-data.json`. The user named them O-Board Introductions, HVZ, and Fourth Year Farewell. Which link is which was not confirmed.
+
+- https://drive.google.com/drive/folders/1s_gQ_hVoBN8BvfarLpaTA3mzv_IBU3Ji
+- https://drive.google.com/drive/folders/1dfDiRGK4xNrNMKDrgT3QpyE3QMplzi1G
+- https://drive.google.com/drive/folders/1_tFab8eu6tZCpcnYnl1qZIPnt8-Z5h_O
