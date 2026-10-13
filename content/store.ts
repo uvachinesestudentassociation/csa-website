@@ -7,9 +7,9 @@
  * to false to grey the tab out again.
  */
 
-import { storeMockEnabled, storeNavLink } from "./store-nav"
+import { storeMockEnabled, storeNavLink } from "./store-nav";
 
-export { storeMockEnabled, storeNavLink }
+export { storeMockEnabled, storeNavLink };
 
 export const storeContent = {
   venmoUsername: "csaatuva",
@@ -28,9 +28,9 @@ export const storeContent = {
   purchaseLabel: "+ Purchase",
   preorderLabel: "Pre-order",
   preorderUntil: "2026-10-26",
-  arrivalNote: "Pick up merch at FMF (Oct 31).",
+  arrivalNote: "Pick up merch at FMF (Oct 31)!",
   sizeLabel: "Size",
-} as const
+} as const;
 
 /** Passed into store client components so they never import this file. */
 export const storePurchaseCopy = {
@@ -40,4 +40,4 @@ export const storePurchaseCopy = {
   preorderUntil: storeContent.preorderUntil,
   arrivalNote: storeContent.arrivalNote,
   sizeLabel: storeContent.sizeLabel,
-}
+};
