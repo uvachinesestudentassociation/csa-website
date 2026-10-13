@@ -2217,6 +2217,38 @@
   color: var(--color-ink-2);
 }
 
+.dark .store-opener h1,
+.dark .store-meta h2,
+.dark .store-chip,
+.dark .store-buy {
+  color: hsl(var(--foreground));
+}
+
+.dark .store-opener p,
+.dark .store-price,
+.dark .store-chip__count,
+.dark .store-buy__count,
+.dark .store-caption,
+.dark .store-soon {
+  color: hsl(var(--muted-foreground));
+}
+
+.dark .store-chip,
+.dark .store-buy,
+.dark .store-chip[aria-pressed="true"] {
+  border-color: hsl(var(--foreground) / 0.55);
+}
+
+.dark .store-well,
+.dark .store-soon {
+  background: hsl(var(--card));
+}
+
+.dark .store-buy:hover {
+  background: hsl(var(--accent));
+  color: hsl(var(--foreground));
+}
+
 @media (max-width: 768px) {
   .store-gallery {
     opacity: 1;
