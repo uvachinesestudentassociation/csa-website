@@ -1,7 +1,7 @@
 [
   {
     "id": "tee",
-    "name": "Cream shirt",
+    "name": "2026 shirt",
     "price": 15,
     "description": "Cream tee. Chest logo on the front, Full Moon Fest print on the back.",
     "image": "/images/store/tee-front-2.jpg",
@@ -9,6 +9,7 @@
       "/images/store/tee-front-2.jpg",
       "/images/store/tee-back.jpg"
     ],
+    "orderUrl": "https://forms.gle/Zx2ZecpRwLckPZpL8",
     "sizes": [
       { "label": "S", "available": 15 },
       { "label": "M", "available": 35 },
@@ -17,15 +18,25 @@
     ]
   },
   {
-    "id": "soon-1",
-    "name": "Coming soon",
-    "price": 0,
-    "description": "",
-    "image": "",
-    "comingSoon": true
+    "id": "fmf-2025",
+    "name": "2025 shirt",
+    "price": 10,
+    "description": "Chest logo on the front, Fall Moon Festival 2025 print on the back.",
+    "image": "/images/store/fmf-2025-front.png",
+    "images": [
+      "/images/store/fmf-2025-front.png",
+      "/images/store/fmf-2025-back.png"
+    ],
+    "orderUrl": "https://forms.gle/uSinyMZ3aKnADHx7A",
+    "preorder": false,
+    "sizes": [
+      { "label": "S", "available": 3 },
+      { "label": "M", "available": 9 },
+      { "label": "L", "available": 5 }
+    ]
   },
   {
-    "id": "soon-2",
+    "id": "soon-1",
     "name": "Coming soon",
     "price": 0,
     "description": "",

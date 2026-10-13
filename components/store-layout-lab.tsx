@@ -107,11 +107,13 @@ function BuyRow({ item, copy }: { item: StoreItem; copy: StorePurchaseCopy }) {
   const needsSize = sizes.length > 0
   const [size, setSize] = useState("")
   const ready = !needsSize || size !== ""
-  const href = venmoPayUrl(
-    copy.venmoUsername,
-    item.price,
-    storeItemNote(item.name, needsSize ? size : undefined),
-  )
+  const href =
+    item.orderUrl ??
+    venmoPayUrl(
+      copy.venmoUsername,
+      item.price,
+      storeItemNote(item.name, needsSize ? size : undefined),
+    )
 
   return (
     <div className="lab-buy">

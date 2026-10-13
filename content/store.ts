@@ -28,9 +28,7 @@ export const storeContent = {
   purchaseLabel: "+ Purchase",
   preorderLabel: "Pre-order",
   preorderUntil: "2026-10-26",
-  arrivalNote: "Shirts arrive October 26.",
-  purchaseCaption:
-    "Opens Venmo with the price and item note filled in. You can still edit both before you pay.",
+  arrivalNote: "Pick up merch at FMF (Oct 31).",
   sizeLabel: "Size",
 } as const
 
@@ -41,6 +39,5 @@ export const storePurchaseCopy = {
   preorderLabel: storeContent.preorderLabel,
   preorderUntil: storeContent.preorderUntil,
   arrivalNote: storeContent.arrivalNote,
-  purchaseCaption: storeContent.purchaseCaption,
   sizeLabel: storeContent.sizeLabel,
 }

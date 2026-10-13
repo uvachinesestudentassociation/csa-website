@@ -15,6 +15,8 @@ export interface StoreItem {
   images?: string[]
   sizes?: { label: string; available: number }[]
   comingSoon?: boolean
+  orderUrl?: string
+  preorder?: boolean
 }
 
 export type StorePurchaseCopy = {
@@ -23,7 +25,6 @@ export type StorePurchaseCopy = {
   preorderLabel: string
   preorderUntil: string
   arrivalNote: string
-  purchaseCaption: string
   sizeLabel: string
 }
 
@@ -45,10 +46,10 @@ function ProductTile({ item, copy }: { item: StoreItem; copy: StorePurchaseCopy 
   const [index, setIndex] = useState(0)
   const ready = !needsSize || size !== ""
   const selected = sizes.find((option) => option.label === size)
-  const preorder = isShirtPreorder(new Date(), copy.preorderUntil)
+  const preorder = item.preorder ?? isShirtPreorder(new Date(), copy.preorderUntil)
   const buyLabel = preorder ? copy.preorderLabel : copy.purchaseLabel
   const note = storeItemNote(item.name, needsSize ? size : undefined, preorder)
-  const href = venmoPayUrl(copy.venmoUsername, item.price, note)
+  const href = item.orderUrl ?? venmoPayUrl(copy.venmoUsername, item.price, note)
   const src = slides[index] ?? item.image
 
   return (
@@ -129,7 +130,6 @@ export function StoreGrid({ items, copy }: { items: StoreItem[]; copy: StorePurc
           ),
         )}
       </div>
-      <p className="store-caption">{copy.purchaseCaption}</p>
     </div>
   )
 }
