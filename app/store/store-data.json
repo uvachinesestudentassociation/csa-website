@@ -11,10 +11,10 @@
     ],
     "orderUrl": "https://forms.gle/Zx2ZecpRwLckPZpL8",
     "sizes": [
-      { "label": "S", "available": 15 },
-      { "label": "M", "available": 35 },
-      { "label": "L", "available": 30 },
-      { "label": "XL", "available": 15 }
+      { "label": "S", "available": 12 },
+      { "label": "M", "available": 18 },
+      { "label": "L", "available": 21 },
+      { "label": "XL", "available": 12 }
     ]
   },
   {
@@ -31,7 +31,7 @@
     "preorder": false,
     "sizes": [
       { "label": "S", "available": 3 },
-      { "label": "M", "available": 9 },
+      { "label": "M", "available": 8 },
       { "label": "L", "available": 5 }
     ]
   },
