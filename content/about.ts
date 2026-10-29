@@ -16,7 +16,7 @@ export const aboutContent = {
   intro: {
     title: "About",
     paragraphs: [
-      "The Chinese Student Association at the University of Virginia (CSA@UVA) seeks to promote Chinese culture within the University and greater Charlottesville community.",
+      "The Chinese Student Association at the University of Virginia (CSA@UVA) seeks to promote Chinese culture within the University and the greater Charlottesville community.",
       "CSA welcomes and encourages people of all ages, races, and backgrounds!",
     ],
   },
@@ -70,4 +70,4 @@ export const aboutContent = {
     newMemberLabel: "Join as a new member",
     returningMemberLabel: "Returning member →",
   },
-} as const
+} as const;
