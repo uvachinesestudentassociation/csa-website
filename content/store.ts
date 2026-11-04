@@ -28,7 +28,8 @@ export const storeContent = {
   purchaseLabel: "+ Purchase",
   preorderLabel: "Pre-order",
   preorderUntil: "2026-10-26",
-  arrivalNote: "Pick up merch at FMF (Oct 31)!",
+  arrivalNote:
+    "Contact Lawrence McAllister at 571-526-8549 after purchase for pickup or delivery details!",
   sizeLabel: "Size",
 } as const;
 
