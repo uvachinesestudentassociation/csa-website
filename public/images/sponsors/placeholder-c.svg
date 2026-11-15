@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="240" viewBox="0 0 480 240" role="img" aria-label="Sponsor logo placeholder">
+  <rect width="480" height="240" fill="#f7f3ec"/>
+  <path d="M80 180 L240 60 L400 180 Z" fill="none" stroke="#8a3a32" stroke-width="3"/>
+  <text x="240" y="170" text-anchor="middle" fill="#2c241f" font-family="Georgia, serif" font-size="28">PARTNER</text>
+</svg>

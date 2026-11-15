@@ -8,8 +8,10 @@ alwaysApply: false
 
 Album lists live in:
 
-- Current year: `app/gallery/gallery-data.json` (`name`, `date`, `url`)
+- Current year: `app/gallery/gallery-data.json` (`name`, `date`, `url`) — newest first
 - Archive: `app/gallery/archive/archive-data.json` (`name`, `date`, `link` per event)
+
+When adding a current-year album, insert it at the top of `gallery-data.json` (most recent first).
 
 ## Dates
 
@@ -33,3 +35,7 @@ These three folders are not public, so they are not in `gallery-data.json`. The 
 - https://drive.google.com/drive/folders/1s_gQ_hVoBN8BvfarLpaTA3mzv_IBU3Ji
 - https://drive.google.com/drive/folders/1dfDiRGK4xNrNMKDrgT3QpyE3QMplzi1G
 - https://drive.google.com/drive/folders/1_tFab8eu6tZCpcnYnl1qZIPnt8-Z5h_O
+
+Also held back (sign-in / not publicly viewable as of 2026-11-15):
+
+- https://drive.google.com/drive/folders/1FbhOzu-m0cTq9iVvqgnWNpVllblkrKf7
