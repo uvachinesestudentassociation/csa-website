@@ -41,4 +41,8 @@ export const homeContent = {
       imageAlt: "YAR tailgate",
     },
   ] as const,
+
+  upcoming: {
+    label: "Upcoming events",
+  },
 } as const;

@@ -11,6 +11,9 @@
  *   gallery.ts   — Gallery (albums → app/gallery/gallery-data.json)
  *   archive.ts   — Gallery archive (albums → app/gallery/archive/archive-data.json)
  *   alumni.ts    — Alumni intro (rosters → app/alumni/alumni-data.json)
+ *   sponsors.ts  — Sponsors page copy + this year's partner list
+ *   sponsors-nav.ts — Sponsors tab visibility (sponsorsEnabled)
+ *   spotlight-event.ts — Homepage big-event countdown popup
  *   store.ts     — Dev-only Store mock (items → app/store/store-data.json)
  */
 
@@ -23,4 +26,6 @@ export { officersContent } from "./officers"
 export { galleryContent } from "./gallery"
 export { archiveContent } from "./archive"
 export { alumniContent } from "./alumni"
+export { sponsorsContent } from "./sponsors"
+export { spotlightEvent } from "./spotlight-event"
 export { storeContent, storeMockEnabled } from "./store"

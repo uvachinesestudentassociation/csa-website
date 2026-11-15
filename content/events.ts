@@ -37,4 +37,33 @@ export const eventsContent = {
     icsUrl:
       "https://calendar.google.com/calendar/ical/c_o0ntjuei84bjmlpfqbcsr62u3c%40group.calendar.google.com/public/basic.ics",
   },
+
+  /**
+   * Homepage featured strip — match SUMMARY substrings (case-insensitive).
+   * Exclude wins over include (e.g. Chinafest Runthroughs).
+   */
+  featured: {
+    limit: 5,
+    revalidateSeconds: 3600,
+    include: [
+      "chinafest",
+      "fullmoon",
+      "full moon",
+      "fmf",
+      "dim sum",
+      "dimsum",
+      "gbm",
+      "chinaball",
+      "lunar",
+      "culturefest",
+      "potluck",
+      "family week",
+      "big/little",
+      "foodlympics",
+      "field day",
+      "snow globe",
+      "dollar",
+    ],
+    exclude: ["runthrough", "setup", "practice", "rehearsal"],
+  },
 } as const;

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="240" viewBox="0 0 480 240" role="img" aria-label="Sponsor logo placeholder">
+  <rect width="480" height="240" fill="#ece7df"/>
+  <circle cx="240" cy="120" r="58" fill="none" stroke="#2c241f" stroke-width="3"/>
+  <text x="240" y="128" text-anchor="middle" dominant-baseline="middle" fill="#2c241f" font-family="Georgia, serif" font-size="36">MARK</text>
+</svg>

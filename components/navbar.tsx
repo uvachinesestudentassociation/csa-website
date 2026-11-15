@@ -8,6 +8,7 @@ import { Menu, X } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-provider";
 import { cn } from "@/lib/utils";
 import { siteContent } from "@/content/site"
+import { sponsorsEnabled, sponsorsNavLink } from "@/content/sponsors-nav";
 import { storeMockEnabled, storeNavLink } from "@/content/store-nav";
 
 export default function Navbar() {
@@ -16,8 +17,9 @@ export default function Navbar() {
   const [mastHeight, setMastHeight] = useState(0);
   const headerRef = useRef<HTMLElement>(null);
   const { brand, nav, forms } = siteContent
-  const navLinks = [...nav.links, storeNavLink]
+  const navLinks = [...nav.links, sponsorsNavLink, storeNavLink]
   const storeLive = storeMockEnabled
+  const sponsorsLive = sponsorsEnabled
 
   useEffect(() => {
     setMenuOpen(false);
@@ -123,7 +125,8 @@ export default function Navbar() {
           <ul>
             {navLinks.map((link) => {
               const isStore = link.href === storeNavLink.href
-              if (isStore && !storeLive) {
+              const isSponsors = link.href === sponsorsNavLink.href
+              if ((isStore && !storeLive) || (isSponsors && !sponsorsLive)) {
                 return (
                   <li key={link.href}>
                     <span
@@ -142,7 +145,9 @@ export default function Navbar() {
                     href={link.href}
                     className={cn(
                       isStore && "site-mast__store",
-                      (pathname === link.href || (isStore && pathname.startsWith("/store"))) && "is-active",
+                      (pathname === link.href ||
+                        (isStore && pathname.startsWith("/store")) ||
+                        (isSponsors && pathname.startsWith("/sponsors"))) && "is-active",
                     )}
                   >
                     {link.name}
@@ -176,7 +181,8 @@ export default function Navbar() {
           <div className="site-mast__panel-inner">
             {navLinks.map((link) => {
               const isStore = link.href === storeNavLink.href
-              if (isStore && !storeLive) {
+              const isSponsors = link.href === sponsorsNavLink.href
+              if ((isStore && !storeLive) || (isSponsors && !sponsorsLive)) {
                 return (
                   <span
                     key={link.href}
@@ -194,7 +200,9 @@ export default function Navbar() {
                   href={link.href}
                   className={cn(
                     isStore && "site-mast__store",
-                    (pathname === link.href || (isStore && pathname.startsWith("/store"))) && "is-active",
+                    (pathname === link.href ||
+                      (isStore && pathname.startsWith("/store")) ||
+                      (isSponsors && pathname.startsWith("/sponsors"))) && "is-active",
                   )}
                   onClick={() => setMenuOpen(false)}
                 >

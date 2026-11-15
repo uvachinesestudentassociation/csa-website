@@ -1,20 +1,25 @@
 import type { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
+import { HomeEventsCarousel } from "@/components/home-events-carousel"
 import { HomeHeroMedia } from "@/components/home-hero-media"
+import { HomeSpotlightDialog } from "@/components/home-spotlight-dialog"
 import { RevealOnScroll } from "@/components/reveal-on-scroll"
 import { previewAssets } from "@/app/animations-preview/assets"
 import { homeContent } from "@/content/home"
 import { siteContent } from "@/content/site"
+import { spotlightEvent } from "@/content/spotlight-event"
+import { getFeaturedEvents } from "@/lib/get-featured-events"
 
 export const metadata: Metadata = {
   title: homeContent.meta.title,
   description: homeContent.meta.description,
 }
 
-export default function Home() {
-  const { hero, pillars } = homeContent
+export default async function Home() {
+  const { hero, pillars, upcoming } = homeContent
   const { forms } = siteContent
+  const featuredEvents = await getFeaturedEvents()
 
   return (
     <div>
@@ -72,8 +77,12 @@ export default function Home() {
               </li>
             ))}
           </ul>
+
+          <HomeEventsCarousel events={featuredEvents} label={upcoming.label} />
         </div>
       </section>
+
+      <HomeSpotlightDialog event={spotlightEvent} />
     </div>
   )
 }
