@@ -8,8 +8,8 @@ type MistShift = { x: number; y: number }
 
 type MistCloudOverlayProps = {
   className?: string
-  /** Softer blend for photo heroes (default). Use "demo" for the preview stage. */
-  tone?: "hero" | "demo"
+  /** Softer blend for photo heroes (default). "demo" for preview; "paper" for light festival pages. */
+  tone?: "hero" | "demo" | "paper"
   /** Fires once when every mist layer has decoded (hero). */
   onReady?: () => void
   /** Optional parallax translate per layer (hero home). */

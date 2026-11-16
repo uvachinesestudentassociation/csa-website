@@ -1,6 +1,12 @@
 "use client"
 
-import { useEffect, useRef, useState, type ElementType, type ReactNode } from "react"
+import {
+  useLayoutEffect,
+  useRef,
+  useState,
+  type ElementType,
+  type ReactNode,
+} from "react"
 import { cn } from "@/lib/utils"
 
 type RevealOnScrollProps = {
@@ -11,6 +17,13 @@ type RevealOnScrollProps = {
   as?: ElementType
 }
 
+function isInView(el: HTMLElement) {
+  const rect = el.getBoundingClientRect()
+  const vh = window.innerHeight || document.documentElement.clientHeight
+  // Already on screen (with a little slack) — never start hidden
+  return rect.top < vh - 4 && rect.bottom > 4
+}
+
 export function RevealOnScroll({
   children,
   className,
@@ -18,24 +31,34 @@ export function RevealOnScroll({
   as: Tag = "div",
 }: RevealOnScrollProps) {
   const ref = useRef<HTMLElement | null>(null)
-  const [visible, setVisible] = useState(false)
+  // "plain" = visible, no fade (above the fold / reduced motion)
+  // "pending" = below fold, hidden until intersect
+  // "shown" = finished fade-in
+  const [phase, setPhase] = useState<"plain" | "pending" | "shown">("plain")
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const el = ref.current
     if (!el) return
 
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setVisible(true)
+      setPhase("plain")
       return
     }
+
+    if (isInView(el)) {
+      setPhase("plain")
+      return
+    }
+
+    setPhase("pending")
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting) return
-        setVisible(true)
+        setPhase("shown")
         observer.disconnect()
       },
-      { threshold: 0.18, rootMargin: "0px 0px -6% 0px" }
+      { threshold: 0.08, rootMargin: "0px 0px -4% 0px" }
     )
 
     observer.observe(el)
@@ -45,8 +68,12 @@ export function RevealOnScroll({
   return (
     <Tag
       ref={ref}
-      className={cn("home-reveal", visible && "is-visible", className)}
-      style={delayMs ? { transitionDelay: `${delayMs}ms` } : undefined}
+      className={cn(
+        phase === "pending" && "home-reveal",
+        phase === "shown" && "home-reveal is-visible",
+        className,
+      )}
+      style={delayMs && phase !== "plain" ? { transitionDelay: `${delayMs}ms` } : undefined}
     >
       {children}
     </Tag>
